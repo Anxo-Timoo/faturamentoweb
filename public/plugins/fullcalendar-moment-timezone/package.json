@@ -1,0 +1,69 @@
+{
+  "_from": "@fullcalendar/moment-timezone@^5.5.0",
+  "_id": "@fullcalendar/moment-timezone@5.5.0",
+  "_inBundle": false,
+  "_integrity": "sha512-fSnxVesK0JXU6ZywU5802B49gKGec9LIHoYXHl5BY3MV/TULm+QEK5PiPgOUHqJh7KjMx61tLzeM1VyGpd3lag==",
+  "_location": "/@fullcalendar/moment-timezone",
+  "_phantomChildren": {
+    "ical.js": "1.4.0"
+  },
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "@fullcalendar/moment-timezone@^5.5.0",
+    "name": "@fullcalendar/moment-timezone",
+    "escapedName": "@fullcalendar%2fmoment-timezone",
+    "scope": "@fullcalendar",
+    "rawSpec": "^5.5.0",
+    "saveSpec": null,
+    "fetchSpec": "^5.5.0"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@fullcalendar/moment-timezone/-/moment-timezone-5.5.0.tgz",
+  "_shasum": "b44cc92beda550f69b94b850e0696c489592000d",
+  "_spec": "@fullcalendar/moment-timezone@^5.5.0",
+  "_where": "F:\\Programação\\Projetos WEB\\PCP WEB\\PCP-WEB",
+  "author": {
+    "name": "Adam Shaw",
+    "email": "arshaw@arshaw.com",
+    "url": "http://arshaw.com/"
+  },
+  "browserGlobal": "FullCalendarMomentTimezone",
+  "bugs": {
+    "url": "https://fullcalendar.io/reporting-bugs"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "@fullcalendar/common": "~5.5.0",
+    "tslib": "^2.0.3"
+  },
+  "deprecated": false,
+  "description": "A connector to the moment-timezone library",
+  "devDependencies": {
+    "@fullcalendar/core-preact": "5.5.0",
+    "moment": "^2.29.1",
+    "moment-timezone": "^0.5.31"
+  },
+  "docs": "https://fullcalendar.io/docs/moment-timezone-plugin",
+  "homepage": "https://fullcalendar.io/",
+  "jsdelivr": "main.global.min.js",
+  "license": "MIT",
+  "main": "main.cjs.js",
+  "module": "main.js",
+  "name": "@fullcalendar/moment-timezone",
+  "peerDependencies": {
+    "moment": "^2.29.1",
+    "moment-timezone": "^0.5.31"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fullcalendar/fullcalendar.git",
+    "homepage": "https://github.com/fullcalendar/fullcalendar"
+  },
+  "title": "FullCalendar Moment Timezone Plugin",
+  "types": "main.d.ts",
+  "version": "5.5.0"
+}

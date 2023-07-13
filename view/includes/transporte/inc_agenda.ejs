@@ -1,0 +1,659 @@
+<!-- Page Content (header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row sm-2">
+            <!-- Título -->
+            <div class="col-sm-6">
+                <h1>Agenda</h1>
+            </div>
+            <!-- Navegação histórica -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                    <li class="breadcrumb-item active">Transporte</li>
+                    <li class="breadcrumb-item active">Agenda</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Page Content (conteúdo) -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+
+                <!-- Para iniciar fechado, adicione collapsed-card na class-->
+                <div class="card card-primary card-outline">
+
+                    <!-- ######################################################################### Cabeçalho -->
+                    <div class="card-header">
+                        <!-- Botões -->
+                        <div class="btn-group">
+                            <!-- Abre o modal para INSERT -->
+                            <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#modalADD">
+                                &nbsp;Adicionar&nbsp;
+                            </button>
+                        </div>
+
+                        <!-- Botão Ocultar ou exibir o card -->
+                        <div class="card-tools">
+                            <!-- Botão Abrir/fechar card (Icone: fa-minus ou fa-plus) -->
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                                title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <!-- Botão destruir card -->
+                            <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip"
+                                title="Remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ######################################################################### Agenda -->
+                    <div class="card-body">
+                        <div id="calendar"></div>
+                        <!-- FullCalendar -->
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function () {
+                                var calendarEl = document.getElementById('calendar');
+                                var calendar = new FullCalendar.Calendar(calendarEl, {
+                                    // plugins to load
+                                    plugins: ['dayGrid', 'timeGrid', 'interaction'],
+                                    
+                                    // header controls
+                                    header: {
+                                        left: 'dayGridMonth,timeGridWeek,timeGridDay,timeGridYear',
+                                        center: 'title',
+                                        right: 'today prevYear,prev,next,nextYear'
+                                    },
+
+                                    // footer controls
+                                    footer: {
+                                        left: 'dayGridMonth,timeGridWeek,timeGridDay,timeGridYear',
+                                        center: 'title',
+                                        right: 'today prevYear,prev,next,nextYear'
+                                    },
+
+                                    //Opões gerais   
+                                    height: 700,
+                                    eventDisplay: 'auto',
+                                    allDaySlot: false,
+                                    defaultRangeSeparator: ' - ',
+                                    titleRangeSeparator: ' \u2013 ',
+                                    defaultTimedEventDuration: '01:00:00',
+                                    defaultAllDayEventDuration: { day: 1 },
+                                    forceEventDuration: false,
+                                    nextDayThreshold: '00:00:00',
+                                    dayHeaders: true,
+                                    initialView: 'timeGrid',
+                                    defaultView: 'timeGridWeek',
+                                    aspectRatio: 1.35,
+                                    headerToolbar: {
+                                        start: 'title',
+                                        center: '',
+                                        end: 'today prev,next'
+                                    },
+                                    weekends: true,
+                                    weekNumbers: true,
+                                    weekNumberCalculation: 'local',
+                                    editable: true,
+                                    timeZoneParam: 'timezone',
+                                    timezone: 'America/Sao_Paulo',
+                                    ignoreTimezone: false,
+                                    //nowIndicator: true,
+                                    locales: [],
+                                    locale: 'pt-br',
+                                    //themeSystem: 'bootstrap',
+                                    scrollTime: '06:00:00',
+                                    slotMinTime: '00:00:00',
+                                    slotMaxTime: '24:00:00',
+                                    showNonCurrentDates: true,
+                                    lazyFetching: true,
+                                    startParam: 'start',
+                                    endParam: 'end',
+                                    dragRevertDuration: 500,
+                                    drag: true,
+                                    allDayMaintainDuration: false,
+                                    unselectAuto: true,
+                                    dropAccept: '*',
+                                    eventOrder: 'start,-duration,allDay,title',
+                                    dayPopoverFormat: { month: 'long', day: 'numeric', year: 'numeric' },
+                                    handleWindowResize: true,
+                                    windowResizeDelay: 100,
+                                    longPressDelay: 1000,
+                                    eventDragMinDistance: 5,
+                                    expandRows: true,
+                                    navLinks: true,
+                                    selectable: true,
+
+                                    events: [
+                                        '<% if (DTAgenda.length > 0) { %>',
+                                            '<% for (i=0; i< DTAgenda.length; i++) { %>',
+                                            {
+                                                cod: '<%= DTAgenda[i].cod  %>',
+                                                title: '<%= DTAgenda[i].title  %>',
+                                                description: '<%= DTAgenda[i].description  %>',
+                                                parceiro: '<%= DTAgenda[i].parceiro  %>',
+                                                tipo_veiculo: '<%= DTAgenda[i].tipo_veiculo  %>',
+                                                planejador: '<%= DTAgenda[i].planejador  %>',
+                                                qtde_palete: '<%= DTAgenda[i].qtde_palete  %>',
+                                                start: moment('<%- DTAgenda[i].start  %>').tz('America/Sao_Paulo').format("YYYY-MM-DD HH:mm:ss"),
+                                                //start: '<%- DTAgenda[i].start  %>',
+                                                semana: '<%- DTAgenda[i].semana  %>',
+                                                end: moment('<%- DTAgenda[i].end  %>').tz('America/Sao_Paulo').format("YYYY-MM-DD HH:mm:ss"),
+                                                //end: '<%- DTAgenda[i].end  %>',
+                                                color: '<%- DTAgenda[i].color  %>',
+                                                observacao: `<%- DTAgenda[i].observacao  %>`,
+                                            },
+                                            '<% } %>',
+                                        '<% } %>'
+                                    ],
+
+                                    //custom toolbar buttons
+                                    customButtons: {
+                                        custom1: {
+                                            text: 'Adicionar',
+                                            click: function () {
+                                                $('#modalADD').modal('show');
+                                            }
+                                        }
+                                    },
+
+                                    //Ao clicar em local vazio abre modal para adicionar
+                                    select: function (info) {
+                                        $('#modalADD').modal('show');
+                                        $('#start_ADD').data('datetimepicker').date(formatBDToDateTimeFullCalendar(info.startStr));
+                                        $('#end_ADD').data('datetimepicker').date(formatBDToDateTimeFullCalendar(info.endStr));
+                                    },
+
+                                    //Ao clicar no evento abre o modal para edição
+                                    eventClick: function (info, event, data) {
+                                        info.jsEvent.preventDefault();
+                                        var eventObj = info.event;
+
+                                        $('#modalEDIT').modal('show');
+
+                                        document.getElementById('cod_EDIT').value = eventObj.extendedProps.cod;
+                                        document.getElementById('title_EDIT').value = eventObj.title;
+                                        document.getElementById('description_EDIT').value = eventObj.extendedProps.description;
+                                        $('#parceiro_EDIT').val(eventObj.extendedProps.parceiro);
+                                        $('#parceiro_EDIT').trigger('change');
+                                        $('#tipo_veiculo_EDIT').val(eventObj.extendedProps.tipo_veiculo);
+                                        $('#tipo_veiculo_EDIT').trigger('change');
+                                        $('#planejador_EDIT').val(eventObj.extendedProps.planejador);
+                                        $('#planejador_EDIT').trigger('change');
+                                        if(eventObj.extendedProps.qtde_palete == 0){
+                                            document.getElementById('qtde_palete_EDIT').value = '';
+                                        }else{
+                                            document.getElementById('qtde_palete_EDIT').value = eventObj.extendedProps.qtde_palete;
+                                        }         
+                                        
+                                        $('#start_EDIT').data('datetimepicker').date(formatBDToDateTimeFullCalendar(eventObj.start));
+                                        $('#end_EDIT').data('datetimepicker').date(formatBDToDateTimeFullCalendar(eventObj.end));
+                                        $('#color_EDIT').colorselector('setColor', eventObj.backgroundColor);
+                                        document.getElementById('observacao_EDIT').value = eventObj.extendedProps.observacao;
+                                    },
+
+
+                                });
+
+                                // render the calendar
+                                calendar.render();
+                                calendar.refetchEvents();
+                            });
+                        </script>
+
+                    </div>
+
+                    <!-- ######################################################################### Modal para ADICIONAR -->
+                    <div class="modal fade" id="modalADD" data-backdrop="static">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <!-- Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Adicionar</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <!-- Conteúdo central do modal -->
+                                <form role="form" action="/addAgenda" method="post" enctype="multipart/form-data">
+                                    <!-- Campos do formulário -->
+                                    <div class="modal-body">
+                                        <!-- Cod -->
+                                        <div class="row" style="display: none;">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="cod_ADD" class="label">Cod</label>
+                                                    <input type="text" class="form-control form-control-sm"
+                                                        name="cod_ADD" id="cod_ADD" placeholder="Cod" readonly=“true”>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Titulo/Descrição -->
+                                        <div class="row">
+                                            <!-- Title -->
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="title_ADD" class="label">Título</label>
+                                                    <input type="text" class="form-control form-control-sm"
+                                                        name="title_ADD" id="title_ADD" placeholder="Título" required>
+                                                </div>
+                                            </div>
+
+                                            <!-- Descrição -->
+                                            <div class="col-sm-8">
+                                                <div class="form-group">
+                                                    <label for="description_ADD" class="label">Descrição</label>
+                                                    <input type="text" class="form-control form-control-sm"
+                                                        name="description_ADD" id="description_ADD"
+                                                        placeholder="Descrição" required>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Parceiro/Tipo veiculo -->
+                                        <div class="row">
+                                            <!-- Parceiro -->
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <label for="parceiro_ADD" class="label">Setor</label>
+                                                    <select class="form-control form-control-sm select2"
+                                                        style="width: 100%;" name="parceiro_ADD" id="parceiro_ADD">
+                                                        <option value="">-- Selecione --</option>
+                                                        <% DTTransportadora.forEach((row, index) => { %>
+                                                        <option value="<%= row.transportadora %>">
+                                                            <%= row.transportadora %>
+                                                        </option>
+                                                        <% }) %>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <!-- Tipo de veículo -->
+                                            <div class="col-sm-7">
+                                                <div class="form-group">
+                                                    <label for="tipo_veiculo_ADD" class="label">Atividade</label>
+                                                    <select class="form-control form-control-sm select2"
+                                                        style="width: 100%;" name="tipo_veiculo_ADD"
+                                                        id="tipo_veiculo_ADD">
+                                                        <option value="">-- Selecione --</option>
+                                                        <% DTVeiculo.forEach((row, index) => { %>
+                                                        <option value="<%= row.tipo_veiculo %>"><%= row.tipo_veiculo %>
+                                                        </option>
+                                                        <% }) %>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Planejador/Qtde Palete -->
+                                        <div class="row">
+                                            <!-- Planejador -->
+                                            <div class="col-sm-8">
+                                                <div class="form-group">
+                                                    <label for="planejador_ADD" class="label">Operador</label>
+                                                    <select class="form-control form-control-sm select2"
+                                                        style="width: 100%;" name="planejador_ADD" id="planejador_ADD">
+                                                        <option value="">-- Selecione --</option>
+                                                        <% DTPlanejador.forEach((row, index) => { %>
+                                                        <option value="<%= row.planejador %>">
+                                                            <%= row.planejador %>
+                                                        </option>
+                                                        <% }) %>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <!-- Qtde Palete -->
+                                            <!-- <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="qtde_palete_ADD" class="label">Qtde de paletes</label>
+                                                    <input type="text" class="form-control form-control-sm"
+                                                        name="qtde_palete_ADD" id="qtde_palete_ADD" placeholder="Qtde de paletes">
+                                                </div>
+                                            </div>   -->                                          
+                                        </div>
+
+                                        <!-- Datas e cor -->
+                                        <div class="row">
+                                            <!-- Data Inicial -->
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <label for="start_ADD" class="label">Início</label>
+                                                    <div class="input-group dateCalendar" id="start_ADD"
+                                                        data-target-input="nearest">
+                                                        <input type="text"
+                                                            class="form-control form-control-sm datetimepicker-input date_times"
+                                                            data-target="#start_ADD" name="start_INPUT_ADD"
+                                                            id="start_INPUT_ADD" required />
+                                                        <div class="input-group-append" data-target="#start_ADD"
+                                                            data-toggle="datetimepicker">
+                                                            <div class="input-group-text"><i
+                                                                    class="far fa-calendar-alt"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Data Final -->
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <label for="end_ADD" class="label">Fim</label>
+                                                    <div class="input-group dateCalendar" id="end_ADD"
+                                                        data-target-input="nearest">
+                                                        <input type="text"
+                                                            class="form-control form-control-sm datetimepicker-input date_times"
+                                                            data-target="#end_ADD" name="end_INPUT_ADD"
+                                                            id="end_INPUT_ADD" />
+                                                        <div class="input-group-append" data-target="#end_ADD"
+                                                            data-toggle="datetimepicker">
+                                                            <div class="input-group-text"><i
+                                                                    class="far fa-calendar-alt"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Cor -->
+                                            <div class="col-sm-2" style="margin-left: auto;">
+                                                <div class="form-group">
+                                                    <label for="color_ADD" class="label">Destaque</label>
+                                                    <select class="form-control form-control-sm colorselector"
+                                                        style="width: 100%;" name="color_ADD" id="color_ADD">
+                                                        <option value="#6AA7C1" data-color="#6AA7C1" selected="selected">Azul</option>
+                                                        <option value="#FFA644" data-color="#FFA644">Amarelo</option>
+                                                        <option value="#FF6169" data-color="#FF6169">Vermelho</option>
+                                                        <option value="#18191F" data-color="#18191F">Preto</option>
+                                                        <option value="#5B9F77" data-color="#5B9F77">Verde</option>
+                                                        <option value="#815793" data-color="#815793">Roxo</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Observações -->
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="observacao_ADD" class="label">Observações</label>
+                                                    <textarea class="form-control form-control-sm" name="observacao_ADD"
+                                                        id="observacao_ADD" placeholder="Observações"
+                                                        rows="4"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                    <!-- Botões -->
+                                    <div class="modal-footer justify-content-between">
+                                        <button type="submit" class="btn btn-primary"
+                                            id="btnSalvar_ADD">&nbsp;&nbsp;Salvar&nbsp;&nbsp;</button>
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Cancelar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ######################################################################### Modal para EDITAR -->
+                    <div class="modal fade" id="modalEDIT" data-backdrop="static">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <!-- Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Editar</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <!-- Conteúdo central do modal -->
+                                <form role="form" action="/editAgenda/ <?= document.getElementById('cod_EDIT').value ?>"
+                                    method="post" enctype="multipart/form-data">
+                                    <!-- Campos do formulário -->
+                                    <div class="modal-body">
+                                        <!-- Cod -->
+                                        <div class="row" style="display: none;">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="cod_EDIT" class="label">Cod</label>
+                                                    <input type="text" class="form-control form-control-sm"
+                                                        name="cod_EDIT" id="cod_EDIT" placeholder="Cod" readonly=“true”>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Titulo/Descrição -->
+                                        <div class="row">
+                                            <!-- Title -->
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="title_EDIT" class="label">Título</label>
+                                                    <input type="text" class="form-control form-control-sm"
+                                                        name="title_EDIT" id="title_EDIT" placeholder="Título" required>
+                                                </div>
+                                            </div>
+
+                                            <!-- Descrição -->
+                                            <div class="col-sm-8">
+                                                <div class="form-group">
+                                                    <label for="description_EDIT" class="label">Descrição</label>
+                                                    <input type="text" class="form-control form-control-sm"
+                                                        name="description_EDIT" id="description_EDIT"
+                                                        placeholder="Descrição" required>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Parceiro/Tipo veiculo -->
+                                        <div class="row">
+                                            <!-- Parceiro -->
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <label for="parceiro_EDIT" class="label">Setor</label>
+                                                    <select class="form-control form-control-sm select2"
+                                                        style="width: 100%;" name="parceiro_EDIT" id="parceiro_EDIT">
+                                                        <option value="">-- Selecione --</option>
+                                                        <% DTTransportadora.forEach((row, index) => { %>
+                                                        <option value="<%= row.transportadora %>">
+                                                            <%= row.transportadora %>
+                                                        </option>
+                                                        <% }) %>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <!-- Tipo de veículo -->
+                                            <div class="col-sm-7">
+                                                <div class="form-group">
+                                                    <label for="tipo_veiculo_EDIT" class="label">Atividade</label>
+                                                    <select class="form-control form-control-sm select2"
+                                                        style="width: 100%;" name="tipo_veiculo_EDIT"
+                                                        id="tipo_veiculo_EDIT">
+                                                        <option value="">-- Selecione --</option>
+                                                        <% DTVeiculo.forEach((row, index) => { %>
+                                                        <option value="<%= row.tipo_veiculo %>"><%= row.tipo_veiculo %>
+                                                        </option>
+                                                        <% }) %>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Planejador/Qtde Palete -->
+                                        <div class="row">
+                                            <!-- Planejador -->
+                                            <div class="col-sm-8">
+                                                <div class="form-group">
+                                                    <label for="planejador_EDIT" class="label">Operador</label>
+                                                    <select class="form-control form-control-sm select2"
+                                                        style="width: 100%;" name="planejador_EDIT" id="planejador_EDIT">
+                                                        <option value="">-- Selecione --</option>
+                                                        <% DTPlanejador.forEach((row, index) => { %>
+                                                        <option value="<%= row.planejador %>">
+                                                            <%= row.planejador %>
+                                                        </option>
+                                                        <% }) %>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <!-- Qtde Palete -->
+                                            <!-- <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="qtde_palete_EDIT" class="label">Qtde de paletes</label>
+                                                    <input type="text" class="form-control form-control-sm"
+                                                        name="qtde_palete_EDIT" id="qtde_palete_EDIT" placeholder="Qtde de paletes">
+                                                </div>
+                                            </div>                                             -->
+                                        </div>
+
+                                        <!-- Datas e cor -->
+                                        <div class="row">
+                                            <!-- Data Inicial -->
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <label for="start_EDIT" class="label">Início</label>
+                                                    <div class="input-group dateCalendar" id="start_EDIT"
+                                                        data-target-input="nearest">
+                                                        <input type="text"
+                                                            class="form-control form-control-sm datetimepicker-input date_times"
+                                                            data-target="#start_EDIT" name="start_INPUT_EDIT"
+                                                            id="start_INPUT_EDIT" required />
+                                                        <div class="input-group-append" data-target="#start_EDIT"
+                                                            data-toggle="datetimepicker">
+                                                            <div class="input-group-text"><i
+                                                                    class="far fa-calendar-alt"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Data Final -->
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <label for="end_EDIT" class="label">Fim</label>
+                                                    <div class="input-group dateCalendar" id="end_EDIT"
+                                                        data-target-input="nearest">
+                                                        <input type="text"
+                                                            class="form-control form-control-sm datetimepicker-input date_times"
+                                                            data-target="#end_EDIT" name="end_INPUT_EDIT"
+                                                            id="end_INPUT_EDIT" />
+                                                        <div class="input-group-append" data-target="#end_EDIT"
+                                                            data-toggle="datetimepicker">
+                                                            <div class="input-group-text"><i
+                                                                    class="far fa-calendar-alt"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Cor -->
+                                            <div class="col-sm-2" style="margin-left: auto;">
+                                                <div class="form-group">
+                                                    <label for="color_EDIT" class="label">Destaque</label>
+                                                    <select class="form-control form-control-sm colorselector"
+                                                        style="width: 100%;" name="color_EDIT" id="color_EDIT">
+                                                        <option value="#6AA7C1" data-color="#6AA7C1" selected="selected">Azul</option>
+                                                        <option value="#FFA644" data-color="#FFA644">Amarelo</option>
+                                                        <option value="#FF6169" data-color="#FF6169">Vermelho</option>
+                                                        <option value="#18191F" data-color="#18191F">Preto</option>
+                                                        <option value="#5B9F77" data-color="#5B9F77">Verde</option>
+                                                        <option value="#815793" data-color="#815793">Roxo</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Observações -->
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="observacao_EDIT" class="label">Observações</label>
+                                                    <textarea class="form-control form-control-sm"
+                                                        name="observacao_EDIT" id="observacao_EDIT"
+                                                        placeholder="Observações" rows="4"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                    <!-- Botões -->
+                                    <div class="modal-footer justify-content-between">
+                                        <button type="submit" class="btn btn-primary"
+                                            id="btnSalvar_EDIT">&nbsp;&nbsp;Salvar&nbsp;&nbsp;</button>
+
+                                        <a type="button" class="btn btn-danger" style="margin-left: auto; color: white;"
+                                            data-toggle="modal" data-target="#modalDEL" onclick="(function(){
+                                            document.getElementById('cod_DEL').textContent = document.getElementById('cod_EDIT').value;
+                                            })()">
+                                            Eliminar
+                                        </a>
+
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Cancelar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ######################################################################### Modal para ELIMINAR -->
+                    <div class="modal fade" id="modalDEL" id="modal-danger" data-backdrop="static">
+                        <div class="modal-dialog">
+                            <div class="modal-content bg-danger">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Atenção!</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Tem certeza que deseja eliminar o registro selecionado?</p>
+                                </div>
+                                <div class="modal-footer justify-content-between">
+                                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">
+                                        Não, cancelar
+                                    </button>
+
+                                    <!-- Esse span é oculto pois apenas recebe o texto contendo 
+                                         o cod para eliminação na função abaixo -->
+                                    <span style="display:none" id="cod_DEL"></span>
+
+                                    <!-- Função anónima dentro da classe button
+                                         que direciona para a route /delete/:id após o usuário clicar em sim no modal -->
+                                    <button type="button" class="btn btn-outline-light" onclick="(function() {
+                                        window.location = '/delAgenda/' + document.getElementById('cod_DEL').textContent;
+                                        })()" id="btnDeletar_DEL">
+                                        Sim, eliminar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Grava o texto recebido da variável status_Crud do routes/agenda
+		 lá no "tails.ejs" tem uma função no final que verifica o que tem neste span"
+		 e dispara uma função de alerta do toastr de acordo com o texto -->
+<span style="display:none" id='status_Crud'><%= status_Crud %></span>

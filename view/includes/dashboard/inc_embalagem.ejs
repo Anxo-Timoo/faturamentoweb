@@ -1,0 +1,868 @@
+<!-- Page Content (header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row sm-2">
+            <!-- Título -->
+            <div class="col-sm-6">
+                <h1>Ordens de Venda</h1>
+            </div>
+            <!-- Navegação histórica -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                    <li class="breadcrumb-item active">Ordem de Venda</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Page Content (conteúdo) -->
+<section class="content">
+    <div class="container-fluid">
+        <!-- Filtragem avançada -->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="content-collapse">
+                    <a data-toggle style="color: white;padding-left: 20px;"><i class="fas fa-filter" style="color: white;padding-right: 10px;"></i>Filtros</a>
+                    <div class="content">
+                        <form role="form" action="/embalagem" method="post">
+                            <div class="card-body" style="display: grid;margin: -26px -21px -11px -21px;">
+
+                                <!-- Campos do filtro -->
+                                <label for="filter_Data" style="margin: 10px 0 0 0;">Data Início</label>
+                                <textarea class="form-control form-control-sm" name="filter_DataIni" id="filter_DataIni" placeholder="Formato 02/01/2023" rows="1"><%= body.dataini %></textarea>
+
+                                <label for="filter_Data" style="margin: 10px 0 0 0;">Data Fim</label>
+                                <textarea class="form-control form-control-sm" name="filter_DataFim" id="filter_DataFim" placeholder="Formato 02/01/2023" rows="1"><%= body.datafim %></textarea>
+                                
+                                <label for="filter_Semana" style="margin: 10px 0 0 0;">Cliente</label>
+                                <textarea class="form-control form-control-sm" name="filter_Cliente" id="filter_Cliente" rows="1"><%= body.cliente %></textarea>
+
+                                <label for="filter_Turno" style="margin: 10px 0 0 0;">OV</label>
+                                <textarea type="text" class="form-control form-control-sm" name="filter_OV" id="filter_OV" rows="1"><%= body.ov %></textarea>
+
+                            </div>
+
+                            <!-- Botões Filtrar e Limpar -->
+                            <div class="card-footer" style="background: center;padding: 8px 0 8px 0px;display: flex;">
+                                <!-- Filtrar -->
+                                <button type="button" class="form-control btn-sm btn-primary" style="width: auto;height: fit-content;" onclick="(function() {
+                                        window.location = '/ordem_venda/?page=1' + 
+                                        '&[dataini]=' + document.getElementById('filter_DataIni').value + 
+                                        '&[datafim]=' + document.getElementById('filter_DataFim').value + 
+                                        '&[cliente]=' + document.getElementById('filter_Cliente').value + 
+                                        '&[ov]=' + document.getElementById('filter_OV').value;
+                                    })()">&nbsp;&nbsp;&nbsp;&nbsp;Filtrar&nbsp;&nbsp;&nbsp;&nbsp;
+                                </button>
+                                &nbsp;&nbsp;&nbsp;
+                                <!-- Limpar -->
+                                <button type="button" class="form-control btn-sm btn-secondary" style="width: auto;height: fit-content;" onclick="(function() {
+                                        document.getElementById('filter_DataIni').value='';
+                                        document.getElementById('filter_DataFim').value='';
+                                        document.getElementById('filter_Cliente').value='';
+                                        document.getElementById('filter_OV').value='';
+                                    })()">&nbsp;&nbsp;&nbsp;Limpar&nbsp;&nbsp;&nbsp;
+                                </button>
+                                <!-- Dicas -->
+                                <i class="far fa-question-circle" style="margin: 5px 0px 0px auto;color: #474f549f;"
+                                    data-toggle="popover" data-placement="top" 
+                                    title="Dicas!" 
+                                    data-content="Você pode pesquisar vários critérios de uma vez, separando-os por ponto e vírgula<br>
+                                                  <b>Exemplo:</b> <i>texto1;texto2;texto3</i><br><br>
+                                                  Caso seja um campo data, digite a data no formato americano: AAAA-MM-DD<br>
+                                                  <b>Exemplo:</b> <i>2021-05-22</i>">
+                                </i>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CRUD -->
+        <div class="row">
+            <div class="col-sm-12">
+
+                <!-- Para iniciar fechado, adicione collapsed-card na class-->
+                <div class="card card-primary card-outline">
+
+                    <!-- ######################################################################### Cabeçalho -->
+                    <div class="card-header">
+                        <!-- Botões -->
+                       <!--  <div class="btn-group">
+                             Abre o modal para INSERT 
+                            <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#modalADD">
+                                &nbsp;Adicionar&nbsp;
+                            </button>    async getSalesOrderRFC(bapi,data_ov,cliente,ov)
+
+                        <div class="btn-group">
+                             Botão para exportar dados da tabela (tableExport) -->
+                            <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-download" aria-hidden="true"></i>
+                                <span class="caret"></span>
+                            </button>
+
+                            <!-- Exportar -->
+                            <div class="dropdown-menu" role="menu">
+                                <!-- Exportar para Excel -->
+                                <a class="dropdown-item" style="cursor: pointer;" onclick="(function(){
+                                    $('#TBtableBigData').tableExport({type:'excel', fileName: 'OrdemDeVenda', exportHiddenCells: true, ignoreColumn:'[2,8]'});                
+                                })()"><i class="fas fa-file-excel" style="color: #118311;"></i>&nbsp;&nbsp;Ms-Excel</a>
+                                <!-- Exportar para PDF -->
+                                <a class="dropdown-item" style="cursor: pointer;" onclick="(function(){
+                                    $('#TBtableBigData').tableExport({type:'pdf', fileName: 'OrdemDeVenda', orientation:'landscape',exportHiddenCells: true, ignoreColumn:'[8]'});                
+                                })()"><i class="fas fa-file-pdf" style="color: #d17021;"></i>&nbsp;&nbsp;PDF</a>
+                            </div>
+                        </div>
+
+                        <!-- Botão Ocultar ou exibir o card -->
+                        <div class="card-tools">
+                            <!-- Botão Abrir/fechar card (Icone: fa-minus ou fa-plus) -->
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <!-- Botão destruir card -->
+                            <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <!-- ######################################################################### Tabela -->
+                    <div class="card-body">
+                        <% if (!Array.isArray(DTEmbalagem) || !DTEmbalagem.length) { %>
+                        <!-- Não existe dados na tabela -->
+                        <!-- <p class="text-center">Clique <a data-toggle="modal" data-target="#modalADD" style="cursor:pointer; color:rgb(79, 79, 255)"> aqui </a>para adicionar um novo registro.</p> -->
+    
+                        <% } else { %>
+                            <table id="TBtableBigData" class="table table-hover" style="display: none;">
+                                <!-- Paginação do BD -->
+                                <div class="row" style="place-items: center;margin-top: -31px;margin-bottom: -17px;flex-flow: nowrap;">
+                                    <% if (pageCount>= 1) { %>
+                                    <!-- Texto lateral esquerdo mostrando a qtde de páginas -->
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="dataTables_info" aria-live="polite">
+                                            
+                                            Página <%= currentPage %> de <%= pageCount %> de um total de <%= totalItens %> registros (<%= pageSize %> por página)
+                                        </div>
+                                    </div>
+
+                                    <!-- Lista de botões superior direito para paginação -->
+                                    <div class="col-sm-12 col-md-6" style="text-align-last: right;">
+                                        <div class="dataTables_paginate paging_simple_numbers">
+                                            <ul class="pagination">
+                                                <!-- Primeiro botão « -->
+                                                <% if (currentPage>= 1) { %>
+                                                    <li><a href="#" 
+                                                        onclick="(function() {
+                                                            window.location = '/ordem_venda/?page=1' + 
+                                                            '&[data]=' + document.getElementById('filter_Data').value + 
+                                                            '&[semana]=' + document.getElementById('filter_Semana').value + 
+                                                            '&[turno]=' + document.getElementById('filter_Turno').value;
+                                                        })()">&laquo;</a>
+                                                    </li>
+                                                <% } %>
+
+                                                <!-- Segundo botão desabilitado caso páginação > 5 -->
+                                                <% var i=1; if (currentPage> 5) { i = + currentPage -4;} %>
+                                                <% if (i !==1) { %>
+                                                    <li class="disabled"><a href="#">...</a></li>
+                                                <% } %>
+
+                                                <!-- Botões da paginação -->
+                                                <% for (i; i <=pageCount; i++) { %>
+                                                    <% if (currentPage==i) { %>
+                                                        <!-- Página corrente -->
+                                                        <li class="active"><span><%= i %> <span class="sr-only">(current)</span></span></li>
+                                                    <% } else { %>
+                                                        <!-- Demais páginas -->
+                                                        <li><a href="#" 
+                                                            onclick="(function() {
+                                                                window.location = '/ordem_venda/?page=<%= i %>' + 
+                                                                '&[dataini]=' + document.getElementById('filter_DataIni').value + 
+                                                                '&[datafim]=' + document.getElementById('filter_DataFim').value + 
+                                                                '&[cliente]=' + document.getElementById('filter_Cliente').value + 
+                                                                '&[ov]=' + document.getElementById('filter_OV').value;
+                                                            })()"><%= i %>
+                                                            </a>
+                                                        </li>
+                                                    <% } %>
+
+                                                    <!-- Mostra apenas 5 botões atras e a frente da página atual -->
+                                                    <% if (i==(+currentPage +4)) { %>
+                                                        <li class="disabled"><a href="#">...</a></li>
+                                                    <% break; } %>
+                                                <% } %>
+
+                                                <!-- Último botão » -->
+                                                <% if(currentPage !=pageCount) { %>
+                                                    <li><a href="#" 
+                                                        onclick="(function() {
+                                                                window.location = '/ordem_venda/?page=<%= pageCount %>' + 
+                                                                '&[dataini]=' + document.getElementById('filter_DataIni').value + 
+                                                                '&[datafim]=' + document.getElementById('filter_DataFim').value + 
+                                                                '&[cliente]=' + document.getElementById('filter_Cliente').value + 
+                                                                '&[ov]=' + document.getElementById('filter_OV').value;
+                                                        })()">&raquo;</a>
+                                                    </li>
+                                                <% } %>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <% } %>
+                                </div>
+                                <thead class="thead-light">
+                                    <!-- Cabeçalho: Titulos da tabela -->
+                                    <tr>
+                                        <th scope="col">Doc.Venda</th>
+                                        <th scope="col">Data</th>
+                                        <th scope="col"></th>
+                                         <th scope="col">Cliente</th>
+                                        
+                                        <th scope="col">Valor</th>                                                                     
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Filial</th>
+                                        <th scope="col">Usuário</th>
+                                        <!--<th scope="col">Takt atingido Cilindro</th>
+                                         <th scope="col">Takt atingido Outros</th>
+                                        <th scope="col">BO Objetivo PE</th>
+                                        <th scope="col">BO Entrega PE</th>
+                                        <th scope="col">BO Objetivo Cilindro</th>
+                                        <th scope="col">BO Entrega Cilindro</th>
+                                        <th scope="col">BO Objetivo Outros</th>                                        
+                                        <th scope="col">BO Entrega Outros</th>-->
+                                        <th scope="col">Opções</th> 
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <!-- Detalhes: Dados da tabela -->
+                                
+                                     
+                                   
+                                    <% DTEmbalagem.forEach((row, index) => { %>
+                                        
+                                        <tr>
+                                            <td style="min-width: 30px;"><%= DTEmbalagem[index].vbeln.toString() %></td>                                            
+                                            <td style="min-width: 30px;"><%= DTEmbalagem[index].erdat.toString().substring(6,8)+'/'+DTEmbalagem[index].erdat.toString().substring(4,6)+'/'+DTEmbalagem[index].erdat.toString().substring(0,4) %></td>   
+                                             <%if(row.data == null || row.data == '0000-00-00 00:00:00' || row.data == 'Invalid Date') { %> 
+                                               <td><% DTEmbalagem[index].audat.toString() %></td> 
+                                            <% } else { %>
+                                                <td><%= DTEmbalagem[index].name1.toLocaleString()%></td> 
+                                                <!-- <td style="min-width: 120px;"><% DTEmbalagem[index].erdat.toDate() %></td> -->
+                                              <% } %>
+                                            <td><%= DTEmbalagem[index].name1.toLocaleString()%></td>
+                                            <td><%=DTEmbalagem[index].netwr.toLocaleString() %></td>
+                                            <td><%= DTEmbalagem[index].statu.toLocaleString()  %></td>
+                                            <td><%= DTEmbalagem[index].vkorg.toLocaleString()  %></td>
+                                            <td><%= DTEmbalagem[index].ernam.toLocaleString() %></td>
+                                            <!-- <td><%= row.takt_pe %>%</td> -->
+                                            <!--<td><%= row.takt_cilindro %>%</td>
+                                             
+                                            <td><%= row.takt_outros %>%</td>
+                                            <td><%= Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(row.bo_objetivo_pe) %></td>
+                                            <td><%= Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(row.bo_entrega_pe) %></td>
+                                            <td><%= Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(row.bo_objetivo_cilindro) %></td>
+                                            <td><%= Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(row.bo_entrega_cilindro) %></td>
+                                            <td><%= Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(row.bo_objetivo_outros) %></td>                                            
+                                            <td><%= Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(row.bo_entrega_outros) %></td> -->
+
+                                            <!-- Coluna: Opções -->
+                                            <td style="min-width: 130px;">
+                                                <button class="btn btn-xs btn-success" data-toggle="modal" data-target="#modalEDIT" 
+                                                onclick="(function(){                      
+                                                    //Setando o valor nos campos de texto 
+                                                    document.getElementById('cod_EDIT').value = '<%= DTEmbalagem[index].vbeln.toString() %>';
+                                                    /* $('#data_EDIT').data('datetimepicker').date('<%- row.data %>');
+                                                    $('#turno_EDIT').val('<%= row.turno %>');
+                                                    $('#turno_EDIT').trigger('change');
+                                                    $('#setup_PE_EDIT').data('datetimepicker').date('<%- row.setup_pe %>');
+                                                    $('#setup_Cilindro_EDIT').data('datetimepicker').date('<%- row.setup_cilindro %>');
+                                                    $('#setup_Outros_EDIT').data('datetimepicker').date('<%- row.setup_outros %>');
+                                                    document.getElementById('takt_PE_EDIT').value = formatBDToDecimal('<%= row.takt_pe %>');
+                                                    document.getElementById('takt_Cilindro_EDIT').value = formatBDToDecimal('<%= row.takt_cilindro %>');
+                                                    document.getElementById('takt_Outros_EDIT').value = formatBDToDecimal('<%= row.takt_outros %>');
+                                                    document.getElementById('bo_objetivo_pe_EDIT').value = formatBDToDecimal('<%= row.bo_objetivo_pe %>');
+                                                    document.getElementById('bo_entrega_pe_EDIT').value = formatBDToDecimal('<%= row.bo_entrega_pe %>');
+                                                    document.getElementById('bo_objetivo_cilindro_EDIT').value = formatBDToDecimal('<%= row.bo_objetivo_cilindro %>');
+                                                    document.getElementById('bo_entrega_cilindro_EDIT').value = formatBDToDecimal('<%= row.bo_entrega_cilindro %>');
+                                                    document.getElementById('bo_objetivo_outros_EDIT').value = formatBDToDecimal('<%= row.bo_objetivo_outros %>');
+                                                    document.getElementById('bo_entrega_outros_EDIT').value = formatBDToDecimal('<%= row.bo_entrega_outros %>'); */
+
+                                                })()">&nbsp;&nbsp;&nbsp;Faturar&nbsp;&nbsp;
+
+                                                </button>
+
+                                                        <!-- Função anónima dentro da classe button
+                                                    que seta o cod do registro selecionado no campo oculto do modal -->
+                                                        <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#modalDEL" onclick="(function(){
+                                                    document.getElementById('cod_DEL').textContent = '<%= row.cod %>';
+                                                    })()">
+                                                    Rejeitar
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    <% }) %>
+                                </tbody>
+
+                                <tfoot>
+                                    <tr>
+                                        <th scope="col">Doc.Venda</th>
+                                        <th scope="col">Data</th>
+                                        <th scope="col"></th> 
+                                        <th scope="col">Cliente</th>
+                                        <th scope="col">Valor</th>                                    
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Filial</th>
+                                        <th scope="col">Usuário</th>
+                                         <!--<th scope="col">Takt atingido Cilindro</th>
+                                        <th scope="col">Takt atingido Outros</th>-->
+                                        <!-- <th scope="col">BO Objetivo PE</th>
+                                        <th scope="col">BO Entrega PE</th>
+                                        <th scope="col">BO Objetivo Cilindro</th>
+                                        <th scope="col">BO Entrega Cilindro</th>
+                                        <th scope="col">BO Objetivo Outros</th>
+                                        <th scope="col">BO Entrega Outros</th> -->
+                                        <th scope="col">Opções</th> 
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        <% } %>
+                    </div>
+
+                    <!-- ######################################################################### Modal para ADICIONAR -->
+                    <div class="modal fade" id="modalADD" data-backdrop="static">
+                        <div class="modal-dialog modal-md">
+                            <div class="modal-content">
+                                <!-- Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Adicionar</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <!-- Conteúdo central do modal -->
+                                <form role="form" action="/addEmbalagem" method="post" enctype="multipart/form-data">
+                                    <!-- Campos do formulário -->
+                                    <div class="modal-body">
+                                        <!-- Cod -->
+                                        <div class="row" style="display: none;">
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label for="cod_ADD" class="label">Cod</label>
+                                                    <input type="text" class="form-control form-control-sm" name="cod_ADD" id="cod_ADD" placeholder="Cod" readonly=“true”>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Data e Turno -->
+                                        <div class="row">
+                                            <!-- Data -->
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <label for="data_ADD" class="label">Data</label>
+                                                    <div class="input-group date" id="data_ADD"
+                                                        data-target-input="nearest">
+                                                        <input type="text"
+                                                            class="form-control form-control-sm datetimepicker-input date_times"
+                                                            data-target="#data_ADD"
+                                                            name="data_INPUT_ADD"
+                                                            id="data_INPUT_ADD" required />
+                                                        <div class="input-group-append"
+                                                            data-target="#data_ADD"
+                                                            data-toggle="datetimepicker">
+                                                            <div class="input-group-text"><i class="far fa-calendar-alt"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Turno -->
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="turno_ADD" class="label">Turno</label>
+                                                    <select class="form-control form-control-sm select2"
+                                                        style="width: 100%;" name="turno_ADD" id="turno_ADD" required>
+                                                        <option value="">-- Selecione --</option>
+                                                        <option value="T1">T1</option>
+                                                        <option value="T2">T2</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Setup -->
+                                        <div class="row">
+                                            <!-- Setup PE -->
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="setup_PE_ADD" class="label">Setup PE</label>
+                                                    <div class="input-group time" id="setup_PE_ADD"
+                                                        data-target-input="nearest">
+                                                        <input type="text"
+                                                            class="form-control form-control-sm datetimepicker-input datepicker"
+                                                            data-target="#setup_PE_ADD"
+                                                            name="setup_PE_INPUT_ADD"
+                                                            id="setup_PE_INPUT_ADD" required />
+                                                        <div class="input-group-append"
+                                                        data-target="#setup_PE_ADD"
+                                                            data-toggle="datetimepicker">
+                                                            <div class="input-group-text"><i class="far fa-clock"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Setup Cilindro -->
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="setup_Cilindro_ADD" class="label">Setup Cilindro</label>
+                                                    <div class="input-group time" id="setup_Cilindro_ADD"
+                                                        data-target-input="nearest">
+                                                        <input type="text"
+                                                            class="form-control form-control-sm datetimepicker-input datepicker"
+                                                            data-target="#setup_Cilindro_ADD"
+                                                            name="setup_Cilindro_INPUT_ADD"
+                                                            id="setup_Cilindro_INPUT_ADD" required />
+                                                        <div class="input-group-append"
+                                                            data-target="#setup_Cilindro_ADD"
+                                                            data-toggle="datetimepicker">
+                                                            <div class="input-group-text"><i class="far fa-clock"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Setup Outros -->
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="setup_Outros_ADD" class="label">Setup Outros</label>
+                                                    <div class="input-group time" id="setup_Outros_ADD"
+                                                        data-target-input="nearest">
+                                                        <input type="text"
+                                                            class="form-control form-control-sm datetimepicker-input datepicker"
+                                                            data-target="#setup_Outros_ADD"
+                                                            name="setup_Outros_INPUT_ADD"
+                                                            id="setup_Outros_INPUT_ADD" required />
+                                                        <div class="input-group-append"
+                                                            data-target="#setup_Outros_ADD"
+                                                            data-toggle="datetimepicker">
+                                                            <div class="input-group-text"><i class="far fa-clock"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Takt atingido -->
+                                        <div class="row">
+                                            <!-- Takt PE -->
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="takt_PE_ADD" class="label">Takt PE atingido (%)</label>
+                                                    <input type="text" class="form-control form-control-sm percent"
+                                                        name="takt_PE_ADD" id="takt_PE_ADD"
+                                                        placeholder="% Atingido" required>
+                                                </div>
+                                            </div>
+
+                                            <!-- Takt Cilindro -->
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="takt_Cilindro_ADD" class="label">Takt Cilindro atingido (%)</label>
+                                                    <input type="text" class="form-control form-control-sm percent"
+                                                        name="takt_Cilindro_ADD" id="takt_Cilindro_ADD"
+                                                        placeholder="% Atingido" required>
+                                                </div>
+                                            </div>
+
+                                            <!-- Takt Outros -->
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="takt_Outros_ADD" class="label">Takt Outros atingido (%)</label>
+                                                    <input type="text" class="form-control form-control-sm percent"
+                                                        name="takt_Outros_ADD" id="takt_Outros_ADD"
+                                                        placeholder="% Atingido" required>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- BO Objetivo --> 
+                                        <div class="row">
+                                            <!-- BO Objetivo PE -->
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="bo_objetivo_pe_ADD" class="label">BO Objetivo PE</label>
+                                                    <input type="text" class="form-control form-control-sm money"
+                                                        name="bo_objetivo_pe_ADD" id="bo_objetivo_pe_ADD"
+                                                        placeholder="R$ Objetivo" required>
+                                                </div>
+                                            </div>
+
+                                            <!-- BO Objetivo Cilindro -->
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="bo_objetivo_cilindro_ADD" class="label">BO Objetivo Cilindro</label>
+                                                    <input type="text" class="form-control form-control-sm money"
+                                                        name="bo_objetivo_cilindro_ADD" id="bo_objetivo_cilindro_ADD"
+                                                        placeholder="R$ Objetivo" required>
+                                                </div>
+                                            </div>
+
+                                            <!-- BO Objetivo Outros -->
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="bo_objetivo_outros_ADD" class="label">BO Objetivo Outros</label>
+                                                    <input type="text" class="form-control form-control-sm money"
+                                                        name="bo_objetivo_outros_ADD" id="bo_objetivo_outros_ADD"
+                                                        placeholder="R$ Objetivo" required>
+                                                </div>
+                                            </div>                                            
+                                        </div>
+
+                                        <!-- BO a Entregar/Entregue --> 
+                                        <div class="row">
+                                            <!-- BO Entrega PE -->
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="bo_entrega_pe_ADD" class="label">BO Entrega PE</label>
+                                                    <input type="text" class="form-control form-control-sm money"
+                                                        name="bo_entrega_pe_ADD" id="bo_entrega_pe_ADD"
+                                                        placeholder="R$ Entrega" required>
+                                                </div>
+                                            </div>
+
+                                            <!-- BO Entrega Cilindro -->
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="bo_entrega_cilindro_ADD" class="label">BO Entrega Cilindro</label>
+                                                    <input type="text" class="form-control form-control-sm money"
+                                                        name="bo_entrega_cilindro_ADD" id="bo_entrega_cilindro_ADD"
+                                                        placeholder="R$ Entrega" required>
+                                                </div>
+                                            </div>
+
+                                            <!-- BO Entrega Outros -->
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="bo_entrega_outros_ADD" class="label">BO Entrega Outros</label>
+                                                    <input type="text" class="form-control form-control-sm money"
+                                                        name="bo_entrega_outros_ADD" id="bo_entrega_outros_ADD"
+                                                        placeholder="R$ Entrega" required>
+                                                </div>
+                                            </div>                                            
+                                        </div>
+                                    </div>
+                                    <!-- Botões -->
+                                    <div class="modal-footer justify-content-between">
+                                        <button type="submit" class="btn btn-primary" id="btnSalvar_ADD">&nbsp;&nbsp;Salvar&nbsp;&nbsp;</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ######################################################################### Modal para EDITAR -->
+                    <div class="modal fade" id="modalEDIT" data-backdrop="static">
+                        <div class="modal-dialog modal-md">
+                            <div class="modal-content">
+                                <!-- Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Faturar</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <!-- Conteúdo central do modal -->
+                                <form role="form" action="/faturaOV/ <?= document.getElementById('cod_EDIT').value ?>" method="post" enctype="multipart/form-data">
+                                    <!-- Campos do formulário -->
+                                    <div class="modal-body">
+                                        <!-- Cod -->
+                                        <div class="row" style="display: none;">
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label for="cod_EDIT" class="label">Cod</label>
+                                                    <input type="text" class="form-control form-control-sm" name="cod_EDIT" id="cod_EDIT" placeholder="Cod" readonly=“true”>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Data e Turno -->
+                                        <div class="row">
+                                            <!-- Data -->
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <label for="data_EDIT" class="label">Deseja prosseguir com o Faturamento?</label>
+                                                   <!--  <div class="input-group date" id="data_EDIT"
+                                                        data-target-input="nearest">
+                                                        <input type="text"
+                                                            class="form-control form-control-sm datetimepicker-input date_times"
+                                                            data-target="#data_EDIT"
+                                                            name="data_INPUT_EDIT"
+                                                            id="data_INPUT_EDIT" defaultDate:dateNow />
+                                                        <div class="input-group-append"
+                                                            data-target="#data_EDIT"
+                                                            data-toggle="datetimepicker">
+                                                            <div class="input-group-text"><i class="far fa-calendar-alt"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div> -->
+                                                </div>
+                                            </div>
+
+                                            <!-- Turno -->
+                                            <!-- <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="turno_EDIT" class="label">Turno</label>
+                                                    <select class="form-control form-control-sm select2"
+                                                        style="width: 100%;" name="turno_EDIT" id="turno_EDIT" required>
+                                                        <option value="">-- Selecione --</option>
+                                                        <option value="T1">T1</option>
+                                                        <option value="T2">T2</option>
+                                                    </select>
+                                                </div>
+                                            </div> -->
+                                        </div>
+
+                                        <!-- Setup -->
+                                       <!--  <div class="row">
+                                             Setup PE -->
+                                           <!--  <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="setup_PE_EDIT" class="label">Setup PE</label>
+                                                    <div class="input-group time" id="setup_PE_EDIT"
+                                                        data-target-input="nearest">
+                                                        <input type="text"
+                                                            class="form-control form-control-sm datetimepicker-input datepicker"
+                                                            data-target="#setup_PE_EDIT"
+                                                            name="setup_PE_INPUT_EDIT"
+                                                            id="setup_PE_INPUT_EDIT" required />
+                                                        <div class="input-group-append"
+                                                        data-target="#setup_PE_EDIT"
+                                                            data-toggle="datetimepicker">
+                                                            <div class="input-group-text"><i class="far fa-clock"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+
+                                            <!-- Setup Cilindro -->
+                                           <!--  <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="setup_Cilindro_EDIT" class="label">Setup Cilindro</label>
+                                                    <div class="input-group time" id="setup_Cilindro_EDIT"
+                                                        data-target-input="nearest">
+                                                        <input type="text"
+                                                            class="form-control form-control-sm datetimepicker-input datepicker"
+                                                            data-target="#setup_Cilindro_EDIT"
+                                                            name="setup_Cilindro_INPUT_EDIT"
+                                                            id="setup_Cilindro_INPUT_EDIT" required />
+                                                        <div class="input-group-append"
+                                                            data-target="#setup_Cilindro_EDIT"
+                                                            data-toggle="datetimepicker">
+                                                            <div class="input-group-text"><i class="far fa-clock"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+
+                                            <!-- Setup Outros -->
+                                            <!-- <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="setup_Outros_EDIT" class="label">Setup Outros</label>
+                                                    <div class="input-group time" id="setup_Outros_EDIT"
+                                                        data-target-input="nearest">
+                                                        <input type="text"
+                                                            class="form-control form-control-sm datetimepicker-input datepicker"
+                                                            data-target="#setup_Outros_EDIT"
+                                                            name="setup_Outros_INPUT_EDIT"
+                                                            id="setup_Outros_INPUT_EDIT" required />
+                                                        <div class="input-group-append"
+                                                            data-target="#setup_Outros_EDIT"
+                                                            data-toggle="datetimepicker">
+                                                            <div class="input-group-text"><i class="far fa-clock"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>  -->
+
+                                        <!-- Takt -->
+                                        <div class="row">
+                                            <!-- Takt PE -->
+                                           <!--  <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="takt_PE_EDIT" class="label">Cliente</label>
+                                                    <input type="text" class="form-control form-control-sm"
+                                                        name="takt_PE_EDIT" id="takt_PE_EDIT"
+                                                        placeholder="Cliente" >
+                                                </div>
+                                            </div> -->
+
+                                            <!-- Takt Cilindro -->
+                                            <div class="col-sm-4">
+                                               <!--  <div class="form-group">
+                                                    <label for="takt_Cilindro_EDIT" class="label">Valor</label>
+                                                    <input type="text" class="form-control form-control-sm percent"
+                                                        name="takt_Cilindro_EDIT" id="takt_Cilindro_EDIT"
+                                                        placeholder="% Atingido" >
+                                                </div> -->
+                                            </div>
+                                               
+                                                  <div class="col-sm-4">
+                                                  <!--   <div class="form-group">
+                                                        <label for="bo_objetivo_pe_EDIT" class="label">Cliente</label>
+                                                        <input type="text" class="form-control form-control-sm"
+                                                            name="bo_objetivo_pe_EDIT" id="bo_objetivo_pe_EDIT"
+                                                            placeholder="Material" >
+                                                   </div>  -->       
+
+                                                   </div>
+
+                                                
+                                            
+                                            
+
+                                            <!-- Takt Outros -->
+                                            <!-- <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="takt_Outros_EDIT" class="label">Takt Outros atingido (%)</label>
+                                                    <input type="text" class="form-control form-control-sm percent"
+                                                        name="takt_Outros_EDIT" id="takt_Outros_EDIT"
+                                                        placeholder="% Atingido" required>
+                                                </div>
+                                            </div> -->
+                                        </div>
+
+                                        <!-- BO Objetivo --> 
+                                        <div class="row">
+                                            <!-- BO Objetivo PE -->
+                                            <!-- <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="bo_objetivo_pe_EDIT" class="label">Material</label>
+                                                    <input type="text" class="form-control form-control-sm money"
+                                                        name="bo_objetivo_pe_EDIT" id="bo_objetivo_pe_EDIT"
+                                                        placeholder="R$ Objetivo" required>
+                                                </div>
+                                            </div> -->
+
+                                            <!-- BO Objetivo Cilindro -->
+                                           <!--  <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="bo_objetivo_cilindro_EDIT" class="label">BO Objetivo Cilindro</label>
+                                                    <input type="text" class="form-control form-control-sm money"
+                                                        name="bo_objetivo_cilindro_EDIT" id="bo_objetivo_cilindro_EDIT"
+                                                        placeholder="R$ Objetivo" required>
+                                                </div>
+                                            </div> -->
+
+                                            <!-- BO Objetivo Outros -->
+                                            <!-- <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="bo_objetivo_outros_EDIT" class="label">BO Objetivo Outros</label>
+                                                    <input type="text" class="form-control form-control-sm money"
+                                                        name="bo_objetivo_outros_EDIT" id="bo_objetivo_outros_EDIT"
+                                                        placeholder="R$ Objetivo" required>
+                                                </div>
+                                            </div>     -->                                        
+                                        </div>
+
+                                        <!-- BO a Entregar/Entregue --> 
+                                        <div class="row">
+                                            <!-- BO Entrega PE -->
+                                            <!-- <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="bo_entrega_pe_EDIT" class="label">BO Entrega PE</label>
+                                                    <input type="text" class="form-control form-control-sm money"
+                                                        name="bo_entrega_pe_EDIT" id="bo_entrega_pe_EDIT"
+                                                        placeholder="R$ Entrega" required>
+                                                </div>
+                                            </div> -->
+
+                                            <!-- BO Entrega Cilindro -->
+                                            <!-- <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="bo_entrega_cilindro_EDIT" class="label">BO Entrega Cilindro</label>
+                                                    <input type="text" class="form-control form-control-sm money"
+                                                        name="bo_entrega_cilindro_EDIT" id="bo_entrega_cilindro_EDIT"
+                                                        placeholder="R$ Entrega" required>
+                                                </div>
+                                            </div> -->
+
+                                            <!-- BO Entrega Outros -->
+                                            <!-- <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="bo_entrega_outros_EDIT" class="label">BO Entrega Outros</label>
+                                                    <input type="text" class="form-control form-control-sm money"
+                                                        name="bo_entrega_outros_EDIT" id="bo_entrega_outros_EDIT"
+                                                        placeholder="R$ Entrega" required>
+                                                </div>
+                                            </div>    -->                                         
+                                        </div>
+                                    </div>
+                                    <!-- Botões -->
+                                    <div class="modal-footer justify-content-between">
+                                        <button type="submit" class="btn btn-primary" id="btnSalvar_EDIT">&nbsp;&nbsp;Salvar&nbsp;&nbsp;</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ######################################################################### Modal para ELIMINAR -->
+                    <div class="modal fade" id="modalDEL" id="modal-danger" data-backdrop="static">
+                        <div class="modal-dialog">
+                            <div class="modal-content bg-danger">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Atenção!</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Tem certeza que deseja rejeitar a ordem selecionada?</p>
+                                </div>
+                                <div class="modal-footer justify-content-between">
+                                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">
+                                        Não, cancelar
+                                    </button>
+
+                                    <!-- Esse span é oculto pois apenas recebe o texto contendo 
+                                         o cod para eliminação na função abaixo -->
+                                    <span style="display:none" id="cod_DEL"></span>
+
+                                    <!-- Função anónima dentro da classe button
+                                         que direciona para a route /delete/:id após o usuário clicar em sim no modal -->
+                                    <button type="button" class="btn btn-outline-light" onclick="(function() {
+                                        window.location = '/delOV/' + document.getElementById('cod_DEL').textContent;
+                                        })()" id="btnDeletar_DEL">
+                                        Sim, rejeitar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Grava o texto recebido da variável status_Crud do routes/usuario
+           lá no "tails.ejs" tem uma função no final que verifica o que tem neste span"
+           e dispara uma função de alerta do toastr de acordo com o texto -->
+<span style="display:none" id='status_Crud'><%= status_Crud %></span>

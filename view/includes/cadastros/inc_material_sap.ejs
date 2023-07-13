@@ -1,0 +1,699 @@
+<!-- Page Content (header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row sm-2">
+            <!-- Título -->
+            <div class="col-sm-6">
+                <h1>Lista de Materiais no SAP R3</h1>
+            </div>
+            <!-- Navegação histórica -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                    <li class="breadcrumb-item active">Cadastros</li>
+                    <li class="breadcrumb-item active">Material SAP</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Page Content (conteúdo) -->
+<section class="content">
+    <div class="container-fluid">
+        
+        <!-- Filtragem avançada -->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="content-collapse">
+                    <a data-toggle style="color: white;padding-left: 20px;"><i class="fas fa-filter" style="color: white;padding-right: 10px;"></i>Filtros</a>
+                    <div class="content">
+                        <form role="form" action="/material_sap" method="post">
+                            <div class="card-body" style="display: grid;margin: -26px -21px -11px -21px;">
+
+                                <!-- Campos do filtro -->
+                                <label for="filter_PN" style="margin: 10px 0 0 0;">Material</label>
+                                <textarea class="form-control form-control-sm" name="filter_PN" id="filter_PN" rows="1"><%= body.pn %></textarea>                                    
+
+                                <label for="filter_Descricao" style="margin: 10px 0 0 0;">Descrição</label>
+                                <textarea type="text" class="form-control form-control-sm" name="filter_Descricao" id="filter_Descricao" rows="1"><%= body.descricao %></textarea>
+
+                                <label for="filter_Familia" style="margin: 10px 0 0 0;">Catg.Item</label>
+                                <textarea type="text" class="form-control form-control-sm" name="filter_Familia" id="filter_Familia" rows="1"><%= body.familia %></textarea>
+
+                                <label for="filter_Grupo" style="margin: 10px 0 0 0;">Centro</label>
+                                <textarea type="text" class="form-control form-control-sm" name="filter_Grupo" id="filter_Grupo" rows="1"><%= body.grupo %></textarea>
+                            </div>
+
+                            <!-- Botões Filtrar e Limpar -->
+                            <div class="card-footer" style="background: center;padding: 8px 0 8px 0px;display: flex;">
+                                <!-- Filtrar -->
+                                <button type="button" class="form-control btn-sm btn-primary" style="width: auto;height: fit-content;" onclick="(function() {
+                                        window.location = '/material_sap/?page=1' + 
+                                        '&[pn]=' + document.getElementById('filter_PN').value + 
+                                        '&[descricao]=' + document.getElementById('filter_Descricao').value + 
+                                        '&[familia]=' + document.getElementById('filter_Familia').value + 
+                                        '&[grupo]=' + document.getElementById('filter_Grupo').value;
+                                    })()">&nbsp;&nbsp;&nbsp;&nbsp;Filtrar&nbsp;&nbsp;&nbsp;&nbsp;
+                                </button>
+                                &nbsp;&nbsp;&nbsp;
+                                <!-- Limpar -->
+                                <button type="button" class="form-control btn-sm btn-secondary" style="width: auto;height: fit-content;" onclick="(function() {
+                                        document.getElementById('filter_PN').value='';
+                                        document.getElementById('filter_Descricao').value='';
+                                        document.getElementById('filter_Familia').value='';
+                                        document.getElementById('filter_Grupo').value='';
+                                    })()">&nbsp;&nbsp;&nbsp;Limpar&nbsp;&nbsp;&nbsp;
+                                </button>
+                                <!-- Dicas -->
+                                <i class="far fa-question-circle" style="margin: 5px 0px 0px auto;color: #474f549f;"
+                                    data-toggle="popover" data-placement="top" 
+                                    title="Dicas!" 
+                                    data-content="Você pode pesquisar vários critérios de uma vez, separando-os por ponto e vírgula<br>
+                                                  <b>Exemplo:</b> <i>texto1;texto2;texto3</i><br><br>
+                                                  Caso seja um campo data, digite a data no formato americano: AAAA-MM-DD<br>
+                                                  <b>Exemplo:</b> <i>2021-05-22</i>">
+                                </i>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CRUD -->
+        <div class="row">
+            <div class="col-sm-12">
+
+                <!-- Para iniciar fechado, adicione collapsed-card na class-->
+                <div class="card card-primary card-outline">
+
+                    <!-- ######################################################################### Cabeçalho -->
+                    <div class="card-header">
+
+                        <!-- Botões
+                        <div class="btn-group">
+                             Abre o modal para INSERT 
+                            <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="modal"
+                                data-target="#modalADD">&nbsp;Adicionar&nbsp;
+                            </button>
+                        </div>
+
+                        <div class="btn-group">
+                             Botão para exportar dados da tabela (tableExport) 
+                            <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle"
+                                data-toggle="dropdown">
+                                <i class="fa fa-download" aria-hidden="true"></i>
+                                <span class="caret"></span>
+                            </button>
+                        -->
+                            <!-- Exportar -->
+                            <div class="dropdown-menu" role="menu">
+                                <!-- Exportar para Excel -->
+                                <a class="dropdown-item" style="cursor: pointer;" onclick="(function(){
+                                $('#TBtableBigData').tableExport({type:'excel', fileName: 'Materiais', exportHiddenCells: true});                
+                                })()"><i class="fas fa-file-excel" style="color: #118311;"></i>&nbsp;&nbsp;Ms-Excel</a>
+                                <!-- Exportar para PDF -->
+                                <a class="dropdown-item" style="cursor: pointer;" onclick="(function(){
+                                $('#TBtableBigData').tableExport({type:'pdf', fileName: 'Materiais', exportHiddenCells: true});               
+                                })()"><i class="fas fa-file-pdf" style="color: #d17021;"></i>&nbsp;&nbsp;PDF</a>
+                            </div>
+                        </div>
+
+                        <!-- Botão Ocultar ou exibir o card -->
+                        <div class="card-tools">
+                            <!-- Botão Abrir/fechar card (Icone: fa-minus ou fa-plus) -->
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                                title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <!-- Botão destruir card -->
+                            <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip"
+                                title="Remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <!-- ######################################################################### Tabela -->
+                    <div class="card-body">
+                        <% if (!Array.isArray(DTMaterial) || !DTMaterial.length) { %>
+                        <!-- Não existe dados na tabela -->
+                        <p class="text-center">Clique <a data-toggle="modal" data-target="#modalADD"
+                                style="cursor:pointer; color:rgb(79, 79, 255)"> aqui </a> para adicionar um novo registro.</p>
+
+                        <% } else { %>
+                        <table id="TBtableBigData" class="table table-hover" style="display: none;">
+
+                            <!-- Paginação do BD -->
+                            <div class="row" style="place-items: center;margin-top: -31px;margin-bottom: -17px;flex-flow: nowrap;">
+                                <% if (pageCount>= 1) { %>
+                                <!-- Texto lateral esquerdo mostrando a qtde de páginas -->
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="dataTables_info" aria-live="polite">
+                                        Página <%= currentPage %> de <%= pageCount %> de um total de <%=
+                                                                totalItens %> registros (<%= pageSize %> por página)
+                                    </div>
+                                </div>
+
+                                <!-- Lista de botões superior direito para paginação -->
+                                <div class="col-sm-12 col-md-6" style="text-align-last: right;">
+                                    <div class="dataTables_paginate paging_simple_numbers">
+                                        <ul class="pagination">
+                                            <!-- Primeiro botão « -->
+                                            <% if (currentPage>= 1) { %>
+                                            <li><a href="#" onclick="(function() {
+                                                                    window.location = '/material_sap/?page=1' + 
+                                                                    '&[pn]=' + document.getElementById('filter_PN').value + 
+                                                                    '&[descricao]=' + document.getElementById('filter_Descricao').value + 
+                                                                    '&[familia]=' + document.getElementById('filter_Familia').value + 
+                                                                    '&[grupo]=' + document.getElementById('filter_Grupo').value;
+                                                                })()">&laquo;</a></li>
+                                            <% } %>
+
+                                            <!-- Segundo botão desabilitado caso páginação > 5 -->
+                                            <% var i=1; if (currentPage> 5) { i = + currentPage -
+                                                                    4;} %>
+                                            <% if (i !==1) { %>
+                                            <li class="disabled"><a href="#">...</a></li>
+                                            <% } %>
+
+                                            <!-- Botões da paginação -->
+                                            <% for (i; i <=pageCount; i++) { %>
+                                            <% if (currentPage==i) { %>
+                                            <!-- Página corrente -->
+                                            <li class="active"><span>
+                                                    <%= i %> <span class="sr-only">(current)</span>
+                                                </span></li>
+                                            <% } else { %>
+                                            <!-- Demais páginas -->
+                                            <li><a href="#" onclick="(function() {
+                                                                        window.location = '/material_sap/?page=<%= i %>' + 
+                                                                        '&[pn]=' + document.getElementById('filter_PN').value + 
+                                                                        '&[descricao]=' + document.getElementById('filter_Descricao').value + 
+                                                                        '&[familia]=' + document.getElementById('filter_Familia').value + 
+                                                                        '&[grupo]=' + document.getElementById('filter_Grupo').value;
+                                                                    })()"><%= i %>
+                                                </a>
+                                            </li>
+                                            <% } %>
+
+                                            <!-- Mostra apenas 5 botões atras e a frente da página atual -->
+                                            <% if (i==(+currentPage +
+                                                                                                4)) { %>
+                                            <li class="disabled"><a href="#">...</a>
+                                            </li>
+                                            <% break; } %>
+                                            <% } %>
+
+                                            <!-- Último botão » -->
+                                            <% if(currentPage !=pageCount) { %>
+                                            <li><a href="#" onclick="(function() {
+                                                                    window.location = '/material_sap/?page=<%= pageCount %>' + 
+                                                                    '&[pn]=' + document.getElementById('filter_PN').value + 
+                                                                    '&[descricao]=' + document.getElementById('filter_Descricao').value + 
+                                                                    '&[familia]=' + document.getElementById('filter_Familia').value + 
+                                                                    '&[grupo]=' + document.getElementById('filter_Grupo').value;
+                                                                })()">&raquo;</a></li>
+                                            <% } %>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <% } %>
+                            </div>
+
+                            <!-- Cabeçalho: Titulos da tabela -->
+                            <thead class="thead-light">
+                                <tr>                                    
+                                    <th scope="col">Material</th>
+                                    <th scope="col">Descrição</th>
+                                    <th scope="col">Classe Avl.</th>
+                                    <th scope="col">UM</th>
+                                    <th scope="col">Grp.Cat.Item</th>
+                                    <th scope="col">Centro</th>
+                                    <th scope="col">NCM</th>
+                                    <th scope="col">Criado por</th>
+                                    
+                                </tr>
+                            </thead>
+
+                            <!-- Detalhes: Dados da tabela -->
+                            <tbody>
+                                <% DTMaterial.forEach((row, index)=> { %>
+                                <tr>
+                                    
+                                    <td><%= DTMaterial[index].matnr.toString() %></td>
+                                    <td style="min-width: 150px;"><%= DTMaterial[index].maktx.toString() %></td>
+                                    <td><%= DTMaterial[index].bklas.toString() %></td>
+                                    <td><%= DTMaterial[index].meins.toString() %></td>
+                                    <td><%= DTMaterial[index].mtpos_mara.toString() %></td>
+                                    <td><%= DTMaterial[index].vkorg.toString() %></td>
+                                    <td><%= DTMaterial[index].steuc.toString() %></td>
+                                    <td><%= DTMaterial[index].ernam.toString() %></td>
+
+                                    <!-- Coluna: Opções -->
+                                    
+                                </tr>
+                                <% }) %>
+                            </tbody>
+
+                            <tfoot>
+                                <tr>                                    
+                                    <th scope="col">Material</th>
+                                    <th scope="col">Descrição</th>
+                                    <th scope="col">Classe Avl.</th>
+                                    <th scope="col">UM</th>
+                                    <th scope="col">Grp.Cat.Item</th>
+                                    <th scope="col">Centro</th>
+                                    <th scope="col">NCM</th>
+                                    <th scope="col">Criado por</th>
+                                    
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <% } %>
+                    </div>
+
+                    <!-- ######################################################################### Modal para ADICIONAR -->
+                    <div class="modal fade" id="modalADD" data-backdrop="static">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <!-- Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Adicionar</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <!-- Conteúdo central do modal -->
+                                <form role="form" action="/addMaterial" method="post" enctype="multipart/form-data">
+                                    <!-- Campos do formulário -->
+                                    <div class="modal-body">
+                                        <!-- Cod -->
+                                        <div class="row" style="display: none;">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="cod_ADD" class="label">Cod</label>
+                                                    <input type="text" class="form-control form-control-sm"
+                                                        name="cod_ADD" id="cod_ADD" placeholder="Cod" readonly=“true”>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-6" style="text-align: center;">
+                                                <!-- Imagem -->
+                                                <div class="form-group"
+                                                    style="align-items: center;display: inline-grid;">
+
+                                                    <!-- Imagem e opção para zoom -->
+                                                    <img class="img-thumbnail-material mx-auto d-block" name="foto_ADD"
+                                                        id="foto_ADD" src="dist/img/generic/material-no-image.png">
+
+                                                    <!-- Botão Upload que simula im clique no elemento input file oculto -->
+                                                    <button type="button" class="btn btn-default btn-xs"
+                                                        style="margin-top:5px;place-self: end;"
+                                                        onclick="document.getElementById('image_ADD').click()"><i
+                                                            class="fas fa-cloud-upload-alt"></i>&nbsp;&nbsp;Upload</button>
+
+                                                    <!-- Elemento input file oculto -->
+                                                    <div class="custom-file" style="display: none;">
+                                                        <input type="file" class="custom-file-input form-control-sm"
+                                                            name="image_ADD" id="image_ADD" onclick="(function(){
+                                                                document.getElementById('image_ADD').onchange = function (evt) {
+                                                                    var tgt = evt.target || window.event.srcElement,
+                                                                    files = tgt.files;                                 
+                                                                    if (FileReader && files && files.length) {
+                                                                        var fr = new FileReader();
+                                                                        fr.onload = function () {                                                                        
+                                                                        document.getElementById('foto_ADD').src = fr.result;                                                                
+                                                                        }                                  
+                                                                    fr.readAsDataURL(files[0]);
+                                                                    }
+                                                                }
+                                                            })()">
+                                                        <label class="custom-file-label" for="image_ADD"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                <!-- Campos de cadastro -->
+                                                <div class="row">
+                                                    <div class="col-sm-12"
+                                                        style="min-inline-size: -webkit-fill-available;">
+                                                        <!-- Material, familia -->
+                                                        <div class="row">
+                                                            <!-- Material -->
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label for="material_ADD"
+                                                                        class="label">Material</label>
+                                                                    <input type="text"
+                                                                        class="form-control form-control-sm"
+                                                                        name="material_ADD" id="material_ADD"
+                                                                        placeholder="Material" required>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Familia -->
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label for="familia_ADD"
+                                                                        class="label">Ctg.Item</label>
+                                                                    <select class="form-control form-control-sm select2"
+                                                                        style="width: 100%;" name="familia_ADD"
+                                                                        id="familia_ADD">
+                                                                        <option value="">-- Selecione --</option>
+                                                                        <% DTFamilia.forEach((row, index)=> { %>
+                                                                        <option value="<%= row.familia %>">
+                                                                            <%= row.familia %>
+                                                                        </option>
+                                                                        <% }) %>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Descrição -->
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group">
+                                                                    <label for="descricao_ADD"
+                                                                        class="label">Descrição</label>
+                                                                    <input type="text"
+                                                                        class="form-control form-control-sm"
+                                                                        name="descricao_ADD" id="descricao_ADD"
+                                                                        placeholder="Descrição" required>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Multiplo, valor, grupo -->
+                                                        <div class="row">
+                                                            <!-- Multiplo -->
+                                                            <div class="col-sm-4">
+                                                                <div class="form-group">
+                                                                    <label for="multiplo_ADD"
+                                                                        class="label">Quantidade</label>
+                                                                    <input type="text"
+                                                                        class="form-control form-control-sm num"
+                                                                        name="multiplo_ADD" id="multiplo_ADD"
+                                                                        placeholder="Múltiplo" required>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Valor -->
+                                                            <div class="col-sm-4">
+                                                                <div class="form-group">
+                                                                    <label for="valor_ADD" class="label">R$
+                                                                        Valor</label>
+                                                                    <input type="text"
+                                                                        class="form-control form-control-sm money"
+                                                                        name="valor_ADD" id="valor_ADD"
+                                                                        placeholder="R$ Valor" required>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Grupo -->
+                                                            <div class="col-sm-4">
+                                                                <div class="form-group">
+                                                                    <label for="grupo_ADD" class="label">Centro</label>
+                                                                    <select class="form-control form-control-sm select2"
+                                                                        style="width: 100%;" name="grupo_ADD"
+                                                                        id="grupo_ADD">
+                                                                        <option value="">-- Selecione --</option>
+                                                                        <% DTGrupo.forEach((row, index)=> { %>
+                                                                        <option value="<%= row.grupo %>">
+                                                                            <%= row.grupo %>
+                                                                        </option>
+                                                                        <% }) %>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Observacao -->
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <label for="observacao_ADD" class="label">Observação</label>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                name="observacao_ADD" id="observacao_ADD"
+                                                                placeholder="Observação">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <!-- Botões -->
+                                    <div class="modal-footer justify-content-between">
+                                        <button type="submit" class="btn btn-primary"
+                                            id="btnSalvar_ADD">&nbsp;&nbsp;Salvar&nbsp;&nbsp;</button>
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Cancelar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ######################################################################### Modal para EDITAR -->
+                    <div class="modal fade" id="modalEDIT" data-backdrop="static">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <!-- Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Editar</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <!-- Conteúdo central do modal -->
+                                <form role="form"
+                                    action="/editMaterial/ <?= document.getElementById('cod_EDIT').value ?>"
+                                    method="post" enctype="multipart/form-data">
+                                    <!-- Formulário para Editar usuário -->
+                                    <div class="modal-body">
+                                        <!-- Cod -->
+                                        <div class="row" style="display: none;">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="cod_EDIT" class="label">Cod</label>
+                                                    <input type="text" class="form-control form-control-sm"
+                                                        name="cod_EDIT" id="cod_EDIT" placeholder="Cod" readonly=“true”>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Campos de cadastro -->
+                                        <div class="row">
+                                            <div class="col-sm-6" style="text-align: center;">
+                                                <!-- Imagem -->
+                                                <div class="form-group"
+                                                    style="align-items: center;display: inline-grid;">
+
+                                                    <a id="foto_ZOOM">
+                                                        <img class="img-thumbnail-material mx-auto d-block zoom"
+                                                            name="foto_EDIT" id="foto_EDIT">
+                                                    </a>
+
+                                                    <!-- Botão Upload que simula im clique no elemento input file oculto -->
+                                                    <button type="button" class="btn btn-default btn-xs"
+                                                        style="margin-top:5px;place-self: end;"
+                                                        onclick="document.getElementById('image_EDIT').click()"><i
+                                                            class="fas fa-cloud-upload-alt"></i>&nbsp;&nbsp;Upload</button>
+
+                                                    <!-- Elemento input file oculto -->
+                                                    <div class="custom-file" style="display: none;">
+                                                        <input type="file" class="custom-file-input form-control-sm"
+                                                            name="image_EDIT" id="image_EDIT" onclick="(function(){
+                                                                document.getElementById('image_EDIT').onchange = function (evt) {
+                                                                    var tgt = evt.target || window.event.srcElement,
+                                                                    files = tgt.files;                                 
+                                                                    if (FileReader && files && files.length) {
+                                                                        var fr = new FileReader();
+                                                                        fr.onload = function () {                                                   
+                                                                        document.getElementById('foto_EDIT').src = fr.result;
+                                                                        }                                  
+                                                                    fr.readAsDataURL(files[0]);
+                                                                    }
+                                                                }
+                                                            })()">
+                                                        <label class="custom-file-label" for="image_EDIT"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                <div class="row">
+                                                    <div class="col-sm-12"
+                                                        style="min-inline-size: -webkit-fill-available;">
+                                                        <!-- Material, familia -->
+                                                        <div class="row">
+                                                            <!-- Material -->
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label for="material_EDIT"
+                                                                        class="label">Material</label>
+                                                                    <input type="text"
+                                                                        class="form-control form-control-sm"
+                                                                        name="material_EDIT" id="material_EDIT"
+                                                                        placeholder="Material" required>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Familia -->
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label for="familia_EDIT"
+                                                                        class="label">Família</label>
+                                                                    <select class="form-control form-control-sm select2"
+                                                                        style="width: 100%;" name="familia_EDIT"
+                                                                        id="familia_EDIT">
+                                                                        <% DTFamilia.forEach((row, index)=> { %>
+                                                                        <option value="<%= row.familia %>">
+                                                                            <%= row.familia %>
+                                                                        </option>
+                                                                        <% }) %>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Descrição -->
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group">
+                                                                    <label for="descricao_EDIT"
+                                                                        class="label">Descrição</label>
+                                                                    <input type="text"
+                                                                        class="form-control form-control-sm"
+                                                                        name="descricao_EDIT" id="descricao_EDIT"
+                                                                        placeholder="Descrição" required>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Multiplo, valor, grupo -->
+                                                        <div class="row">
+                                                            <!-- Multiplo -->
+                                                            <div class="col-sm-4">
+                                                                <div class="form-group">
+                                                                    <label for="multiplo_EDIT"
+                                                                        class="label">Múltiplo</label>
+                                                                    <input type="text"
+                                                                        class="form-control form-control-sm num"
+                                                                        name="multiplo_EDIT" id="multiplo_EDIT"
+                                                                        placeholder="Múltiplo" required>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Valor -->
+                                                            <div class="col-sm-4">
+                                                                <div class="form-group">
+                                                                    <label for="valor_EDIT" class="label">R$
+                                                                        Valor</label>
+                                                                    <input type="text"
+                                                                        class="form-control form-control-sm money"
+                                                                        name="valor_EDIT" id="valor_EDIT"
+                                                                        placeholder="R$ Valor" required>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Grupo -->
+                                                            <div class="col-sm-4">
+                                                                <div class="form-group">
+                                                                    <label for="grupo_EDIT" class="label">Grupo</label>
+                                                                    <select class="form-control form-control-sm select2"
+                                                                        style="width: 100%;" name="grupo_EDIT"
+                                                                        id="grupo_EDIT">
+                                                                        <% DTGrupo.forEach((row, index)=> { %>
+                                                                        <option value="<%= row.grupo %>">
+                                                                            <%= row.grupo %>
+                                                                        </option>
+                                                                        <% }) %>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Observacao -->
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <label for="observacao_EDIT"
+                                                                class="label">Observação</label>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                name="observacao_EDIT" id="observacao_EDIT"
+                                                                placeholder="Observação">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Botões -->
+                                    <div class="modal-footer justify-content-between">
+                                        <button type="submit" class="btn btn-primary"
+                                            id="btnSalvar_EDIT">&nbsp;&nbsp;Salvar&nbsp;&nbsp;</button>
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Cancelar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ######################################################################### Modal para ELIMINAR -->
+                    <div class="modal fade" id="modalDEL" id="modal-danger" data-backdrop="static">
+                        <div class="modal-dialog">
+                            <div class="modal-content bg-danger">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Atenção!</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Tem certeza que deseja eliminar o registro selecionado?</p>
+                                </div>
+                                <div class="modal-footer justify-content-between">
+                                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">
+                                        Não, cancelar
+                                    </button>
+
+                                    <!-- Esse span é oculto pois apenas recebe o texto contendo o cod para eliminação na função abaixo -->
+                                    <span style="display:none" id="cod_DEL"></span>
+
+                                    <!-- Função anónima dentro da classe button que direciona para a route /delete/:id após o usuário clicar em sim no modal -->
+                                    <button type="button" class="btn btn-outline-light" onclick="(function() {
+                                            window.location = '/delMaterial/' + document.getElementById('cod_DEL').textContent;
+                                            })()" id="btnDeletar_DEL">Sim, eliminar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Grava o texto recebido da variável status_Crud do routes/usuario
+           lá no "tails.ejs" tem uma função no final que verifica o que tem neste span"
+           e dispara uma função de alerta do toastr de acordo com o texto -->
+<span style="display:none" id='status_Crud'><%= status_Crud %></span>

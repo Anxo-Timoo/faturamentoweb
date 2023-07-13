@@ -1,0 +1,2454 @@
+<!-- Content Header -->
+<section class="content-header">
+    <!-- Code here -->
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Logística </h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                    <li class="breadcrumb-item active">Dashboard </li>
+                    <li class="breadcrumb-item active">Logistica </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!-- Code here -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        
+        <!-- Informações gerais -->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Para iniciar fechado, adicione collapsed-card na class-->
+                <div class="card card-lightblue">
+                    <!-- ######################################################################### Cabeçalho -->
+                    <div class="card-header">
+                        <!-- Cabeçalho -->
+                        <div class="btn-group">                            
+                            <h1 class="card-title">
+                                <i class="fas fa-bullhorn"></i>
+                                &nbsp;&nbsp;&nbsp;
+                                Informações gerais
+                            </h1>
+                        </div>
+
+                        <!-- Botão Ocultar ou exibir o card -->
+                        <div class="card-tools">
+                            <!-- Botão Abrir/fechar card (Icone: fa-minus ou fa-plus) -->
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <!-- Botão Maximizar card -->
+                            <button type="button" class="btn btn-tool" data-card-widget="maximize">
+                                <i class="fas fa-expand"></i>
+                            </button>
+                            <!-- Botão destruir card -->
+                            <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <!-- ######################################################################### Conteúdo -->
+                    <div class="card-body">
+                        <% if (DTInformacoesGerais.length > 0) {%>
+                            <table id="TBtableSimple" class="table table-hover table-bordered">
+                                <thead class="thead-light">
+                                    <!-- Cabeçalho: Titulos da tabela -->
+                                    <tr>
+                                        <th scope="col">Data</th>
+                                        <th scope="col">Dia</th>
+                                        <th scope="col">Aviso / Feedback</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <!-- Detalhes: Dados da tabela -->
+                                    <% DTInformacoesGerais.forEach((row, index) => { %>
+                                        <tr>
+                                            <% if(row.data == null || row.data == '0000-00-00 00:00:00' || row.data == 'Invalid Date') { %>
+                                                <td></td>
+                                            <% } else { %>
+                                                <td style="max-width: 100px;"><%- row.data.toLocaleString() %></td>
+                                            <% } %>
+                                            <td style="max-width: 100px;"><%= row.dia_semana %></td>
+                                            <td style="min-width: 600px; white-space: pre-wrap"><%= row.aviso_feedback %></td>
+                                        </tr>
+                                    <% }) %>
+                                </tbody>
+                            </table>
+                        <% } else { %>
+                            <!-- Não existe dados na tabela -->
+                             <p class="text-center">Não há informações disponíveis</p>
+                        <% } %>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ocorrências -->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Para iniciar fechado, adicione collapsed-card na class-->
+                <div class="card card-danger">
+                    <!-- ######################################################################### Cabeçalho -->
+                    <div class="card-header">
+                        <!-- Cabeçalho -->
+                        <div class="btn-group">                            
+                            <h1 class="card-title">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                &nbsp;&nbsp;&nbsp;
+                                Ocorrências NF-e
+                            </h1>
+                        </div>
+
+                        <!-- Botão Ocultar ou exibir o card -->
+                        <div class="card-tools">
+                            <!-- Botão Abrir/fechar card (Icone: fa-minus ou fa-plus) -->
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <!-- Botão Maximizar card -->
+                            <button type="button" class="btn btn-tool" data-card-widget="maximize">
+                                <i class="fas fa-expand"></i>
+                            </button>
+                            <!-- Botão destruir card -->
+                            <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <!-- ######################################################################### Conteúdo -->
+                    <div class="card-body">
+                        <% if (DTOcorrencias.length > 0) {%>
+                            <table id="TBtableSimple2" class="table table-hover table-bordered">
+                                <thead class="thead-light">
+                                    <!-- Cabeçalho: Titulos da tabela -->
+                                    <tr>
+                                        <th scope="col">NF-e</th>
+                                        <th scope="col">Status Doct.</th>
+                                        <th scope="col">Descricao</th>
+                                        <th scope="col">Cód.Retorno</th>
+                                        <th scope="col">Acao</th>
+                                        <th scope="col">Responsavel</th>
+                                        <th scope="col">Prazo</th>
+                                        <th scope="col" style="text-align-last: center;">Status</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <!-- Detalhes: Dados da tabela -->
+                                    <% DTOcorrencias.forEach((row, index) => { %>
+                                        <tr>
+                                            <td><%= row.semana %></td> 
+                                            <td><%= row.setor %></td>
+                                            <td style="white-space: pre-wrap"><%= row.descricao %></td>
+                                            <td><%= row.solucao %></td>
+                                            <td style="white-space: pre-wrap"><%= row.acao %></td>
+                                            <td><%= row.responsavel %></td>
+                                            <% if(row.prazo == null || row.prazo == '0000-00-00 00:00:00' || row.prazo == 'Invalid Date') { %>
+                                                <td></td>
+                                            <% } else { %>
+                                                <td><%- row.prazo.toLocaleString() %></td>
+                                            <% } %>
+                                            <td style="text-align-last: center;">
+                                                <input type="text" class="knob" value="<%= row.status %>" data-width="50" data-height="50" data-fgColor="#f56954">
+                                            </td>
+                                        </tr>
+                                    <% }) %>
+                                </tbody>
+                            </table>
+                        <% } else { %>
+                            <!-- Não existe dados na tabela -->
+                             <p class="text-center">Não há informações disponíveis</p>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recebimento -->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Para iniciar fechado, adicione collapsed-card na class-->
+                <div class="card card-olive">
+                    <!-- ######################################################################### Cabeçalho -->
+                    <div class="card-header">
+                        <!-- Cabeçalho -->
+                        <div class="btn-group">                            
+                            <h1 class="card-title">
+                                <i class="fas fa-truck"></i>
+                                &nbsp;&nbsp;&nbsp;
+                                Recebimento
+                            </h1>
+                        </div>
+
+                        <!-- Botão Ocultar ou exibir o card -->
+                        <div class="card-tools">
+                            <!-- Botão Abrir/fechar card (Icone: fa-minus ou fa-plus) -->
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <!-- Botão Maximizar card -->
+                            <button type="button" class="btn btn-tool" data-card-widget="maximize">
+                                <i class="fas fa-expand"></i>
+                            </button>
+                            <!-- Botão destruir card -->
+                            <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <!-- ######################################################################### Conteúdo -->
+                    <div class="card-body">
+                        <div class="row">
+                            <!-- Informações T1 -->
+                            <div class="col-sm-12 col-md-6">
+                                <div class="card bg-light mb-3">
+                                    <div class="card-header"><h5>Faturados</h5></div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Volumes (Semana atual)</h5><br>
+                                        <ul class="products-list">
+                                            <li class="item">
+                                                <% if (DTVolumesT1.length > 0) {%>
+                                                    <table id="TBtableSimple3" class="table table-hover table-bordered">
+                                                        <thead class="thead-light">
+                                                            <!-- Cabeçalho: Titulos da tabela -->
+                                                            <tr>
+                                                                <th scope="col">Dia</th>
+                                                                <th scope="col" style="white-space: pre-wrap;text-align: center;">Volumes em stage</th>
+                                                                <th scope="col" style="white-space: pre-wrap;text-align: center;">Veículos previstos</th>
+                                                                <th scope="col" style="white-space: pre-wrap;text-align: center;">Volumes previstos</th>
+                                                            </tr>
+                                                        </thead>
+                        
+                                                        <tbody>
+                                                            <!-- Detalhes: Dados da tabela -->
+                                                            <% DTVolumesT1.forEach((row, index) => { %>
+                                                                <tr>
+                                                                    <td style="min-width: 100px;"><%= row.dia_semana %></td> 
+                                                                    <td style="text-align-last: center;"><%= row.palete_pendente %></td>
+                                                                    <td style="text-align-last: center;"><%= row.veiculos_previstos %></td>
+                                                                    <td style="text-align-last: center;"><%= row.volumes_previstos %></td>
+                                                                </tr>
+                                                            <% }) %>
+                                                        </tbody>
+                                                    </table>
+                                                <% } else { %>
+                                                    <!-- Não existe dados na tabela -->
+                                                     <p class="text-center">Não há informações disponíveis</p>
+                                                <% } %>
+                                            </li>
+                                        </ul><br>
+                                        <!-- [Gráfico de Linha T1] -->
+                                        <h5 class="card-title">Tempo médio (Mês atual)</h5><br>
+                                        <ul class="products-list">
+                                            <li class="item">
+                                                <canvas id="tempo_stage_recebimento_T1"></canvas>
+                                            </li>
+                                        </ul>                                    
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Informações T2 -->
+                            <div class="col-sm-12 col-md-6">
+                                <div class="card bg-light mb-3">
+                                    <div class="card-header"><h5>Recebidos</h5></div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Volumes (Semana atual)</h5><br>
+                                        <ul class="products-list">
+                                            <li class="item">
+                                                <% if (DTVolumesT2.length > 0) {%>
+                                                    <table id="TBtableSimple4" class="table table-hover table-bordered">
+                                                        <thead class="thead-light">
+                                                            <!-- Cabeçalho: Titulos da tabela -->
+                                                            <tr>
+                                                                <th scope="col">Dia</th>
+                                                                <th scope="col" style="white-space: pre-wrap;text-align: center;">Volumes em stage</th>
+                                                                <th scope="col" style="white-space: pre-wrap;text-align: center;">Veículos previstos</th>
+                                                                <th scope="col" style="white-space: pre-wrap;text-align: center;">Volumes previstos</th>
+                                                            </tr>
+                                                        </thead>
+                        
+                                                        <tbody>
+                                                            <!-- Detalhes: Dados da tabela -->
+                                                            <% DTVolumesT2.forEach((row, index) => { %>
+                                                                <tr>
+                                                                    <td style="min-width: 100px;"><%= row.dia_semana %></td> 
+                                                                    <td style="text-align-last: center;"><%= row.palete_pendente %></td>
+                                                                    <td style="text-align-last: center;"><%= row.veiculos_previstos %></td>
+                                                                    <td style="text-align-last: center;"><%= row.volumes_previstos %></td>
+                                                                </tr>
+                                                            <% }) %>
+                                                        </tbody>
+                                                    </table>
+                                                <% } else { %>
+                                                    <!-- Não existe dados na tabela -->
+                                                     <p class="text-center">Não há informações disponíveis</p>
+                                                <% } %>
+                                            </li>
+                                        </ul><br>
+                                        <!-- [Gráfico de Linha T2] -->
+                                        <h5 class="card-title">Tempo médio (Mês atual)</h5><br>
+                                        <ul class="products-list">
+                                            <li class="item">
+                                                <canvas id="tempo_stage_recebimento_T2"></canvas>
+                                            </li>
+                                        </ul>                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Embalagem -->
+        <!-- <div class="row">
+            <div class="col-md-12">
+                 Para iniciar fechado, adicione collapsed-card na class
+                <div class="card card-gray">
+                     ######################################################################### Cabeçalho 
+                    <div class="card-header">
+                         Cabeçalho 
+                        <div class="btn-group">                            
+                            <h1 class="card-title">
+                                <i class="fas fa-box"></i>
+                                &nbsp;&nbsp;&nbsp;
+                                Embalagem
+                            </h1>
+                        </div>
+
+                         Botão Ocultar ou exibir o card 
+                        <div class="card-tools">
+                            Botão Abrir/fechar card (Icone: fa-minus ou fa-plus) 
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                             Botão Maximizar card 
+                            <button type="button" class="btn btn-tool" data-card-widget="maximize">
+                                <i class="fas fa-expand"></i>
+                            </button>
+                             Botão destruir card 
+                            <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+
+                    </div>
+
+                    ######################################################################### Conteúdo -->
+                    <!-- <!-- <div class="card-body">
+                        <div class="row">
+                            <!-- Informações T1 
+                            <div class="col-sm-12 col-md-6">
+                                <div class="card bg-light mb-3">
+                                    <div class="card-header"><h5>Informações T1</h5></div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Previsão de entrega vs Valor em BO</h5><br>
+                                        <ul class="products-list">
+                                            <li class="item">
+                                                <div class="progress-group">
+                                                    <% if (DTBoPeT1.length > 0) {%>
+                                                        <% DTBoPeT1.forEach((row, index) => { %>
+                                                            <span class="progress-text"><%= row.Perfil %></span>
+                                                            <span class="float-right"><b><%= Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(row.bo_entrega_pe) %></b> / <%= Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(row.bo_objetivo_pe) %></span>
+                                                            <div class="progress">
+                                                            <div class="progress-bar bg-primary progress-bar-striped" style="width:<%- row.Percentual_PE %>%"></div>
+                                                            </div>
+                                                        <% }) %>
+                                                    <% } else { %>
+                                                        
+                                                         <p class="text-center">Não há informações disponíveis</p>
+                                                    <% } %>
+                                                </div>
+
+                                                <div class="progress-group">
+                                                    <% if (DTBoCilindroT1.length > 0) {%>
+                                                        <% DTBoCilindroT1.forEach((row, index) => { %>
+                                                            <span class="progress-text"><%= row.Perfil %></span>
+                                                            <span class="float-right"><b><%= Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(row.bo_entrega_cilindro) %></b> / <%= Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(row.bo_objetivo_cilindro) %></span>
+                                                            <div class="progress">
+                                                            <div class="progress-bar bg-success progress-bar-striped" style="width:<%- row.Percentual_Cilindro %>%"></div>
+                                                            </div>
+                                                        <% }) %>
+                                                    <% } else { %>
+                                                        
+                                                         <p class="text-center">Não há informações disponíveis</p>
+                                                    <% } %>
+                                                </div>
+
+                                                <div class="progress-group">
+                                                    <% if (DTBoOutrosT1.length > 0) {%>
+                                                        <% DTBoOutrosT1.forEach((row, index) => { %>
+                                                            <span class="progress-text"><%= row.Perfil %></span>
+                                                            <span class="float-right"><b><%= Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(row.bo_entrega_outros) %></b> / <%= Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(row.bo_objetivo_outros) %></span>
+                                                            <div class="progress">
+                                                            <div class="progress-bar bg-warning progress-bar-striped" style="width:<%- row.Percentual_Outros %>%"></div>
+                                                            </div>
+                                                        <% }) %>
+                                                    <% } else { %>
+                                                        
+                                                         <p class="text-center">Não há informações disponíveis</p>
+                                                    <% } %>
+                                                </div>
+
+                                            </li>
+                                        </ul><br>
+                                        
+                                        <h5 class="card-title">Setup médio (Mês atual)</h5><br>
+                                        <ul class="products-list">
+                                            <li class="item">
+                                                <canvas id="setup_embalagem_T1"></canvas>
+                                            </li>
+                                        </ul><br>
+                                        
+                                        <h5 class="card-title">Takt - Percentual atingido (Mês atual)</h5><br>
+                                        <ul class="products-list">
+                                            <li class="item">
+                                                <canvas id="takt_embalagem_T1"></canvas>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div> 
+ 
+                             Informações T2 
+                            <div class="col-sm-12 col-md-6">
+                                <div class="card bg-light mb-3">
+                                    <div class="card-header"><h5>Informações T2</h5></div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Previsão de entrega vs Valor em BO</h5><br>
+                                        <ul class="products-list">
+                                            <li class="item">
+                                                <div class="progress-group">
+                                                    <% if (DTBoPeT2.length > 0) {%>
+                                                        <% DTBoPeT2.forEach((row, index) => { %>
+                                                            <span class="progress-text"><%= row.Perfil %></span>
+                                                            <span class="float-right"><b><%= Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(row.bo_entrega_pe) %></b> / <%= Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(row.bo_objetivo_pe) %></span>
+                                                            <div class="progress">
+                                                            <div class="progress-bar bg-primary progress-bar-striped" style="width:<%- row.Percentual_PE %>%"></div>
+                                                            </div>
+                                                        <% }) %>
+                                                    <% } else { %>
+                                                        <!-- Não existe dados na tabela 
+                                                         <p class="text-center">Não há informações disponíveis</p>
+                                                    <% } %>
+                                                </div>
+
+                                                <div class="progress-group">
+                                                    <% if (DTBoCilindroT2.length > 0) {%>
+                                                        <% DTBoCilindroT2.forEach((row, index) => { %>
+                                                            <span class="progress-text"><%= row.Perfil %></span>
+                                                            <span class="float-right"><b><%= Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(row.bo_entrega_cilindro) %></b> / <%= Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(row.bo_objetivo_cilindro) %></span>
+                                                            <div class="progress">
+                                                            <div class="progress-bar bg-success progress-bar-striped" style="width:<%- row.Percentual_Cilindro %>%"></div>
+                                                            </div>
+                                                        <% }) %>
+                                                    <% } else { %>
+                                                         Não existe dados na tabela 
+                                                         <p class="text-center">Não há informações disponíveis</p>
+                                                    <% } %>
+                                                </div>
+
+                                                <div class="progress-group">
+                                                    <% if (DTBoOutrosT2.length > 0) {%>
+                                                        <% DTBoOutrosT2.forEach((row, index) => { %>
+                                                            <span class="progress-text"><%= row.Perfil %></span>
+                                                            <span class="float-right"><b><%= Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(row.bo_entrega_outros) %></b> / <%= Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(row.bo_objetivo_outros) %></span>
+                                                            <div class="progress">
+                                                            <div class="progress-bar bg-warning progress-bar-striped" style="width:<%- row.Percentual_Outros %>%"></div>
+                                                            </div>
+                                                        <% }) %>
+                                                    <% } else { %>
+                                                         Não existe dados na tabela 
+                                                         <p class="text-center">Não há informações disponíveis</p>
+                                                    <% } %>
+                                                </div>
+
+                                            </li>
+                                        </ul><br>
+                                         [Gráfico de Linha: Setup T2] 
+                                        <h5 class="card-title">Setup médio (Mês atual)</h5><br>
+                                        <ul class="products-list">
+                                            <li class="item">
+                                                <canvas id="setup_embalagem_T2"></canvas>
+                                            </li>
+                                        </ul><br>
+                                         [Gráfico de Linha: Takt T2] 
+                                        <h5 class="card-title">Takt - Percentual atingido (Mês atual)</h5><br>
+                                        <ul class="products-list">
+                                            <li class="item">
+                                                <canvas id="takt_embalagem_T2"></canvas>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+        <!-- Preparação -->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Para iniciar fechado, adicione collapsed-card na class-->
+                <div class="card card-navy">
+                    <!-- ######################################################################### Cabeçalho -->
+                    <div class="card-header">
+                        <!-- Cabeçalho -->
+                        <div class="btn-group">                            
+                            <h1 class="card-title">
+                                <i class="fas fa-shopping-cart"></i>
+                                &nbsp;&nbsp;&nbsp;
+                                A faturar
+                            </h1>
+                        </div>
+
+                        <!-- Botão Ocultar ou exibir o card -->
+                        <div class="card-tools">
+                            <!-- Botão Abrir/fechar card (Icone: fa-minus ou fa-plus) -->
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <!-- Botão Maximizar card -->
+                            <button type="button" class="btn btn-tool" data-card-widget="maximize">
+                                <i class="fas fa-expand"></i>
+                            </button>
+                            <!-- Botão destruir card -->
+                            <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <!-- ######################################################################### Conteúdo -->
+                    <div class="card-body">
+                        <div class="row">
+                            <!-- Informações T1 -->
+                            <div class="col-sm-12 col-md-6">
+                                <div class="card bg-light mb-3">
+                                    <div class="card-header"><h5>Informações BRQ</h5></div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Ordens de Serviço</h5><br>
+                                        <ul class="products-list">
+                                            <li class="item">
+                                                <% if (DTPreparacaoT1.length > 0) {%>
+                                                    <table id="TBtableSimple5" class="table table-hover table-bordered">
+                                                        <thead class="thead-light">
+                                                            <!-- Cabeçalho: Titulos da tabela -->
+                                                            <tr>
+                                                                <th scope="col">Dados</th>
+                                                                <th scope="col" style="text-align: center;">Inicio do turno</th>
+                                                                <th scope="col" style="text-align: center;">Status atual</th>
+                                                                <th scope="col" style="text-align: center;">Fora do plano</th>
+                                                            </tr>                                                            
+                                                        </thead>
+                        
+                                                        <tbody>
+                                                            <!-- Detalhes: Dados da tabela -->
+                                                            <% DTPreparacaoT1.forEach((row, index) => { %>
+                                                                <tr>
+                                                                    <td><b>Remessas</b></td>
+                                                                    <td style="text-align-last: center;"><%= row.remessa_inicial %></td>
+                                                                    <td style="text-align-last: center;"><%= row.remessa_atual %></td>
+                                                                    <td style="text-align-last: center;"><%= row.remessa_fora_plano %></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><b>Linhas</b></td>
+                                                                    <td style="text-align-last: center;"><%= row.linha_inicial %></td>
+                                                                    <td style="text-align-last: center;"><%= row.linha_atual %></td>
+                                                                    <td style="text-align-last: center;"><%= row.linha_fora_plano %></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><b>Bipes</b></td>
+                                                                    <td style="text-align-last: center;"><%= row.bipe_inicial %></td>
+                                                                    <td style="text-align-last: center;"><%= row.bipe_atual %></td>
+                                                                    <td style="text-align-last: center;"><%= row.bipe_fora_plano %></td>
+                                                                </tr>    
+                                                                <tr>
+                                                                    <td><b>Valores</b></td>
+                                                                    <td style="text-align-last: center;"><%= Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(row.valor_inicial) %></td>
+                                                                    <td style="text-align-last: center;"><%= Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(row.valor_atual) %></td>
+                                                                    <td style="text-align-last: center;"><%= Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(row.valor_fora_plano) %></td>
+                                                                </tr>
+                                                            <% }) %>
+                                                        </tbody>
+                                                    </table>
+                                                    <table id="TBtableSimple6" class="table table-hover table-bordered">
+                                                        <thead class="thead-light">
+                                                            <tr>
+                                                                <th scope="col" style="text-align: center;">Atendimento em 12h</th>
+                                                                <th scope="col" style="text-align: center;">Atendimento em 24h</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <!-- Detalhes: Dados da tabela -->
+                                                            <% DTPreparacaoT1.forEach((row, index) => { %>
+                                                            <tr>
+                                                                <td style="text-align-last: center;"><%= row.atendimento_12h %>%</td>                                                            
+                                                                <td style="text-align-last: center;"><%= row.atendimento_24h %>%</td>
+                                                            </tr>
+                                                            <% }) %>
+                                                        </tbody>
+                                                    </table>
+                                                <% } else { %>
+                                                    <!-- Não existe dados na tabela -->
+                                                     <p class="text-center">Não há informações disponíveis</p>
+                                                <% } %>
+                                            </li>
+                                        </ul>
+                                        <!-- [Gráfico de Linha T1] -->
+                                        <h5 class="card-title">Linha do Tempo</h5><br>
+                                        <ul class="products-list">
+                                            <li class="item">
+                                                <canvas id="setup_preparacao_T1"></canvas>
+                                            </li>
+                                        </ul>                                    
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Informações T2 -->
+                            <div class="col-sm-12 col-md-6">
+                                <div class="card bg-light mb-3">
+                                    <div class="card-header"><h5>Informações Subsidiárias</h5></div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Ordens de Serviço</h5><br>
+                                        <ul class="products-list">
+                                            <li class="item">
+                                                <% if (DTPreparacaoT2.length > 0) {%>
+                                                    <table id="TBtableSimple7" class="table table-hover table-bordered">
+                                                        <thead class="thead-light">
+                                                            <!-- Cabeçalho: Titulos da tabela -->
+                                                            <tr>
+                                                                <th scope="col">Dados</th>
+                                                                <th scope="col" style="text-align: center;">Inicio do turno</th>
+                                                                <th scope="col" style="text-align: center;">Status atual</th>
+                                                                <th scope="col" style="text-align: center;">Fora do plano</th>
+                                                            </tr>                                                            
+                                                        </thead>
+                        
+                                                        <tbody>
+                                                            <!-- Detalhes: Dados da tabela -->
+                                                            <% DTPreparacaoT2.forEach((row, index) => { %>
+                                                                <tr>
+                                                                    <td><b>Remessas</b></td>
+                                                                    <td style="text-align-last: center;"><%= row.remessa_inicial %></td>
+                                                                    <td style="text-align-last: center;"><%= row.remessa_atual %></td>
+                                                                    <td style="text-align-last: center;"><%= row.remessa_fora_plano %></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><b>Linhas</b></td>
+                                                                    <td style="text-align-last: center;"><%= row.linha_inicial %></td>
+                                                                    <td style="text-align-last: center;"><%= row.linha_atual %></td>
+                                                                    <td style="text-align-last: center;"><%= row.linha_fora_plano %></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><b>Bipes</b></td>
+                                                                    <td style="text-align-last: center;"><%= row.bipe_inicial %></td>
+                                                                    <td style="text-align-last: center;"><%= row.bipe_atual %></td>
+                                                                    <td style="text-align-last: center;"><%= row.bipe_fora_plano %></td>
+                                                                </tr>    
+                                                                <tr>
+                                                                    <td><b>Valores</b></td>
+                                                                    <td style="text-align-last: center;"><%= Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(row.valor_inicial) %></td>
+                                                                    <td style="text-align-last: center;"><%= Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(row.valor_atual) %></td>
+                                                                    <td style="text-align-last: center;"><%= Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(row.valor_fora_plano) %></td>
+                                                                </tr>
+                                                            <% }) %>
+                                                        </tbody>
+                                                    </table>
+                                                    <table id="TBtableSimple8" class="table table-hover table-bordered">
+                                                        <thead class="thead-light">
+                                                            <tr>
+                                                                <th scope="col" style="text-align: center;">Atendimento em 12h</th>
+                                                                <th scope="col" style="text-align: center;">Atendimento em 24h</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <!-- Detalhes: Dados da tabela -->
+                                                            <% DTPreparacaoT2.forEach((row, index) => { %>
+                                                            <tr>
+                                                                <td style="text-align-last: center;"><%= row.atendimento_12h %>%</td>                                                            
+                                                                <td style="text-align-last: center;"><%= row.atendimento_24h %>%</td>
+                                                            </tr>
+                                                            <% }) %>
+                                                        </tbody>
+                                                    </table>
+                                                <% } else { %>
+                                                    <!-- Não existe dados na tabela -->
+                                                     <p class="text-center">Não há informações disponíveis</p>
+                                                <% } %>
+                                            </li>
+                                        </ul>
+                                        <!-- [Gráfico de Linha T1] -->
+                                        <h5 class="card-title">Linha do tempo</h5><br>
+                                        <ul class="products-list">
+                                            <li class="item">
+                                                <canvas id="setup_preparacao_T2"></canvas>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inventário -->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Para iniciar fechado, adicione collapsed-card na class-->
+                <div class="card card-primary">
+                    <!-- ######################################################################### Cabeçalho -->
+                    <div class="card-header">
+                        <!-- Cabeçalho -->
+                        <div class="btn-group">                            
+                            <h1 class="card-title">
+                                <i class="fas fa-clipboard-list"></i>
+                                &nbsp;&nbsp;&nbsp;
+                               Clientes
+                            </h1>
+                        </div>
+
+                        <!-- Botão Ocultar ou exibir o card -->
+                        <div class="card-tools">
+                            <!-- Botão Abrir/fechar card (Icone: fa-minus ou fa-plus) -->
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <!-- Botão Maximizar card -->
+                            <button type="button" class="btn btn-tool" data-card-widget="maximize">
+                                <i class="fas fa-expand"></i>
+                            </button>
+                            <!-- Botão destruir card -->
+                            <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ######################################################################### Conteúdo -->
+                    <div class="card-body">
+                        <div class="row">
+                            <!-- Informações T1 -->
+                            <div class="col-sm-12 col-md-6">
+                                <div class="card bg-light mb-3">
+                                    <div class="card-header"><h5>Nacional</h5></div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Em atraso</h5><br>
+                                        <% if (DTInventarioT1.length > 0) {%>
+                                            <% DTInventarioT1.forEach((row, index) => { %>
+                                                <div class="d-flex justify-content-between align-items-center border-bottom mb-0">
+                                                    <p class="text-lightblue text-lg">
+                                                        &nbsp;&nbsp;&nbsp;<i class="far fa-circle"></i>
+                                                    </p>
+                                                    <p class="d-flex flex-column text-right">
+                                                    <span class="font-weight-bold">
+                                                        <b style="font-size: 15px;"><%= row.pns_em_contagem %></b>
+                                                    </span>
+                                                    <span class="text-muted">PART NUMBER'S</span>
+                                                    </p>
+                                                </div>
+                                                
+                                                <div class="d-flex justify-content-between align-items-center border-bottom mb-0">
+                                                    <p class="text-danger text-lg">
+                                                        &nbsp;&nbsp;&nbsp;<i class="fas fa-chevron-up"></i>
+                                                    </p>
+                                                    <p class="d-flex flex-column text-right">
+                                                    <span class="font-weight-bold">
+                                                        <b style="font-size: 15px;"><%= row.locais_aereo %></b>
+                                                    </span>
+                                                    <span class="text-muted">LOCAIS AÉREO</span>
+                                                    </p>
+                                                </div>
+                                                
+                                                <div class="d-flex justify-content-between align-items-center border-bottom mb-0">
+                                                    <p class="text-success text-lg">
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-chevron-right"></i>
+                                                    </p>
+                                                    <p class="d-flex flex-column text-right">
+                                                    <span class="font-weight-bold">
+                                                        <b style="font-size: 15px;"><%= row.locais_picking %></b>
+                                                    </span>
+                                                    <span class="text-muted">LOCAIS PICKING</span>
+                                                    </p>
+                                                </div><br>
+                                            <% }) %>
+                                        <% } else { %>
+                                            <!-- Não existe dados na tabela -->
+                                             <p class="text-center">Não há informações disponíveis</p><br>
+                                        <% } %>
+                                        <!-- [Gráfico de Linha T1] -->
+                                        <h5 class="card-title">R$ Faltante (Mês atual)</h5><br>
+                                        <ul class="products-list">
+                                            <li class="item">
+                                                <canvas id="faltante_T1"></canvas>
+                                            </li>
+                                        </ul>                                    
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Informações T2 -->
+                            <div class="col-sm-12 col-md-6">
+                                <div class="card bg-light mb-3">
+                                    <div class="card-header"><h5>Internacional</h5></div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Em atraso</h5><br>
+                                        <% if (DTInventarioT2.length > 0) {%>
+                                            <% DTInventarioT2.forEach((row, index) => { %>
+                                                <div class="d-flex justify-content-between align-items-center border-bottom mb-0">
+                                                    <p class="text-lightblue text-lg">
+                                                        &nbsp;&nbsp;&nbsp;<i class="far fa-circle"></i>
+                                                    </p>
+                                                    <p class="d-flex flex-column text-right">
+                                                    <span class="font-weight-bold">
+                                                        <b style="font-size: 15px;"><%= row.pns_em_contagem %></b>
+                                                    </span>
+                                                    <span class="text-muted">PART NUMBER'S</span>
+                                                    </p>
+                                                </div>
+                                                
+                                                <div class="d-flex justify-content-between align-items-center border-bottom mb-0">
+                                                    <p class="text-danger text-lg">
+                                                        &nbsp;&nbsp;&nbsp;<i class="fas fa-chevron-up"></i>
+                                                    </p>
+                                                    <p class="d-flex flex-column text-right">
+                                                    <span class="font-weight-bold">
+                                                        <b style="font-size: 15px;"><%= row.locais_aereo %></b>
+                                                    </span>
+                                                    <span class="text-muted">LOCAIS AÉREO</span>
+                                                    </p>
+                                                </div>
+                                                
+                                                <div class="d-flex justify-content-between align-items-center border-bottom mb-0">
+                                                    <p class="text-success text-lg">
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-chevron-right"></i>
+                                                    </p>
+                                                    <p class="d-flex flex-column text-right">
+                                                    <span class="font-weight-bold">
+                                                        <b style="font-size: 15px;"><%= row.locais_picking %></b>
+                                                    </span>
+                                                    <span class="text-muted">LOCAIS PICKING</span>
+                                                    </p>
+                                                </div><br>
+                                            <% }) %>
+                                        <% } else { %>
+                                            <!-- Não existe dados na tabela -->
+                                             <p class="text-center">Não há informações disponíveis</p><br>
+                                        <% } %>
+                                        <!-- [Gráfico de Linha T1] -->
+                                        <h5 class="card-title">R$ Faltante (Mês atual)</h5><br>
+                                        <ul class="products-list">
+                                            <li class="item">
+                                                <canvas id="faltante_T2"></canvas>
+                                            </li>
+                                        </ul>                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Qualidade -->
+        <!--<div class="row">
+            <div class="col-md-12">
+                Para iniciar fechado, adicione collapsed-card na class-->
+                <div class="card card-warning">
+                    <!-- ######################################################################### Cabeçalho 
+                    <div class="card-header">
+                         Cabeçalho 
+                        <div class="btn-group">                            
+                            <h1 class="card-title">
+                                <i class="fas fa-award"></i>
+                                &nbsp;&nbsp;&nbsp;
+                                Qualidade
+                            </h1>
+                        </div>
+
+                         Botão Ocultar ou exibir o card -->
+                        <div class="card-tools">
+                            <!-- Botão Abrir/fechar card (Icone: fa-minus ou fa-plus) 
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            Botão Maximizar card 
+                            <button type="button" class="btn btn-tool" data-card-widget="maximize">
+                                <i class="fas fa-expand"></i>
+                            </button>
+                             Botão destruir card -
+                            <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    ######################################################################### Conteúdo 
+                    <div class="card-body">
+                        <div class="row">
+                            Informações 
+                            <div class="col-sm-12 col-md-12">
+                                <div class="card bg-light mb-3">
+                                    <div class="card-header"><h5>Informações</h5></div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">RNCs por dia com responsabilidade operador (Mês atual)</h5><br>
+                                        <ul class="products-list">
+                                            <li class="item" style="height: 290px;">
+                                                <canvas id="rnc_operador"></canvas>
+                                            </li>
+                                        </ul><br>
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6">
+                                                <h5 class="card-title">PPM</h5><br>
+                                                <ul class="products-list">
+                                                    <li class="item" style="font-size: large;">
+                                                        <% if (DTPPMAtual.length > 0) {%>
+                                                            <% DTPPMAtual.forEach((row, index) => { %>
+                                                                <b>Objetivo:</b>
+                                                                350
+                                                                <br>
+                                                                <b>PPM atual:</b>
+                                                                <%= row.ppm_atual %>
+                                                                <br>
+                                                                <b>PPM acumulado FY:</b>
+                                                                <%= row.ppm_acumulado %>
+                                                                <br>
+                                                                <b>Última atualização:</b>
+                                                                <%- row.data.toLocaleString() %>                                                               
+                                                            <% }) %>
+                                                        <% } else { %>
+                                                             Não existe dados na tabela 
+                                                            <p class="text-center">Não há informações disponíveis</p>
+                                                        <% } %>
+                                                    </li>
+                                                </ul><br>
+                                            </div>
+
+                                            <div class="col-sm-12 col-md-6">
+                                                <h5 class="card-title">Observações de qualidade</h5><br>
+                                                <ul class="products-list">
+                                                    <li class="item">
+                                                        <% if (DTPPMAtual.length > 0) {%>
+                                                            <table id="TBtableSimple9" class="">
+                                                                <tbody>
+                                                                     Detalhes: Dados da tabela 
+                                                                    <% DTPPMAtual.forEach((row, index) => { %>
+                                                                        <tr>
+                                                                            <td style="white-space: pre-line;font-size: large;"><%= row.observacoes %></td>
+                                                                        </tr>
+                                                                    <% }) %>
+                                                                </tbody>
+                                                            </table>
+                                                        <% } else { %>
+                                                             Não existe dados na tabela 
+                                                            <p class="text-center" style="font-size: large;">Não há informações disponíveis</p>
+                                                        <% } %>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <h5 class="card-title">Quantidade de avarias internas (Mês atual)</h5><br>
+                                        <ul class="products-list">
+                                            <li class="item" style="height: 290px;">
+                                                <canvas id="avarias_internas"></canvas>
+                                            </li>
+                                        </ul><br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+
+        <!-- Informativo -->
+        <% if (DTInformativo.length > 0) {%>
+            <% DTInformativo.forEach((row, index) => { %>
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Para iniciar fechado, adicione collapsed-card na class-->
+                    <div class="card card-gray">
+                        <!-- ######################################################################### Cabeçalho -->
+                        <div class="card-header">
+                            <!-- Cabeçalho -->
+                            <div class="btn-group">                            
+                                <h1 class="card-title">
+                                    <i class="fas fa-chalkboard-teacher"></i>
+                                    &nbsp;&nbsp;&nbsp;
+                                    Informativo operacional
+                                </h1>
+                            </div>
+
+                            <!-- Botão Ocultar ou exibir o card -->
+                            <div class="card-tools">
+                                <!-- Botão Abrir/fechar card (Icone: fa-minus ou fa-plus) -->
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <!-- Botão Maximizar card -->
+                                <button type="button" class="btn btn-tool" data-card-widget="maximize">
+                                    <i class="fas fa-expand"></i>
+                                </button>
+                                <!-- Botão destruir card -->
+                                <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- ######################################################################### Conteúdo -->
+                        <div class="card-body" style='background-color: <%= row.cor %>;'>
+                            <div class="row">
+                                <!-- Informações -->
+                                <div class="col-sm-12 col-md-12">
+                                    <div class="card bg-light mb-3" style="box-shadow: none;">
+                                        <div class="card-body card-body-full" style='background-color: <%= row.cor %>;'>
+                                            <div class="html-full" data-content="html">
+                                                <%- row.conteudo %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% }) %>
+        <% } else { %>
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Para iniciar fechado, adicione collapsed-card na class-->
+                    <div class="card card-gray">
+                        <!-- ######################################################################### Cabeçalho -->
+                        <div class="card-header">
+                            <!-- Cabeçalho -->
+                            <div class="btn-group">                            
+                                <h1 class="card-title">
+                                    <i class="fas fa-chalkboard-teacher"></i>
+                                    &nbsp;&nbsp;&nbsp;
+                                    Informativo operacional
+                                </h1>
+                            </div>
+
+                            <!-- Botão Ocultar ou exibir o card -->
+                            <div class="card-tools">
+                                <!-- Botão Abrir/fechar card (Icone: fa-minus ou fa-plus) -->
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <!-- Botão Maximizar card -->
+                                <button type="button" class="btn btn-tool" data-card-widget="maximize">
+                                    <i class="fas fa-expand"></i>
+                                </button>
+                                <!-- Botão destruir card -->
+                                <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- ######################################################################### Conteúdo -->
+                        <div class="card-body">
+                            <p class="text-center">Não há informações disponíveis</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+
+    </div>
+</section>
+
+<!-- Footer content -->
+<section class="content-footer">
+    <!-- Code here -->
+    <!-- Code here -->
+</section>
+
+
+<script>
+//Dashboard: Grafico Recebimento
+//Volumes T1
+$(function () {
+//Variáveis que receberão os dados para popular o gráfico
+const dia = [];
+const meta = [];
+const conferencia = [];
+const inspecao = [];
+
+//Dados recebidos do res.render na rota
+'<% DTChartLinhaTempoStageT1.forEach((row, index) => { %>'
+    dia.push('<%= row.Dia %>');
+    meta.push(moment('<%- row.Meta %>', 'HH:mm:ss').diff(moment().startOf('day'), 'seconds'));
+    conferencia.push(moment('<%- row.tempo_conferencia %>', 'HH:mm:ss').diff(moment().startOf('day'), 'seconds'));
+    inspecao.push(moment('<%- row.tempo_inspecao %>', 'HH:mm:ss').diff(moment().startOf('day'), 'seconds'));
+'<% }); %>'
+
+//Line chart definido no canvas da página
+//var ctx = document.getElementById('tempo_stage_recebimento').getContext('2d');
+var canvas = document.getElementById('tempo_stage_recebimento_T1');
+var ctx = canvas.getContext("2d");
+
+var myChart = new Chart(ctx, {
+    type: 'line',
+    maintainAspectRatio: true,
+    responsive: true,
+    data: {
+        labels: dia,
+        datasets: [{
+            data: meta,
+            label: "Status",
+            borderColor: "#CD5C5C",
+            fill: false,
+            pointStyle: 'circle',
+            radius: '0',
+            borderDash: [5],
+            borderWidth: 2
+        },
+        {
+            data: conferencia,
+            label: "Pagos",
+            borderColor: "#28a745",
+            fill: false,
+            pointStyle: 'circle',
+            radius: '4',
+        },
+        {
+            data: inspecao,
+            label: "Em aberto",
+            borderColor: "#FF7F24",
+            fill: false,
+            pointStyle: 'circle',
+            radius: '4',
+        }
+        ]
+    },
+    options: {
+        maintainAspectRatio: true,
+        responsive: true,
+        title: {
+            display: false,
+            text: 'Tempo medio'
+        },
+        legend: {
+            display: true,
+            position: 'bottom',
+            labels: {
+                boxWidth: 15
+            }
+        },
+        tooltips: {
+            mode: 'index',
+            intersect: false,
+            displayColors: true,
+            callbacks: {
+                label: function (tooltipItem, data) {
+                    var label = data.datasets[tooltipItem.datasetIndex].label || '';
+
+                    if (label) {
+                        label += ': ';
+                    }
+                    label += moment.utc((Math.round(tooltipItem.yLabel * 100) / 100) * 1000).format('HH:mm:ss');
+                    return label;
+                }
+            }
+        },
+        hover: {
+            mode: 'nearest',
+            intersect: true,
+        },
+        scales: {
+            xAxes: [{
+                gridLines: {
+                    display: true,
+                    drawBorder: true
+                }
+            }],
+            yAxes: [{
+                display: true,
+                gridLines: {
+                    display: true,
+                    drawBorder: true
+                },
+                ticks: {
+                    min: 0,
+                    //max: 15400,
+                    stepSize: 1800,
+                    scaleStartValue: 0,
+                    fontSize: 10,
+                    callback: function(value) {
+                        return moment.utc((Math.round(value * 100) / 100) * 1000).format('HH:mm:ss')
+                    }
+                }
+            }]
+        },
+    }
+});
+});
+
+//Volumes T1
+$(function () {
+    //Variáveis que receberão os dados para popular o gráfico
+    const dia = [];
+    const meta = [];
+    const conferencia = [];
+    const inspecao = [];
+
+    //Dados recebidos do res.render na rota
+    '<% DTChartLinhaTempoStageT2.forEach((row, index) => { %>'
+        dia.push('<%= row.Dia %>');
+        meta.push(moment('<%- row.Meta %>', 'HH:mm:ss').diff(moment().startOf('day'), 'seconds'));
+        conferencia.push(moment('<%- row.tempo_conferencia %>', 'HH:mm:ss').diff(moment().startOf('day'), 'seconds'));
+        inspecao.push(moment('<%- row.tempo_inspecao %>', 'HH:mm:ss').diff(moment().startOf('day'), 'seconds'));
+    '<% }); %>'
+
+    //Line chart definido no canvas da página
+    //var ctx = document.getElementById('tempo_stage_recebimento').getContext('2d');
+    var canvas = document.getElementById('tempo_stage_recebimento_T2');
+    var ctx = canvas.getContext("2d");
+
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        maintainAspectRatio: true,
+        responsive: true,
+        data: {
+            labels: dia,
+            datasets: [{
+                data: meta,
+                label: "Status",
+                borderColor: "#CD5C5C",
+                fill: false,
+                pointStyle: 'circle',
+                radius: '0',
+                borderDash: [5],
+                borderWidth: 2
+            },
+            {
+                data: conferencia,
+                label: "Pagos",
+                borderColor: "#28a745",
+                fill: false,
+                pointStyle: 'circle',
+                radius: '4',
+            },
+            {
+                data: inspecao,
+                label: "Em aberto",
+                borderColor: "#FF7F24",
+                fill: false,
+                pointStyle: 'circle',
+                radius: '4',
+            }
+            ]
+        },
+        options: {
+            maintainAspectRatio: true,
+            responsive: true,
+            title: {
+                display: false,
+                text: 'Tempo medio'
+            },
+            legend: {
+                display: true,
+                position: 'bottom',
+                labels: {
+                    boxWidth: 15
+                }
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+                displayColors: true,
+                callbacks: {
+                    label: function (tooltipItem, data) {
+                        var label = data.datasets[tooltipItem.datasetIndex].label || '';
+
+                        if (label) {
+                            label += ': ';
+                        }
+                        label += moment.utc((Math.round(tooltipItem.yLabel * 100) / 100) * 1000).format('HH:mm:ss');
+                        return label;
+                    }
+                }
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true,
+            },
+            scales: {
+                xAxes: [{
+                    gridLines: {
+                        display: true,
+                        drawBorder: true
+                    }
+                }],
+                yAxes: [{
+                display: true,
+                gridLines: {
+                    display: true,
+                    drawBorder: true
+                },
+                ticks: {
+                    min: 0,
+                    //max: 15400,
+                    stepSize: 1800,
+                    scaleStartValue: 0,
+                    fontSize: 10,
+                    callback: function(value) {
+                        return moment.utc((Math.round(value * 100) / 100) * 1000).format('HH:mm:ss')
+                    }
+                }
+            }]
+            },
+        }
+    });
+});
+
+
+//Dashboard: Grafico Embalagem
+//Setup de Embalagem T1
+$(function () {
+//Variáveis que receberão os dados para popular o gráfico
+const dia = [];
+const meta = [];
+const setupPE = [];
+const setupCilindro = [];
+const setupOutros = [];
+
+//Dados recebidos do res.render na rota
+'<% DTSetupEmbalagemT1.forEach((row, index) => { %>'
+    dia.push('<%= row.Dia %>');
+    meta.push(moment('<%- row.Meta %>', 'HH:mm:ss').diff(moment().startOf('day'), 'seconds'));
+    setupPE.push(moment('<%- row.setup_pe %>', 'HH:mm:ss').diff(moment().startOf('day'), 'seconds'));
+    setupCilindro.push(moment('<%- row.setup_cilindro %>', 'HH:mm:ss').diff(moment().startOf('day'), 'seconds'));
+    setupOutros.push(moment('<%- row.setup_outros %>', 'HH:mm:ss').diff(moment().startOf('day'), 'seconds'));
+'<% }); %>'
+
+//Line chart definido no canvas da página
+//var ctx = document.getElementById('tempo_stage_recebimento').getContext('2d');
+var canvas = document.getElementById('setup_embalagem_T1');
+var ctx = canvas.getContext("2d");
+
+var myChart = new Chart(ctx, {
+    type: 'line',
+    maintainAspectRatio: true,
+    responsive: true,
+    data: {
+        labels: dia,
+        datasets: [{
+            data: meta,
+            label: "Nacional",
+            borderColor: "#CD5C5C",
+            fill: false,
+            pointStyle: 'circle',
+            radius: '0',
+            borderDash: [5],
+            borderWidth: 2
+        },
+        {
+            data: setupPE,
+            label: "PE",
+            borderColor: "#007bff",
+            fill: false,
+            pointStyle: 'circle',
+            radius: '4',
+        },
+        {
+            data: setupCilindro,
+            label: "KIT Cilindro",
+            borderColor: "#28a745",
+            fill: false,
+            pointStyle: 'circle',
+            radius: '4',
+        },
+        {
+            data: setupOutros,
+            label: "KIT Outros",
+            borderColor: "#ffc107",
+            fill: false,
+            pointStyle: 'circle',
+            radius: '4',
+        }
+        ]
+    },
+    options: {
+        maintainAspectRatio: true,
+        responsive: true,
+        title: {
+            display: false,
+            text: 'Tempo medio'
+        },
+        legend: {
+            display: true,
+            position: 'bottom',
+            labels: {
+                boxWidth: 15
+            }
+        },
+        tooltips: {
+            mode: 'index',
+            intersect: false,
+            displayColors: true,
+            callbacks: {
+                label: function (tooltipItem, data) {
+                    var label = data.datasets[tooltipItem.datasetIndex].label || '';
+
+                    if (label) {
+                        label += ': ';
+                    }
+                    label += moment.utc((Math.round(tooltipItem.yLabel * 100) / 100) * 1000).format('HH:mm:ss');
+                    return label;
+                }
+            }
+        },
+        hover: {
+            mode: 'nearest',
+            intersect: true,
+        },
+        scales: {
+            xAxes: [{
+                gridLines: {
+                    display: true,
+                    drawBorder: true
+                }
+            }],
+            yAxes: [{
+                display: true,
+                gridLines: {
+                    display: true,
+                    borderDash: [0],
+                    drawBorder: true
+                },
+                ticks: {
+                    min: 0,
+                    //max: 400,
+                    stepSize: 30,
+                    scaleStartValue: 0,
+                    fontSize: 10,
+                    callback: function(value) {
+                        return moment.utc((Math.round(value * 100) / 100) * 1000).format('HH:mm:ss')
+                    }
+                }
+            }]
+        },
+    }
+});
+});
+
+//Setup de Embalagem T2
+$(function () {
+//Variáveis que receberão os dados para popular o gráfico
+const dia = [];
+const meta = [];
+const setupPE = [];
+const setupCilindro = [];
+const setupOutros = [];
+
+//Dados recebidos do res.render na rota
+'<% DTSetupEmbalagemT2.forEach((row, index) => { %>'
+    dia.push('<%= row.Dia %>');
+    meta.push(moment('<%- row.Meta %>', 'HH:mm:ss').diff(moment().startOf('day'), 'seconds'));
+    setupPE.push(moment('<%- row.setup_pe %>', 'HH:mm:ss').diff(moment().startOf('day'), 'seconds'));
+    setupCilindro.push(moment('<%- row.setup_cilindro %>', 'HH:mm:ss').diff(moment().startOf('day'), 'seconds'));
+    setupOutros.push(moment('<%- row.setup_outros %>', 'HH:mm:ss').diff(moment().startOf('day'), 'seconds'));
+'<% }); %>'
+
+//Line chart definido no canvas da página
+//var ctx = document.getElementById('tempo_stage_recebimento').getContext('2d');
+var canvas = document.getElementById('setup_embalagem_T2');
+var ctx = canvas.getContext("2d");
+
+var myChart = new Chart(ctx, {
+    type: 'line',
+    maintainAspectRatio: true,
+    responsive: true,
+    data: {
+        labels: dia,
+        datasets: [{
+            data: meta,
+            label: "Nacional",
+            borderColor: "#CD5C5C",
+            fill: false,
+            pointStyle: 'circle',
+            radius: '0',
+            borderDash: [5],
+            borderWidth: 2
+        },
+        {
+            data: setupPE,
+            label: "PE",
+            borderColor: "#007bff",
+            fill: false,
+            pointStyle: 'circle',
+            radius: '4',
+        },
+        {
+            data: setupCilindro,
+            label: "KIT Cilindro",
+            borderColor: "#28a745",
+            fill: false,
+            pointStyle: 'circle',
+            radius: '4',
+        },
+        {
+            data: setupOutros,
+            label: "KIT Outros",
+            borderColor: "#ffc107",
+            fill: false,
+            pointStyle: 'circle',
+            radius: '4',
+        }
+        ]
+    },
+    options: {
+        maintainAspectRatio: true,
+        responsive: true,
+        title: {
+            display: false,
+            text: 'Tempo medio'
+        },
+        legend: {
+            display: true,
+            position: 'bottom',
+            labels: {
+                boxWidth: 15
+            }
+        },
+        tooltips: {
+            mode: 'index',
+            intersect: false,
+            displayColors: true,
+            callbacks: {
+                label: function (tooltipItem, data) {
+                    var label = data.datasets[tooltipItem.datasetIndex].label || '';
+
+                    if (label) {
+                        label += ': ';
+                    }
+                    label += moment.utc((Math.round(tooltipItem.yLabel * 100) / 100) * 1000).format('HH:mm:ss');
+                    return label;
+                }
+            }
+        },
+        hover: {
+            mode: 'nearest',
+            intersect: true,
+        },
+        scales: {
+            xAxes: [{
+                gridLines: {
+                    display: true,
+                    drawBorder: true
+                }
+            }],
+            yAxes: [{
+                display: true,
+                gridLines: {
+                    display: true,
+                    borderDash: [0],
+                    drawBorder: true
+                },
+                ticks: {
+                    min: 0,
+                    //max: 400,
+                    stepSize: 30,
+                    scaleStartValue: 0,
+                    fontSize: 10,
+                    callback: function(value) {
+                        return moment.utc((Math.round(value * 100) / 100) * 1000).format('HH:mm:ss')
+                    }
+                }
+            }]
+        },
+    }
+});
+});
+
+//Takt de Embalagem T1
+$(function () {
+//Variáveis que receberão os dados para popular o gráfico
+const dia = [];
+const meta = [];
+const taktPE = [];
+const taktCilindro = [];
+const taktOutros = [];
+
+//Dados recebidos do res.render na rota
+'<% DTTaktEmbalagemT1.forEach((row, index) => { %>'
+    dia.push('<%= row.Dia %>');
+    meta.push('<%- row.Meta %>');
+    taktPE.push('<%- row.takt_pe %>');
+    taktCilindro.push('<%- row.takt_cilindro %>');
+    taktOutros.push('<%- row.takt_outros %>');
+'<% }); %>'
+
+//Line chart definido no canvas da página
+//var ctx = document.getElementById('tempo_stage_recebimento').getContext('2d');
+var canvas = document.getElementById('takt_embalagem_T1');
+var ctx = canvas.getContext("2d");
+
+var myChart = new Chart(ctx, {
+    type: 'line',
+    maintainAspectRatio: true,
+    responsive: true,
+    data: {
+        labels: dia,
+        datasets: [{
+            data: meta,
+            label: "Nacional",
+            borderColor: "#CD5C5C",
+            fill: false,
+            pointStyle: 'circle',
+            radius: '0',
+            borderDash: [5],
+            borderWidth: 2
+        },
+        {
+            data: taktPE,
+            label: "PE",
+            borderColor: "#007bff",
+            fill: false,
+            pointStyle: 'circle',
+            radius: '4',
+        },
+        {
+            data: taktCilindro,
+            label: "KIT Cilindro",
+            borderColor: "#28a745",
+            fill: false,
+            pointStyle: 'circle',
+            radius: '4',
+        },
+        {
+            data: taktOutros,
+            label: "KIT Outros",
+            borderColor: "#ffc107",
+            fill: false,
+            pointStyle: 'circle',
+            radius: '4',
+        }
+        ]
+    },
+    options: {
+        maintainAspectRatio: true,
+        responsive: true,
+        title: {
+            display: false,
+            text: 'Takt atingido'
+        },
+        legend: {
+            display: true,
+            position: 'bottom',
+            labels: {
+                boxWidth: 15
+            }
+        },
+        tooltips: {
+            mode: 'index',
+            intersect: false,
+            displayColors: true,
+            callbacks: {
+                label: function (tooltipItem, data) {
+                    var label = data.datasets[tooltipItem.datasetIndex].label || '';
+
+                    if (label) {
+                        label += ': ';
+                    }
+                    label += tooltipItem.yLabel + '%';
+                    return label;
+                }
+            }       
+        },
+        hover: {
+            mode: 'nearest',
+            intersect: true,
+        },
+        scales: {
+            xAxes: [{
+                gridLines: {
+                    display: true,
+                    drawBorder: true
+                }
+            }],
+            yAxes: [{
+                display: true,
+                gridLines: {
+                    display: true,
+                    borderDash: [0],
+                    drawBorder: true
+                },
+                ticks: {
+                    min: 0,
+                    max: 110,
+                    stepSize: 10,
+                    scaleStartValue: 0,
+                    fontSize: 10,
+                    callback: function(value) {
+                        return value + "%"
+                    }
+                }
+            }]
+        },
+    }
+});
+});
+
+//Takt de Embalagem T2
+$(function () {
+//Variáveis que receberão os dados para popular o gráfico
+const dia = [];
+const meta = [];
+const taktPE = [];
+const taktCilindro = [];
+const taktOutros = [];
+
+//Dados recebidos do res.render na rota
+'<% DTTaktEmbalagemT2.forEach((row, index) => { %>'
+    dia.push('<%= row.Dia %>');
+    meta.push('<%- row.Meta %>');
+    taktPE.push('<%- row.takt_pe %>');
+    taktCilindro.push('<%- row.takt_cilindro %>');
+    taktOutros.push('<%- row.takt_outros %>');
+'<% }); %>'
+
+//Line chart definido no canvas da página
+//var ctx = document.getElementById('tempo_stage_recebimento').getContext('2d');
+var canvas = document.getElementById('takt_embalagem_T2');
+var ctx = canvas.getContext("2d");
+
+var myChart = new Chart(ctx, {
+    type: 'line',
+    maintainAspectRatio: true,
+    responsive: true,
+    data: {
+        labels: dia,
+        datasets: [{
+            data: meta,
+            label: "Objetivo",
+            borderColor: "#CD5C5C",
+            fill: false,
+            pointStyle: 'circle',
+            radius: '0',
+            borderDash: [5],
+            borderWidth: 2
+        },
+        {
+            data: taktPE,
+            label: "PE",
+            borderColor: "#007bff",
+            fill: false,
+            pointStyle: 'circle',
+            radius: '4',
+        },
+        {
+            data: taktCilindro,
+            label: "KIT Cilindro",
+            borderColor: "#28a745",
+            fill: false,
+            pointStyle: 'circle',
+            radius: '4',
+        },
+        {
+            data: taktOutros,
+            label: "KIT Outros",
+            borderColor: "#ffc107",
+            fill: false,
+            pointStyle: 'circle',
+            radius: '4',
+        }
+        ]
+    },
+    options: {
+        maintainAspectRatio: true,
+        responsive: true,
+        title: {
+            display: false,
+            text: 'Takt atingido'
+        },
+        legend: {
+            display: true,
+            position: 'bottom',
+            labels: {
+                boxWidth: 15
+            }
+        },
+        tooltips: {
+            mode: 'index',
+            intersect: false,
+            displayColors: true,
+            callbacks: {
+                label: function (tooltipItem, data) {
+                    var label = data.datasets[tooltipItem.datasetIndex].label || '';
+
+                    if (label) {
+                        label += ': ';
+                    }
+                    label += tooltipItem.yLabel + '%';
+                    return label;
+                }
+            }       
+        },
+        hover: {
+            mode: 'nearest',
+            intersect: true,
+        },
+        scales: {
+            xAxes: [{
+                gridLines: {
+                    display: true,
+                    drawBorder: true
+                }
+            }],
+            yAxes: [{
+                display: true,
+                gridLines: {
+                    display: true,
+                    borderDash: [0],
+                    drawBorder: true
+                },
+                ticks: {
+                    min: 0,
+                    max: 110,
+                    stepSize: 10,
+                    scaleStartValue: 0,
+                    fontSize: 10,
+                    callback: function(value) {
+                        return value + "%"
+                    }
+                }
+            }]
+        },
+    }
+});
+});
+
+
+//Dashboard: Grafico Embalagem
+//Setup de Preparacao T1
+$(function () {
+//Variáveis que receberão os dados para popular o gráfico
+const dia = [];
+const meta = [];
+const setup = [];
+
+//Dados recebidos do res.render na rota
+'<% DTSetupPreparacaoT1.forEach((row, index) => { %>'
+    dia.push('<%= row.Dia %>');
+    meta.push(moment('<%- row.Meta %>', 'HH:mm:ss').diff(moment().startOf('day'), 'seconds'));
+    setup.push(moment('<%- row.setup %>', 'HH:mm:ss').diff(moment().startOf('day'), 'seconds'));
+'<% }); %>'
+
+//Line chart definido no canvas da página
+//var ctx = document.getElementById('tempo_stage_recebimento').getContext('2d');
+var canvas = document.getElementById('setup_preparacao_T1');
+var ctx = canvas.getContext("2d");
+
+var myChart = new Chart(ctx, {
+    type: 'line',
+    maintainAspectRatio: true,
+    responsive: true,
+    data: {
+        labels: dia,
+        datasets: [{
+            data: meta,
+            label: "Nacional",
+            borderColor: "#CD5C5C",
+            fill: false,
+            pointStyle: 'circle',
+            radius: '0',
+            borderDash: [5],
+            borderWidth: 2
+        },
+        {
+            data: setup,
+            label: "Internacional",
+            borderColor: "#605ca8",
+            fill: false,
+            pointStyle: 'circle',
+            radius: '4',
+        }
+        ]
+    },
+    options: {
+        maintainAspectRatio: true,
+        responsive: true,
+        title: {
+            display: false,
+            text: 'Tempo medio'
+        },
+        legend: {
+            display: true,
+            position: 'bottom',
+            labels: {
+                boxWidth: 15
+            }
+        },
+        tooltips: {
+            mode: 'index',
+            intersect: false,
+            displayColors: true,
+            callbacks: {
+                label: function (tooltipItem, data) {
+                    var label = data.datasets[tooltipItem.datasetIndex].label || '';
+
+                    if (label) {
+                        label += ': ';
+                    }
+                    label += moment.utc((Math.round(tooltipItem.yLabel * 100) / 100) * 1000).format('HH:mm:ss');
+                    return label;
+                }
+            }
+        },
+        hover: {
+            mode: 'nearest',
+            intersect: true,
+        },
+        scales: {
+            xAxes: [{
+                gridLines: {
+                    display: true,
+                    drawBorder: true
+                }
+            }],
+            yAxes: [{
+                display: true,
+                gridLines: {
+                    display: true,
+                    drawBorder: true
+                },
+                ticks: {
+                    min: 0,
+                    //max: 400,
+                    stepSize: 30,
+                    scaleStartValue: 0,
+                    fontSize: 10,
+                    callback: function(value) {
+                        return moment.utc((Math.round(value * 100) / 100) * 1000).format('HH:mm:ss')
+                    }
+                }
+            }]
+        },
+    }
+});
+});
+
+//Setup de Preparacao T2
+$(function () {
+//Variáveis que receberão os dados para popular o gráfico
+const dia = [];
+const meta = [];
+const setup = [];
+
+//Dados recebidos do res.render na rota
+'<% DTSetupPreparacaoT2.forEach((row, index) => { %>'
+    dia.push('<%= row.Dia %>');
+    meta.push(moment('<%- row.Meta %>', 'HH:mm:ss').diff(moment().startOf('day'), 'seconds'));
+    setup.push(moment('<%- row.setup %>', 'HH:mm:ss').diff(moment().startOf('day'), 'seconds'));
+'<% }); %>'
+
+//Line chart definido no canvas da página
+//var ctx = document.getElementById('tempo_stage_recebimento').getContext('2d');
+var canvas = document.getElementById('setup_preparacao_T2');
+var ctx = canvas.getContext("2d");
+
+var myChart = new Chart(ctx, {
+    type: 'line',
+    maintainAspectRatio: true,
+    responsive: true,
+    data: {
+        labels: dia,
+        datasets: [{
+            data: meta,
+            label: "Nacional",
+            borderColor: "#CD5C5C",
+            fill: false,
+            pointStyle: 'circle',
+            radius: '0',
+            borderDash: [5],
+            borderWidth: 2,
+        },
+        {
+            data: setup,
+            label: "Internacional",
+            borderColor: "#605ca8",
+            fill: false,
+            pointStyle: 'circle',
+            radius: '4',
+        }
+        ]
+    },
+    options: {
+        maintainAspectRatio: true,
+        responsive: true,
+        title: {
+            display: false,
+            text: 'Tempo medio'
+        },
+        legend: {
+            display: true,
+            position: 'bottom',
+            labels: {
+                boxWidth: 15
+            }
+        },
+        tooltips: {
+            mode: 'index',
+            intersect: false,
+            displayColors: true,
+            callbacks: {
+                label: function (tooltipItem, data) {
+                    var label = data.datasets[tooltipItem.datasetIndex].label || '';
+
+                    if (label) {
+                        label += ': ';
+                    }
+                    label += moment.utc((Math.round(tooltipItem.yLabel * 100) / 100) * 1000).format('HH:mm:ss');
+                    return label;
+                }
+            }
+        },
+        hover: {
+            mode: 'nearest',
+            intersect: true,
+        },
+        scales: {
+            xAxes: [{
+                gridLines: {
+                    display: true,
+                    drawBorder: true
+                }
+            }],
+            yAxes: [{
+                display: true,
+                gridLines: {
+                    display: true,
+                    borderDash: [0],
+                    drawBorder: true
+                },
+                ticks: {
+                    min: 0,
+                    //max: 400,
+                    stepSize: 30,
+                    scaleStartValue: 0,
+                    fontSize: 10,
+                    callback: function(value) {
+                        return moment.utc((Math.round(value * 100) / 100) * 1000).format('HH:mm:ss')
+                    }
+                }
+            }]
+        },
+    }
+});
+});
+
+
+//Dashboard: Grafico Inventario
+//Faltante T1
+$(function () {
+//Variáveis que receberão os dados para popular o gráfico
+const dia = [];
+const faltante = [];
+
+//Dados recebidos do res.render na rota
+'<% DTFaltanteT1.forEach((row, index) => { %>'
+    dia.push('<%= row.Dia %>');
+    faltante.push('<%- row.faltante %>');
+'<% }); %>'
+
+//Line chart definido no canvas da página
+//var ctx = document.getElementById('tempo_stage_recebimento').getContext('2d');
+var canvas = document.getElementById('faltante_T1');
+var ctx = canvas.getContext("2d");
+
+var myChart = new Chart(ctx, {
+    type: 'line',
+    maintainAspectRatio: true,
+    responsive: true,
+    data: {
+        labels: dia,
+        datasets: [{
+            data: faltante,
+            label: "Valor em análise",
+            borderColor: "#dc3545",
+            fill: true,
+            backgroundColor: "rgba(255, 10, 13, 0.2)", 
+            pointStyle: 'circle',
+            radius: '3',
+        }
+        ]
+    },
+    options: {
+        maintainAspectRatio: true,
+        responsive: true,
+        title: {
+            display: false,
+            text: 'Valor'
+        },
+        legend: {
+            display: true,
+            position: 'bottom',
+            labels: {
+                boxWidth: 15
+            }
+        },
+        tooltips: {
+            mode: 'index',
+            intersect: false,
+            displayColors: true,
+            callbacks: {
+                label: function (tooltipItem, data) {
+                    var label = data.datasets[tooltipItem.datasetIndex].label || '';
+
+                    if (label) {
+                        label += ': ';
+                    }
+                    label += Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(tooltipItem.yLabel);
+                    return label;
+                }
+            }
+        },
+        hover: {
+            mode: 'nearest',
+            intersect: true,
+        },
+        scales: {
+            xAxes: [{
+                gridLines: {
+                    display: true,
+                    drawBorder: true
+                }
+            }],
+            yAxes: [{
+                display: true,
+                gridLines: {
+                    display: true,
+                    borderDash: [0],
+                    drawBorder: true
+                },
+                ticks: {
+                    min: 0,
+                    //max: 400,
+                    stepSize: 10000,
+                    scaleStartValue: 0,
+                    fontSize: 10,
+                    callback: function(value) {
+                        return Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL', minimumFractionDigits: 0}).format(value)
+                    }
+                }
+            }]
+        },
+    }
+});
+});
+
+//Faltante T2
+$(function () {
+//Variáveis que receberão os dados para popular o gráfico
+const dia = [];
+const faltante = [];
+
+//Dados recebidos do res.render na rota
+'<% DTFaltanteT2.forEach((row, index) => { %>'
+    dia.push('<%= row.Dia %>');
+    faltante.push('<%- row.faltante %>');
+'<% }); %>'
+
+//Line chart definido no canvas da página
+//var ctx = document.getElementById('tempo_stage_recebimento').getContext('2d');
+var canvas = document.getElementById('faltante_T2');
+var ctx = canvas.getContext("2d");
+
+var myChart = new Chart(ctx, {
+    type: 'line',
+    maintainAspectRatio: true,
+    responsive: true,
+    data: {
+        labels: dia,
+        datasets: [{
+            data: faltante,
+            label: "Valor em análise",
+            borderColor: "#dc3545",
+            fill: true,
+            backgroundColor: "rgba(255, 10, 13, 0.2)", 
+            pointStyle: 'circle',
+            radius: '3',
+        }
+        ]
+    },
+    options: {
+        maintainAspectRatio: true,
+        responsive: true,
+        title: {
+            display: false,
+            text: 'Valor'
+        },
+        legend: {
+            display: true,
+            position: 'bottom',
+            labels: {
+                boxWidth: 15
+            }
+        },
+        tooltips: {
+            mode: 'index',
+            intersect: false,
+            displayColors: true,
+            callbacks: {
+                label: function (tooltipItem, data) {
+                    var label = data.datasets[tooltipItem.datasetIndex].label || '';
+
+                    if (label) {
+                        label += ': ';
+                    }
+                    label += Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(tooltipItem.yLabel);
+                    return label;
+                }
+            }
+        },
+        hover: {
+            mode: 'nearest',
+            intersect: true,
+        },
+        scales: {
+            xAxes: [{
+                gridLines: {
+                    display: true,
+                    drawBorder: true
+                }
+            }],
+            yAxes: [{
+                display: true,
+                gridLines: {
+                    display: true,
+                    borderDash: [0],
+                    drawBorder: true
+                },
+                ticks: {
+                    min: 0,
+                    //max: 400,
+                    stepSize: 10000,
+                    scaleStartValue: 0,
+                    fontSize: 10,
+                    callback: function(value) {
+                        return Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL', minimumFractionDigits: 0}).format(value)
+                    }
+                }
+            }]
+        },
+    }
+});
+});
+
+
+//Dashboard: Grafico Qualidade
+//Qtde RNC por dia operador
+$(function () {
+//Variáveis que receberão os dados para popular o gráfico
+const dia = [];
+const qtde_rnc = [];
+
+//Dados recebidos do res.render na rota
+'<% DTQualidade.forEach((row, index) => { %>'
+    dia.push('<%= row.Dia %>');
+    qtde_rnc.push('<%- row.rnc_operador %>');
+'<% }); %>'
+
+//Line chart definido no canvas da página
+//var ctx = document.getElementById('tempo_stage_recebimento').getContext('2d');
+var canvas = document.getElementById('rnc_operador');
+var ctx = canvas.getContext("2d");
+
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: dia,
+        datasets: [{
+            data: qtde_rnc,
+            label: "Qtde de RNC",
+            borderColor: "#605ca8",
+            fill: true,
+            backgroundColor: "rgba(96, 92, 168, 0.8)", 
+            pointStyle: 'circle',
+            radius: '3',
+        }
+        ]
+    },
+    options: {
+        maintainAspectRatio: false,
+        responsive: true,
+        title: {
+            display: false,
+            text: 'Qtde'
+        },
+        legend: {
+            display: true,
+            position: 'bottom',
+            labels: {
+                boxWidth: 15
+            }
+        },
+        tooltips: {
+            enabled: true,
+            mode: 'index',
+            intersect: false,
+            displayColors: true,      
+        },
+        plugins: {
+            datalabels: {
+               formatter: (value, ctx) => {
+                  return value;
+                },
+                color: '#fff',
+            }
+        },
+        hover: {
+            mode: 'nearest',
+            intersect: true,
+        },
+        scales: {
+            xAxes: [{
+                gridLines: {
+                    display: true,
+                    drawBorder: true
+                }
+            }],
+            yAxes: [{
+                display: true,
+                gridLines: {
+                    display: true,
+                    borderDash: [0],
+                    drawBorder: true
+                },
+                ticks: {
+                    min: 0,
+                    //max: 50,
+                    suggestedMax: 6,
+                    stepSize: 1,
+                    scaleStartValue: 0,
+                    fontSize: 10,
+                }
+            }]
+        },
+    }
+});
+});
+
+//Qtde de avarias internas por dia
+$(function () {
+//Variáveis que receberão os dados para popular o gráfico
+const dia = [];
+const avarias = [];
+
+//Dados recebidos do res.render na rota
+'<% DTQualidade.forEach((row, index) => { %>'
+    dia.push('<%= row.Dia %>');
+    avarias.push('<%- row.avaria_interna %>');
+'<% }); %>'
+
+//Line chart definido no canvas da página
+//var ctx = document.getElementById('tempo_stage_recebimento').getContext('2d');
+var canvas = document.getElementById('avarias_internas');
+var ctx = canvas.getContext("2d");
+
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: dia,
+        datasets: [{
+            steppedLine: 'middle',
+            data: avarias,
+            label: "Qtde de avarias",
+            borderColor: "#e07b39",
+            fill: false,
+            backgroundColor: "rgba(224,123,57, 0.4)", 
+            pointStyle: 'circle',
+            radius: '4',
+        }
+        ]
+    },
+    options: {
+        maintainAspectRatio: false,
+        responsive: true,
+        title: {
+            display: false,
+            text: 'Qtde'
+        },
+        legend: {
+            display: true,
+            position: 'bottom',
+            labels: {
+                boxWidth: 15
+            }
+        },
+        tooltips: {
+            enabled: true,
+            mode: 'index',
+            intersect: false,
+            displayColors: true,      
+        },
+        plugins: {
+            datalabels: {
+               formatter: (value, ctx) => {
+                  return value;
+                },
+                color: '#fff',
+            }
+        },
+        hover: {
+            mode: 'nearest',
+            intersect: true,
+        },
+        scales: {
+            xAxes: [{
+                gridLines: {
+                    display: true,
+                    drawBorder: true
+                }
+            }],
+            yAxes: [{
+                display: true,
+                gridLines: {
+                    display: true,
+                    borderDash: [0],
+                    drawBorder: true
+                },
+                ticks: {
+                    min: 0,
+                    //max: 50,
+                    suggestedMax: 10,
+                    stepSize: 1,
+                    scaleStartValue: 0,
+                    fontSize: 10,
+                }
+            }]
+        },
+    }
+});
+});
+
+</script>
