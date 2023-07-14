@@ -1,0 +1,1238 @@
+<!-- Partículas: https://vincentgarreau.com/particles.js/ -->
+<script src="plugins/particles/particles-A.js"></script>
+<script src="plugins/particles/particles-B.js"></script>
+
+<!-- Inicializando o Socket.io (chat) -->
+<script>
+    var socket = io();
+
+    //Função que renderiza as mensagens na tela
+    function renderMessage(message) {
+        var balao = '';
+        var lado_balao = '';
+        var lado_Nome = '';
+        var lado_Time = '';
+
+        //Se a msg for do mesmo usuário do front-end
+        if (message.author == document.getElementById("username").value) {
+            balao = '#DDF8C6; margin-left: auto;';
+            lado_balao = ' right';
+            lado_Nome = 'float-right';
+            lado_Time = 'float-left';
+        } else {//senão
+            balao = '#f5f5f5';
+            lado_balao = ''
+            lado_Nome = 'float-left';
+            lado_Time = 'float-right';
+        };
+
+        //Mostra a mensagem na tela do front-end
+        $('.direct-chat-messages').append('<div class="direct-chat-msg' + lado_balao + '" style="display: grid;"><div><img class="direct-chat-img" src="' + message.photo + '" alt="message user image"><div class="direct-chat-text" style="background: ' + balao + ';"><span class="direct-chat-name ' + lado_Nome + '">' + message.author + '</span>&nbsp;&nbsp;&nbsp;<span class="direct-chat-timestamp ' + lado_Time + '">' + message.time + '</span><br>' + message.message + '</div></div></div>');
+        document.getElementById("direct-chatMenssage").scrollTop = document.getElementById("direct-chatMenssage").scrollHeight;
+    }
+
+    //Ouve a mensagem emitida pelo app.js e renderiza na tela
+    socket.on('previousMessages', function (messages) {
+        for (message of messages) {
+            renderMessage(message);
+        }
+    });
+
+    //Ouve a mensagem emitida pelo app.js e renderiza na tela
+    socket.on('receivedMessage', function (message) {
+        renderMessage(message);
+        let nSound = new Audio('dist/audio/alert.mp3');
+        nSound.currentTime = 0;
+        nSound.play();
+    });
+
+    //Ao submeter o envio de uma mensagem
+    $('#chat').submit(function (event) {
+        //Não permite que a tela atualize
+        event.preventDefault();
+
+        //Variáveis
+        var photo = document.getElementById("photo").getAttribute("src");
+        var author = document.getElementById("username").value;
+        var message = document.getElementById("message").value;
+
+        //Se existir texto digitado
+        if (author.length && message.length) {
+
+            //Armazena dados digitados na variável messageObject
+            var messageObject = {
+                photo: photo,
+                author: author,
+                message: message,
+                time: moment().format('DD/MM/YYYY HH:mm:ss')
+            };
+
+            //Renderiza a mensagem atual digitada para o usuário atual
+            renderMessage(messageObject);
+
+            //Enviando os dados da variável messageObject ao app.js
+            socket.emit('sendMessage', messageObject);
+
+            //Limpa o campo para nova digitação
+            document.getElementById("message").value = '';
+            e.target.elements.msg.focus();
+        }
+    });
+</script>
+
+<!-- Opções globais das tabelas -->
+<script>
+
+    //TBtable - Searching/Info TRUE
+    $(function () {
+        $('#TBtable').show();
+
+        $('#TBtable tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<div class="input-icon-group"> <input type="text" placeholder="' + title + '"/> <div class="input-icon-search"> <i class="fas fa-search"></i> </div></div>');
+        });
+
+        $("#TBtable").DataTable({ //Aqui coloca o id da tabela desejada            
+            "responsive": true,
+            "stateSave": false,
+            "processing": true,
+            //"serverSide": true,
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            initComplete: function () {
+                this.api().columns().every(function () {
+                    var that = this;
+                    $('input', this.footer()).on('keyup change clear', function () {
+                        if (that.search() !== this.value) {
+                            that
+                                .search(this.value)
+                                .draw();
+                        }
+                    });
+                });
+            },
+        });
+    });
+
+    //TBtableBigData - Filtragem avançada
+    $(function () {
+        $('#TBtableBigData').show();
+        $("#TBtableBigData").DataTable({
+            "responsive": true,
+            "stateSave": true,
+            "processing": true,
+            //"serverSide": true,
+            "paging": false,
+            "lengthChange": true,
+            "searching": false,
+            "ordering": false,
+            "info": false,
+            "autoWidth": false,
+        });
+    });
+
+    //TBtableSimple - Classificação/Searching/Info FALSE
+    $(function () {
+        $('#TBtableSimple tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<div class="input-icon-group"> <input type="text" placeholder="' + title + '"/> <div class="input-icon-search"> <i class="fas fa-search"></i> </div></div>');
+        });
+
+        $("#TBtableSimple").DataTable({ //Aqui coloca o id da tabela desejada
+            initComplete: function () {
+                this.api().columns().every(function () {
+                    var that = this;
+                    $('input', this.footer()).on('keyup change clear', function () {
+                        if (that.search() !== this.value) {
+                            that
+                                .search(this.value)
+                                .draw();
+                        }
+                    });
+                });
+            },
+            //"stateSave": true,
+            "processing": true,
+            //"serverSide": true,
+            "paging": false,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": false,
+            "info": false,
+            "autoWidth": false,
+            "responsive": true,
+        });
+    });
+
+    //TBtableSimple2 - Classificação/Searching/Info FALSE
+    $(function () {
+        $('#TBtableSimple2 tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<div class="input-icon-group"> <input type="text" placeholder="' + title + '"/> <div class="input-icon-search"> <i class="fas fa-search"></i> </div></div>');
+        });
+
+        $("#TBtableSimple2").DataTable({ //Aqui coloca o id da tabela desejada
+            initComplete: function () {
+                this.api().columns().every(function () {
+                    var that = this;
+                    $('input', this.footer()).on('keyup change clear', function () {
+                        if (that.search() !== this.value) {
+                            that
+                                .search(this.value)
+                                .draw();
+                        }
+                    });
+                });
+            },
+            //"stateSave": true,
+            "processing": true,
+            //"serverSide": true,
+            "paging": false,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": false,
+            "info": false,
+            "autoWidth": false,
+            "responsive": true,
+        });
+    });
+
+    //TBtableSimple3 - Classificação/Searching/Info FALSE
+    $(function () {
+        $('#TBtableSimple3 tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<div class="input-icon-group"> <input type="text" placeholder="' + title + '"/> <div class="input-icon-search"> <i class="fas fa-search"></i> </div></div>');
+        });
+
+        $("#TBtableSimple3").DataTable({ //Aqui coloca o id da tabela desejada
+            initComplete: function () {
+                this.api().columns().every(function () {
+                    var that = this;
+                    $('input', this.footer()).on('keyup change clear', function () {
+                        if (that.search() !== this.value) {
+                            that
+                                .search(this.value)
+                                .draw();
+                        }
+                    });
+                });
+            },
+            //"stateSave": true,
+            "processing": true,
+            //"serverSide": true,
+            "paging": false,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": false,
+            "info": false,
+            "autoWidth": false,
+            "responsive": true,
+        });
+    });
+
+    //TBtableSimple4 - Classificação/Searching/Info FALSE
+    $(function () {
+        $('#TBtableSimple4 tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<div class="input-icon-group"> <input type="text" placeholder="' + title + '"/> <div class="input-icon-search"> <i class="fas fa-search"></i> </div></div>');
+        });
+
+        $("#TBtableSimple4").DataTable({ //Aqui coloca o id da tabela desejada
+            initComplete: function () {
+                this.api().columns().every(function () {
+                    var that = this;
+                    $('input', this.footer()).on('keyup change clear', function () {
+                        if (that.search() !== this.value) {
+                            that
+                                .search(this.value)
+                                .draw();
+                        }
+                    });
+                });
+            },
+            //"stateSave": true,
+            "processing": true,
+            //"serverSide": true,
+            "paging": false,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": false,
+            "info": false,
+            "autoWidth": false,
+            "responsive": true,
+        });
+    });
+
+    //TBtableSimple5 - Classificação/Searching/Info FALSE
+    $(function () {
+        $('#TBtableSimple5 tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<div class="input-icon-group"> <input type="text" placeholder="' + title + '"/> <div class="input-icon-search"> <i class="fas fa-search"></i> </div></div>');
+        });
+
+        $("#TBtableSimple5").DataTable({ //Aqui coloca o id da tabela desejada
+            initComplete: function () {
+                this.api().columns().every(function () {
+                    var that = this;
+                    $('input', this.footer()).on('keyup change clear', function () {
+                        if (that.search() !== this.value) {
+                            that
+                                .search(this.value)
+                                .draw();
+                        }
+                    });
+                });
+            },
+            //"stateSave": true,
+            "processing": true,
+            //"serverSide": true,
+            "paging": false,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": false,
+            "info": false,
+            "autoWidth": false,
+            "responsive": true,
+        });
+    });
+
+    //TBtableSimple6 - Classificação/Searching/Info FALSE
+    $(function () {
+        $('#TBtableSimple6 tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<div class="input-icon-group"> <input type="text" placeholder="' + title + '"/> <div class="input-icon-search"> <i class="fas fa-search"></i> </div></div>');
+        });
+
+        $("#TBtableSimple6").DataTable({ //Aqui coloca o id da tabela desejada
+            initComplete: function () {
+                this.api().columns().every(function () {
+                    var that = this;
+                    $('input', this.footer()).on('keyup change clear', function () {
+                        if (that.search() !== this.value) {
+                            that
+                                .search(this.value)
+                                .draw();
+                        }
+                    });
+                });
+            },
+            //"stateSave": true,
+            "processing": true,
+            //"serverSide": true,
+            "paging": false,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": false,
+            "info": false,
+            "autoWidth": false,
+            "responsive": true,
+        });
+    });
+
+    //TBtableSimple7 - Classificação/Searching/Info FALSE
+    $(function () {
+        $('#TBtableSimple7 tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<div class="input-icon-group"> <input type="text" placeholder="' + title + '"/> <div class="input-icon-search"> <i class="fas fa-search"></i> </div></div>');
+        });
+
+        $("#TBtableSimple7").DataTable({ //Aqui coloca o id da tabela desejada
+            initComplete: function () {
+                this.api().columns().every(function () {
+                    var that = this;
+                    $('input', this.footer()).on('keyup change clear', function () {
+                        if (that.search() !== this.value) {
+                            that
+                                .search(this.value)
+                                .draw();
+                        }
+                    });
+                });
+            },
+            //"stateSave": true,
+            "processing": true,
+            //"serverSide": true,
+            "paging": false,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": false,
+            "info": false,
+            "autoWidth": false,
+            "responsive": true,
+        });
+    });
+
+    //TBtableSimple8 - Classificação/Searching/Info FALSE
+    $(function () {
+        $('#TBtableSimple8 tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<div class="input-icon-group"> <input type="text" placeholder="' + title + '"/> <div class="input-icon-search"> <i class="fas fa-search"></i> </div></div>');
+        });
+
+        $("#TBtableSimple8").DataTable({ //Aqui coloca o id da tabela desejada
+            initComplete: function () {
+                this.api().columns().every(function () {
+                    var that = this;
+                    $('input', this.footer()).on('keyup change clear', function () {
+                        if (that.search() !== this.value) {
+                            that
+                                .search(this.value)
+                                .draw();
+                        }
+                    });
+                });
+            },
+            //"stateSave": true,
+            "processing": true,
+            //"serverSide": true,
+            "paging": false,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": false,
+            "info": false,
+            "autoWidth": false,
+            "responsive": true,
+        });
+    });
+
+    //TBtableSimple9 - Classificação/Searching/Info FALSE
+    $(function () {
+        $('#TBtableSimple9 tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<div class="input-icon-group"> <input type="text" placeholder="' + title + '"/> <div class="input-icon-search"> <i class="fas fa-search"></i> </div></div>');
+        });
+
+        $("#TBtableSimple9").DataTable({ //Aqui coloca o id da tabela desejada
+            initComplete: function () {
+                this.api().columns().every(function () {
+                    var that = this;
+                    $('input', this.footer()).on('keyup change clear', function () {
+                        if (that.search() !== this.value) {
+                            that
+                                .search(this.value)
+                                .draw();
+                        }
+                    });
+                });
+            },
+            //"stateSave": true,
+            "processing": true,
+            //"serverSide": true,
+            "paging": false,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": false,
+            "info": false,
+            "autoWidth": false,
+            "responsive": true,
+        });
+    });
+
+</script>
+
+<!-- Signature -->
+<style>
+    #signature {
+        border: 1px dashed lightgrey;
+        background-color: 'BEIGE';
+    }
+</style>
+<script>
+    //Variáveis para assinatura
+    var $sigdiv
+
+    //Inicializa o jSignature só depois que o modalPAEDIT carregar
+    $('#modalPAEDIT').on('shown.bs.modal', function (e) {
+        $sigdiv = $("#signature").jSignature({
+            'UndoButton': true,
+            width: '100%',
+            height: '100%',
+            border: '1px dashed lightgrey',
+            "background-color": "BEIGE"
+        });
+
+        //Pega assinatura base30 que foi gravada no elemento assinatura_PA_EDIT oculto do modalPAEDIT e joga dentro do pad do jSignature
+        $('#signature').jSignature('setData', document.getElementById('assinatura_PA_EDIT').value, 'base30');
+    });
+
+    //Ao clicar no botão salvar do modalPAEDIT grava a nova assinatura como base30 
+    //no input text assinatura_PA_EDIT oculto, isto para poder passar no post do formulário lá da página ejs e gravar no mysql
+    $('#btnSalvar_PA_EDIT').click(function () {
+        document.getElementById("assinatura_PA_EDIT").value = $sigdiv.jSignature('getData', 'base30');
+    });
+
+    //Destroi o plugin signature ao fechar o modal para não duplicar o elemento cada vez que o modal é aberto
+    $('#modalPAEDIT').on('hidden.bs.modal', function (e) {
+        $sigdiv.jSignature("destroy");
+        $sigdiv.jSignature("clear");
+        $sigdiv.jSignature("reset");
+        $sigdiv = null;
+    });
+
+</script>
+
+<!-- Opções globais do checkbox -->
+<script>
+    $(document).ready(function () {
+        bsCustomFileInput.init();
+    });
+</script>
+
+<!-- UFO -->
+<script>
+    $(document).ready(function () {
+        let ufo = document.querySelector('.ufo');
+
+        ufo.addEventListener('mousemove', (e) => {
+            let eyes = document.querySelector('.eyes');
+            let mouseX = (eyes.getBoundingClientRect().left);
+            let mouseY = (eyes.getBoundingClientRect().top);
+            let radianDegrees = Math.atan2(e.pageX - mouseX, e.pageY - mouseY);
+            let rotationDegrees = (radianDegrees * (180 / Math.PI) * -1) + 180;
+            eyes.style.transform = `rotate(${rotationDegrees}deg)`
+        });
+    });
+</script>
+
+<!-- Inicialização do elemento Select2 -->
+<script>
+    $(function () {
+        $('.select2').select2({
+            theme: "bootstrap4"
+        });
+    });
+</script>
+
+<!-- Inicialização do elemento Switch -->
+<script>
+    $("input[data-bootstrap-switch]").each(function () {
+        $(this).bootstrapSwitch('state', $(this).prop('checked'));
+    });
+</script>
+
+<!-- Inicialização do popover -->
+<script>
+    $(function () {
+        $('[data-toggle="popover"]').popover({
+            container: 'body',
+            html: true,
+            trigger: 'hover',
+            placement: 'top',
+            content: function () { return '<img src="' + $(this).data('img') + '" />'; }
+        });
+    })
+</script>
+
+<!-- Inicialização do tooltip -->
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+
+<!-- Mask diversos -->
+<script>
+    $(document).ready(function () {
+        $('.num').mask('0000');
+        $('.num').mask('0000');
+        $('.dates').mask('00/00/0000');
+        $('.times').mask('00:00:00');
+        $('.date_times').mask('00/00/0000 00:00:00');
+        $('.cep').mask('00000-000');
+        $('.phone').mask('0000-0000');
+        $('.phone_with_ddd').mask('(00) 0000-0000');
+        $('.cell').mask('0 0000-0000');
+        $('.cell_with_ddd').mask('(00) 0 0000-0000');
+        $('.phone_us').mask('(000) 000-0000');
+        $('.placa').mask('AAA-0000');
+        $('.mixed').mask('AAA 000-S0S');
+        $('.cpf').mask('000.000.000-00', {
+            reverse: true
+        });
+        $('.cnpj').mask('00.000.000/0000-00', {
+            reverse: true
+        });
+        $('.money').mask('000.000.000.000.000,00', {
+            reverse: true
+        });
+        $('.money2').mask("#.##0,00", {
+            reverse: true
+        });
+        $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {
+            translation: {
+                'Z': {
+                    pattern: /[0-9]/,
+                    optional: true
+                }
+            }
+        });
+        $('.ip_address').mask('099.099.099.099');
+        $('.percent').mask('000,00', {
+            reverse: true
+        });
+        $('.percent2').mask('##0,00%', {
+            reverse: true
+        });
+        $('.clear-if-not-match').mask("00/00/0000", {
+            clearIfNotMatch: true
+        });
+        $('.placeholder').mask("00/00/0000", {
+            placeholder: "__/__/____"
+        });
+        $('.fallback').mask("00r00r0000", {
+            translation: {
+                'r': {
+                    pattern: /[\/]/,
+                    fallback: '/'
+                },
+                placeholder: "__/__/____"
+            }
+        });
+        $('.selectonfocus').mask("00/00/0000", {
+            selectOnFocus: true
+        });
+    });
+</script>
+
+<!-- Alerta: Feedback do Login -->
+<script>
+    function toasterOptions() {
+        toastr.options = {
+            "closeButton": true,
+            "debug": true,
+            "newestOnTop": true,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+    };
+
+    /**
+     * Emite alerta caso não consiga logar
+     * o id "status_Login" está no final da login/pageLogin */
+    if (document.getElementById('status_Login').textContent == 'blank')
+    {
+        
+    }
+    else if (document.getElementById('status_Login').textContent == 'loginIncorreto') {
+        toasterOptions();
+        toastr.warning("Usuário e/ou senha incorreto(s).", "Erro");
+    } else if (document.getElementById('status_Login').textContent == 'loginBloqueado') {
+        toasterOptions();
+        toastr.error("Usuário bloqueado.", "Atenção");
+    } else if (document.getElementById('status_Login').textContent == 'loginOK') {
+        toasterOptions();
+        toastr.success("Seja bem vindo ao PCP WEB!");
+    } else {
+        //Corde here
+    };
+</script>
+
+<!-- Alerta: Feedback do CRUD -->
+<script>
+    function toasterOptions() {
+        toastr.options = {
+            "closeButton": true,
+            "debug": true,
+            "newestOnTop": true,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+    };
+
+    /**
+     * Emite alerta após realizar CRUD
+     * o id "status_Crud" está no final da usuario/content */
+    if (document.getElementById('status_Crud').textContent == 'nao') {
+        toasterOptions();
+        toastr.error("Operação não realizada.");
+    } else if (document.getElementById('status_Crud').textContent == 'sim') {
+        toasterOptions();
+        toastr.success("Operação realizada com sucesso.");
+    } else if (document.getElementById('status_Crud').textContent == 'registroExiste') {
+        toasterOptions();
+        toastr.error("O registro já existe.", "Erro");
+    } else if (document.getElementById('status_Crud').textContent == 'imgErroExtensao') {
+        toasterOptions();
+        toastr.error("Imagem não suportada.", "Erro");
+    } else if (document.getElementById('status_Crud').textContent == 'imgErroCopia') {
+        toasterOptions();
+        toastr.error("Imagem não locallizada.", "Erro");
+    } else {
+        //Code here
+    };
+</script>
+
+<!-- TinyMCE (Seções) -->
+<script>
+    var useDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    //Modal Adicionar
+    tinymce.init({
+        selector: '#conteudo_ADD, #conteudo_EDIT',
+        body_id: 'area_criativa',
+        language: 'pt_BR',
+        height: $(window).height() - 390,
+        //theme: 'modern',
+        resize: false,
+        autosave_ask_before_unload: false,
+        powerpaste_allow_local_images: true,
+
+        fontsize_formats:
+            '8pt 9pt 10pt 11pt 12pt 14pt 18pt 24pt 30pt 36pt 48pt 60pt 72pt 96pt',
+
+        plugins: ['print preview powerpaste paste casechange importcss tinydrive searchreplace autolink ' +
+            'autosave save directionality code advcode visualblocks visualchars fullscreen image link media ' +
+            'mediaembed template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime ' +
+            'advlist lists checklist wordcount tinymcespellchecker a11ychecker imagetools textpattern noneditable ' +
+            'help formatpainter permanentpen pageembed charmap tinycomments mentions quickbars linkchecker emoticons advtable'],
+        tiny_pageembed_classes: [
+            { text: 'Big embed', value: 'my-big-class' },
+            { text: 'Small embed', value: 'my-small-class' }
+        ],
+
+        //Exibição das ferramentas
+        toolbar: 'undo redo | fullscreen | table visualaid | fontselect fontsizeselect forecolor bold italic underline | ' +
+            'backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent formatpainter | ' +
+            'insertfile emoticons image media link | print | preview | pageembed codesample code | searchreplace | help',
+        menu: {
+            favs: { title: 'Favoritos', items: 'fullscreen' }
+        },
+        menubar: 'file edit view insert format tools',
+        statusbar: true,
+
+        //Tratando a quebra de linhas
+        inline: false,
+        force_br_newlines: true,
+        force_p_newlines: false,
+        forced_root_block: '',
+        remove_linebreaks: false,
+        convert_newlines_to_br: true,
+        paste_remove_styles: true,
+        theme_advanced_resizing: true,
+        //skin: useDarkMode ? 'oxide-dark' : 'oxide',
+        //content_css: useDarkMode ? 'dark' : 'default',
+
+        /* enable title field in the Image dialog*/
+        media_live_embeds: true,
+        image_title: true,
+        image_advtab: true,
+        image_caption: true,
+        /* enable automatic uploads of images represented by blob or data URIs*/
+        automatic_uploads: true,
+        /*
+          URL of our upload handler (for more details check: https://www.tiny.cloud/docs/configure/file-image-upload/#images_upload_url)
+          images_upload_url: 'postAcceptor.php',
+          here we add custom filepicker only to Image dialog
+        */
+        file_picker_types: 'image',
+        /* and here's our custom image picker*/
+        file_picker_callback: function (cb, value, meta) {
+            var input = document.createElement('input');
+            input.setAttribute('type', 'file');
+            input.setAttribute('accept', 'image/*');
+            /*
+            Note: In modern browsers input[type="file"] is functional without
+            even adding it to the DOM, but that might not be the case in some older
+            or quirky browsers like IE, so you might want to add it to the DOM
+            just in case, and visually hide it. And do not forget do remove it
+            once you do not need it anymore.
+            */
+            input.onchange = function () {
+                var file = this.files[0];
+
+                var reader = new FileReader();
+                reader.onload = function () {
+                    /*
+                      Note: Now we need to register the blob in TinyMCEs image blob
+                      registry. In the next release this part hopefully won't be
+                      necessary, as we are looking to handle it internally.
+                    */
+                    var id = 'blobid' + (new Date()).getTime();
+                    var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+                    var base64 = reader.result.split(',')[1];
+                    var blobInfo = blobCache.create(id, file, base64);
+                    blobCache.add(blobInfo);
+
+                    /* call the callback and populate the Title field with the file name */
+                    cb(blobInfo.blobUri(), { title: file.name });
+                };
+                reader.readAsDataURL(file);
+            };
+
+            input.click();
+        },
+
+        setup: function (editor) {
+            editor.on('BeforeSetContent', function (contentEvent) {
+                contentEvent.content = contentEvent.content.replace(/\r?\n/g, '<br />');
+            })
+        },
+
+        //Salvando o conteúdo antes do insert/update
+        setup: function (editor) {
+            editor.on('change', function () {
+                editor.save();
+                tinymce.activeEditor.setContent($("#txtrichtextedior").val(), { format: 'raw' });
+            });
+        },
+
+
+    });
+
+    //Foca no editor após abertura do modal, necessário para executar o post do formulário
+    $('#modalADD').on('shown.bs.modal', function (e) {
+        tinymce.get('conteudo_ADD').focus();
+    });
+    $('#modalEDIT').on('shown.bs.modal', function (e) {
+        tinymce.get('conteudo_EDIT').focus();
+    });
+
+</script>
+
+<!-- Inicializa e configura datetimepicker -->
+<script>
+    //Data completa utilizado telas diversas
+    $(document).ready(function () {
+        $('.date').datetimepicker({
+            icons: {
+                time: "fas fa-clock"
+            },
+            format: 'DD/MM/YYYY HH:mm:ss',
+            locale: moment.locale('pt-br'),
+            timeZone: 'America/Sao_Paulo',
+            toolbarPlacement: 'top',
+            buttons: {
+                showToday: true,
+                showClear: true,
+                showClose: true
+            }
+        });
+    });
+
+    //Somente Hora, minuto e segundo
+    $(document).ready(function () {
+        $('.time').datetimepicker({
+            icons: {
+                time: "fas fa-clock"
+            },
+            format: 'HH:mm:ss',
+            locale: moment.locale('pt-br'),
+            timeZone: 'America/Sao_Paulo',
+            toolbarPlacement: 'top',
+            buttons: {
+                showToday: true,
+                showClear: true,
+                showClose: true
+            },
+            useCurrent: 'day'
+        });
+    });
+
+    //Utilizado no FullCalendar
+    $(document).ready(function () {
+        $('.dateCalendar').datetimepicker({
+            icons: {
+                time: "fas fa-clock"
+            },
+            format: 'DD/MM/YYYY HH:mm:ss',
+            locale: moment.locale('pt-br'),
+            //Fullcalenadar Não pode ter o timezone no datetimepicker
+            //timeZone: 'America/Sao_Paulo',
+            toolbarPlacement: 'top',
+            buttons: {
+                showToday: true,
+                showClear: true,
+                showClose: true
+            }
+        });
+    });
+</script>
+
+<!-- Inicializa e configura clockpicker -->
+<script>
+    $('.clockpicker').clockpicker({
+        placement: 'right',
+        //align: 'left',
+        donetext: 'Done',
+        //format: 'HH:ii:ss',
+        //twelvehour: true,
+        autoclose: true,
+        vibrate: true
+    });
+</script>
+
+<!-- Permite movimentar section na tela -->
+<script>
+    // Make the dashboard widgets sortable Using jquery UI
+    $('.connectedSortable').sortable({
+        placeholder: 'sort-highlight',
+        connectWith: '.connectedSortable',
+        handle: '.card-header, .nav-tabs, .small-box, .info-box',
+        forcePlaceholderSize: true,
+        zIndex: 999999
+    });
+
+    $('.connectedSortable .card-header, .connectedSortable .nav-tabs-custom, .connectedSortable .small-box, .connectedSortable .info-box').css('cursor', 'move')
+
+    // jQuery UI sortable for the todo list
+    $('.todo-list').sortable({
+        placeholder: 'sort-highlight',
+        handle: '.handle',
+        forcePlaceholderSize: true,
+        zIndex: 999999
+    })
+
+    $(function () {
+        $("section.droptrue").sortable({
+            connectWith: "section"
+        });
+
+        $("section.dropfalse").sortable({
+            connectWith: "section",
+            dropOnEmpty: false
+        });
+
+        //Adicionar id das SECTION que recebe os cards aqui
+        //Ex.: <section id="sortable2" class="col-lg-5 connectedSortable droptrue">
+        $("#sortable1, #sortable2, #sortable3, #sortable4").disableSelection();
+    });
+</script>
+
+<!-- Permite movimentar div na tela -->
+<script>
+    $(function () {
+        //informe o id da div aqui
+        $("#draggable").draggable();
+    });
+</script>
+
+<!-- Resizeandcrop -->
+<script>
+    //Inicializa a classe lupa-img
+    $(function () {
+        $(".resizeAndCrop-img").resizeAndCrop({
+            // Force resulting image size?
+            // (0=inherit from placeholder img element)
+            'width': 0,
+            'height': 0,
+
+            // Crop resulting image?
+            'crop': true,
+
+            // Center when cropping?
+            'center': true,
+
+            // Smart crop+center mode?,
+            'smart': true,
+
+            // If the original image is too small to fit
+            // the wished sized, do we make it float
+            // within a larger container?
+            'preserveSize': false,
+
+            // Force small images to be resized?
+            'forceResize': false,
+
+            // Optional classes for resulting img element
+            // and div container element
+            'imgClass': '',
+            'contClass': '',
+
+            // Start loading/rendering after...
+            'renderStartDelay': 50, // ms
+
+            // Load images by batch of...
+            'renderBatchSize': 10, // #images
+
+            // Pause in between batches
+            'renderBatchPause': 200  // ms
+        })
+    });
+</script>
+
+<!-- Klouds -->
+<script>
+    $('#Manutencao').Klouds({
+        layerCount: 5,
+        speed: 1,
+        cloudColor1: '#19b2cc',
+        cloudColor2: '#fafafa',
+    })
+
+    /*Para iniciar coloque este código na página
+     <div class="example">
+        <canvas id="Manutencao"></canvas>
+     </div>
+    */
+</script>
+
+<!-- JsBarcode -->
+<script>
+    JsBarcode(".barcode").init();
+    /*
+    *Utilização
+    <svg class="barcode"
+        jsbarcode-format="ean13"
+        jsbarcode-value="123456789012"
+        jsbarcode-textmargin="0"
+        jsbarcode-fontoptions="bold"
+        jsbarcode-fontSize="12"
+        jsbarcode-width="1"//2
+        jsbarcode-height="50">//100
+    </svg>
+    */
+</script>
+
+<!-- thdoan-magnify -->
+<script>
+    $('#modalEDIT').on('shown.bs.modal', function () {
+        $('.zoom').magnify({
+            speed: 100,
+        });
+    });
+</script>
+
+<!-- iosOverlay -->
+<script>
+    $(document).on("click", "#btnSalvar_ADD, #btnSalvar_EDIT, #btnDeletar_DEL, #btnSalvar_PA_EDIT", function (e) {
+        var opts = {
+            lines: 13, // The number of lines to draw
+            length: 11, // The length of each line
+            width: 5, // The line thickness
+            radius: 17, // The radius of the inner circle
+            corners: 1, // Corner roundness (0..1)
+            rotate: 0, // The rotation offset
+            color: '#FFF', // #rgb or #rrggbb
+            speed: 1, // Rounds per second
+            trail: 60, // Afterglow percentage
+            shadow: false, // Whether to render a shadow
+            hwaccel: false, // Whether to use hardware acceleration
+            className: 'spinner', // The CSS class to assign to the spinner
+            zIndex: 2e9, // The z-index (defaults to 2000000000)
+            top: 'auto', // Top position relative to parent in px
+            left: 'auto' // Left position relative to parent in px
+        };
+        var target = document.createElement("div");
+        document.body.appendChild(target);
+        var spinner = new Spinner(opts).spin(target);
+        iosOverlay({
+            text: "Loading",
+            duration: 2e3,
+            spinner: spinner
+        });
+        return true;
+    });
+</script>
+
+<!-- bootstrap-colorselector -->
+<script>
+    $(function () {
+
+        window.prettyPrint && prettyPrint();
+
+        $('.colorselector').colorselector({
+            callback: function (value, color, title) {
+                $("#colorValue").val(value);
+                $("#colorColor").val(color);
+                $("#colorTitle").val(title);
+            }
+        });
+    });
+</script>
+
+<!-- Content Collapse -->
+<script>
+    contentCollapse.init();
+</script>
+
+<!-- Funções diversas para utilização no font-end -->
+<script>
+    //Pega o valor do MySQL e converte para mostrar no inputText
+    function formatBDToDecimal(str) {
+        var formatter = new Intl.NumberFormat('pt-BR', {
+            style: 'decimal',
+            currency: 'BRL',
+            minimumFractionDigits: 2,
+        });
+        var formatado = formatter.format(str);
+        return formatado;
+    };
+
+    //Pega o valor do Front-end e converte em decimal
+    function formatDecimalToBD(str) {
+        if (str == null || str == '' || str == 0) {
+            return 0;
+        } else {
+            return str.replace(".", "").replace(",", ".");
+        }
+    };
+
+    //Pega o valor decimal e cobverte em R$ 0,00
+    function formatDecimalToReais(str) {
+        var formatter =
+            new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL',
+                minimumFractionDigits: 2,
+            });
+        var formatado = formatter.format(str);
+        return formatado;
+    };
+
+    //Pega o valor do MySQL e converte para Reais
+    function formatBDToReais(str) {
+        return Intl.NumberFormat('pt-br', { style: 'currency', currency: 'BRL' }).format(str);
+    };
+
+    //Pega a data em AAAA-MM-DD HH:mm:ss e transforma em DD/MM/AAAA HH:mm:ss
+    function formatBDToDateTime(str) {
+        if (str == null || str == '0000-00-00 00:00:00' || str == 'Invalid Date' || str == 'undefined') {
+            return ''
+        } else {
+            return moment(str).format('DD/MM/YYYY HH:mm:ss');
+        }
+    };
+
+    function formatBDToDateTimeFullCalendar(str) {
+        if (str == null || str == '0000-00-00 00:00:00' || str == 'Invalid Date' || str == 'undefined') {
+            return ''
+        } else {
+            return moment(str).format('YYYY-MM-DD HH:mm:ss');
+        }
+    };
+
+    //Pega a data em DD/MM/AAAA HH:mm:ss e transforma em AAAA-MM-DD HH:mm:ss
+    function formatDateTimeToBD(str) {
+        var formatter = moment(str, 'DD/MM/YYYY HH:mm:ss', true).format('YYYY-MM-DD HH:mm:ss');
+        return formatter;
+    };
+
+    //Pega a data em DD/MM/AAAA HH:mm:ss e transforma em AAAA-MM-DD HH:mm:ss
+    function formatDateTimeToCalendar(str) {
+        return moment(str).format('YYYY-MM-DDTHH:MM:SSZ');
+    };
+
+    //Pega a data em DD/MM/AAAA HH:mm:ss e traz a semana do ano (https://momentjs.com/docs/#/displaying/)
+    function formatDateTimeToWeek(str) {
+        return moment(str).format("WW");
+    };
+
+    //Pega a data em DD/MM/AAAA HH:mm:ss e traz o dia da semana (https://momentjs.com/docs/#/displaying/)
+    function formatDateTimeToWeek(str) {
+        return moment(str).format("dddd");
+    };
+
+    //Não permite digitar espaços no inputText
+    function Trim(str) {
+        return str.replace(/^\s+|\s+$/g, "");
+    }
+
+    //Revelar Senha
+    function revelar(botao, campo) {
+        botao.addEventListener('mousedown', function () {
+            campo.type = 'text';
+        });
+        botao.addEventListener('mouseup', function () {
+            campo.type = 'password';
+        });
+        botao.addEventListener('mousemove', function () {
+            campo.type = 'password';
+        });
+    }
+
+    //Função para filtrar menu
+    function menuFilter() {
+        // Declare variables
+        var input, filter, ul, li, a, i;
+        input = document.getElementById("mySearch");
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("myMenu");
+        li = ul.getElementsByTagName("li");
+
+        // Loop through all list items, and hide those who don't match the search query
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
+
+    //Remove quebra de linhas de um texto
+    function formatQuebraLinha(str) {
+        return str.replaceALL("\n", "<br>");
+    };
+
+    //Calcular a diferença entre duas datas em dias
+    function diferencaDatas(dataNova, dataAntiga) {
+        const now = moment(new Date(formatDateTimeToBD(dataNova))); // Data de hoje
+        const past = moment(new Date(formatDateTimeToBD(dataAntiga))); // Outra data no passado
+        const duration = moment.duration(now.diff(past));
+
+        // Mostra a diferença em dias
+        const days = duration.asDays();
+
+        if (days >= 0) {
+            return Math.round(days);
+        } else {
+            return '0'
+        }
+    };
+
+    //Calcular a data limite para plano de ação de RNC
+    function dataLimite(dataAbertura, dias) {
+        const data = moment(new Date(formatDateTimeToBD(dataAbertura)));
+        const result = moment(new Date(formatDateTimeToBD(data.add(dias, 'days'))));
+
+        if (result == null || result == '0000-00-00 00:00:00' || result == 'Invalid Date' || result == 'undefined' || result < 0 || result == 'NaN') {
+            return '0000-00-00 00:00:00';
+        } else {
+            return result;
+        }
+    };
+
+    //Recebe 0, 1 e retorna Sim ou Nao
+    function returneSimNao(str) {
+        if (str == '1') {
+            return 'Sim';
+        } else {
+            return 'Nao';
+        }
+    };
+
+</script>
+
+<!-- Popula os gráficos do Dashboard -->
+<script src="dist/js/pages/dashboard.js" referrerpolicy="origin"></script>
+<script src="dist/js/pages/dashboard2.js" referrerpolicy="origin"></script>
+<script src="dist/js/pages/dashboard3.js" referrerpolicy="origin"></script>
+
+
+</body>
+
+</html>

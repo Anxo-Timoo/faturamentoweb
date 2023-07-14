@@ -1,0 +1,232 @@
+<!-- Brand Logo -->
+<a href="/home" class="brand-link">
+    <img src="dist/img/logo.png" alt="AdminLTE Logo" class="brand-image elevation-0">
+    <span class="brand-text font-weight-light" style="font-size: 15px">
+        <strong>FATURAMENTO&nbsp;&nbsp; ◦ &nbsp;&nbsp;</strong>WEB</span>
+</a>
+
+<!-- Sidebar -->
+<div class="sidebar">
+
+    <!-- Usuário logado -->
+    <div class="user-panel mt-2 pb-1 mb-2 d-flex">
+        <div class="image">
+            <img src="dist/img/usuarios/<%= foto_login_pcp %>" class="rounded-circle elevation-1" alt="User Image">
+        </div>
+        <div class="info">
+            <a href="#" class="d-block">
+                <%= nome_login_pcp %>
+            </a>
+            <span class="user-status">
+                <i class="fa fa-circle"></i>
+                <span>Online</span>
+            </span>
+        </div>
+    </div>
+
+    <!-- SidebarSearch Form -->
+    <div class="form-inline">
+        <div class="input-group input-group-sm" data-widget="sidebar-search">
+          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-sidebar">
+              <i class="fas fa-search fa-fw"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+            <!-- /Menu Transporte -->
+            <li class="nav-item has-treeview <%= TransporteOpen %>">
+
+                <!-- Transporte -->
+                <a href="#" class="nav-link <%= Transporte %>">
+                    <i class="nav-icon fas fa-truck"></i>
+                    <p>Fechamento<i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+
+                <!-- /Sub menus -->
+                <ul class="nav nav-treeview" id="myMenu">
+
+                    <!-- Agenda -->
+                    <li class="nav-item">
+                        <a href="/agenda" class="nav-link <%= CadAgenda %>">
+                            <i class="far fa-calendar-alt nav-icon" style="font-size: smaller;"></i>
+                            <p>Agenda</p>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <!-- /Menu Dashboard -->
+            <li class="nav-item has-treeview <%= ShopFloorOpen %>">
+
+                <!-- ShopFloor -->
+                <a href="#" class="nav-link <%= ShopFloor %>">
+                    <i class="nav-icon fas fa-poll"></i>
+                    <p>Dashboard<i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+
+                <!-- /Sub menus -->
+                <ul class="nav nav-treeview" id="myMenu">
+
+                    <!-- Sub Menu Informações gerais -->
+                    <li class="nav-item">
+                        <a href="/shopfloor" class="nav-link <%= CadShopfloor %>">
+                            <i class="fas fa-desktop nav-icon" style="font-size: smaller;"></i>
+                            <p>Logistica</p>
+                        </a>
+                    </li>
+
+                    <!-- Sub Menu Informações gerais -->
+                    <li class="nav-item">
+                        <a href="/informacoes_gerais" class="nav-link <%= CadInformacoes_Gerais %>">
+                            <i class="fas fa-info-circle nav-icon" style="font-size: smaller;"></i>
+                            <p>Informações gerais</p>
+                        </a>
+                    </li>
+
+                    <!-- Sub Menu Ocorrência -->
+                    <li class="nav-item">
+                            <a href="/ocorrencia_sf" class="nav-link <%= CadOcorrencia_sf %>">
+                            <i class="fas fa-exclamation-triangle nav-icon" style="font-size: smaller;"></i>
+                            <p>Ocorrência</p>
+                        </a>
+                    </li>
+
+                    <!-- Sub Menu Recebimento -->
+                    <li class="nav-item">
+                        <a href="/recebimento" class="nav-link <%= CadRecebimento %>">
+                        <i class="fas fa-truck nav-icon" style="font-size: smaller;"></i>
+                        <p>Recebimento</p>
+                        </a>
+                    </li>
+
+                    <!-- Sub Menu Embalagem -->
+                    <li class="nav-item">
+                        <a href="/ordem_venda" class="nav-link <%= CadEmbalagem %>">
+                        <i class="fas fa-dice-d6 nav-icon" style="font-size: smaller;"></i>
+                        <p>Ordens de Venda</p>
+                        </a>
+                    </li>
+
+                    <!-- Sub Menu Preparacao -->
+                   <!--  <li class="nav-item">
+                        <a href="/preparacao" class="nav-link <%= CadPreparacao %>">
+                        <i class="fas fa-shopping-cart nav-icon" style="font-size: smaller;"></i>
+                        <p>A faturar</p>
+                        </a>
+                    </li> -->
+
+                    <!-- Sub Menu Inventario -->
+                    <li class="nav-item">
+                        <a href="/inventario" class="nav-link <%= CadInventario %>">
+                        <i class="fas fa-chart-area nav-icon" style="font-size: smaller;"></i>
+                        <p>Clientes</p>
+                        </a>
+                    </li>
+
+                    <!-- Sub Menu Qualidade -->
+                    <!-- <li class="nav-item">
+                        <a href="/qualidade" class="nav-link <%= CadQualidade %>">
+                        <i class="fas fa-award nav-icon" style="font-size: smaller;"></i>
+                        <p>Qualidade</p>
+                        </a>
+                    </li> -->
+
+                    <!-- Sub Menu Informativo -->
+                    <li class="nav-item">
+                        <a href="/informativo" class="nav-link <%= CadInformativo %>">
+                        <i class="fas fa-chalkboard-teacher nav-icon" style="font-size: smaller;"></i>
+                        <p>Informativo</p>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <!-- /Menu Chat -->
+            <li class="nav-item has-treeview <%= ChatOpen %>">
+
+                <!-- Chat -->
+                <a href="#" class="nav-link <%= Chat %>">
+                    <i class="nav-icon fas fa-comment-dots"></i>
+                    <p>Comunicação<i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+
+                <!-- /Sub menus -->
+                <ul class="nav nav-treeview" id="myMenu">
+
+                    <!-- Chat -->
+                    <li class="nav-item">
+                        <a href="/chat" class="nav-link <%= CadChat %>">
+                            <i class="fas fa-comments nav-icon" style="font-size: smaller;"></i>
+                            <p>Chat</p>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <!-- /Menu cadastros -->
+            <li class="nav-item has-treeview <%= CadastroOpen %>">
+
+                <!-- Cadastro -->
+                <a href="#" class="nav-link <%= Cadastro %>">
+                    <i class="nav-icon fas fa-tools"></i>
+                    <p>Cadastros<i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+
+                <!-- /Sub menus -->
+                <ul class="nav nav-treeview" id="myMenu">
+
+                    <!-- Usuario -->
+                    <% if(perfil_login_pcp == 'Administrador') { %>
+                        <li class="nav-item">
+                            <a href="/usuario" class="nav-link <%= CadUsuario %>">
+                                <i class="fas fa-user-tie nav-icon" style="font-size: smaller;"></i>
+                                <p>Usuário</p>
+                            </a>
+                        </li>
+                    <% } else { %>
+                        <li class="nav-item" 
+                        data-toggle="popover" data-placement="right" title="Atenção!"
+                        data-content="Você não possui acesso a esta tela.">
+                            <a href="/usuario" class="nav-link disabled">
+                                <i class="fas fa-user-tie nav-icon" style="font-size: smaller;"></i>
+                                <p>Usuário</p>
+                            </a>
+                        </li>
+                    <% } %>
+
+                    <!-- Material -->
+                    <li class="nav-item">
+                        <a href="/material" class="nav-link <%= CadMaterial %>">
+                            <i class="fas fa-cube nav-icon" style="font-size: smaller;"></i>
+                            <p>Material</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="/material_sap" class="nav-link <%= CadMaterial %>">
+                            <i class="fas fa-cube nav-icon" style="font-size: smaller;"></i>
+                            <p>Materiais SAP(Lista)</p>
+                        </a>
+                    </li>
+
+
+                </ul>
+            </li>
+
+        </ul>
+    </nav>
+</div>

@@ -1,0 +1,638 @@
+<!-- Page Content (header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row sm-2">
+            <!-- Título -->
+            <div class="col-sm-6">
+                <h1>Informativo</h1>
+            </div>
+            <!-- Navegação histórica -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                    <li class="breadcrumb-item active">Informativo</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Page Content (conteúdo) -->
+<section class="content">
+    <div class="container-fluid">
+
+        <!-- Filtragem avançada -->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="content-collapse">
+                    <a data-toggle style="color: white;padding-left: 20px;"><i class="fas fa-filter" style="color: white;padding-right: 10px;"></i>Filtros</a>
+                    <div class="content">
+                        <form role="form" action="/informativo" method="post">
+                            <div class="card-body" style="display: grid;margin: -26px -21px -11px -21px;">
+
+                                <!-- Campos do filtro -->
+                                <label for="filter_Data" style="margin: 10px 0 0 0;">Data</label>
+                                <textarea class="form-control form-control-sm" name="filter_Data" id="filter_Data" rows="1"><%= body.data %></textarea>                                    
+
+                                <label for="filter_Setor" style="margin: 10px 0 0 0;">Setor</label>
+                                <textarea type="text" class="form-control form-control-sm" name="filter_Setor" id="filter_Setor" rows="1"><%= body.setor %></textarea>
+
+                                <label for="filter_Titulo" style="margin: 10px 0 0 0;">Título</label>
+                                <textarea class="form-control form-control-sm" name="filter_Titulo" id="filter_Titulo" rows="1"><%= body.titulo %></textarea>
+
+                                <label for="filter_Conteudo" style="margin: 10px 0 0 0;">Conteúdo</label>
+                                <textarea class="form-control form-control-sm" name="filter_Conteudo" id="filter_Conteudo" rows="1"><%= body.conteudo %></textarea>
+
+                                <label for="filter_Visivel" style="margin: 10px 0 0 0;">Visível</label>
+                                <textarea class="form-control form-control-sm" name="filter_Visivel" id="filter_Visivel" rows="1"><%= body.visivel %></textarea>
+
+                            </div>
+
+                            <!-- Botões Filtrar e Limpar -->
+                            <div class="card-footer" style="background: center;padding: 8px 0 8px 0px;display: flex;">
+                                <!-- Filtrar -->
+                                <button type="button" class="form-control btn-sm btn-primary" style="width: auto;height: fit-content;" 
+                                    onclick="(function() {
+                                        window.location = '/informativo/?page=1' + 
+                                        '&[data]=' + document.getElementById('filter_Data').value + 
+                                        '&[setor]=' + document.getElementById('filter_Setor').value + 
+                                        '&[titulo]=' + document.getElementById('filter_Titulo').value + 
+                                        '&[conteudo]=' + document.getElementById('filter_Conteudo').value + 
+                                        '&[visivel]=' + document.getElementById('filter_Visivel').value;
+                                    })()">&nbsp;&nbsp;&nbsp;&nbsp;Filtrar&nbsp;&nbsp;&nbsp;&nbsp;
+                                </button>
+                                &nbsp;&nbsp;&nbsp;
+                                <!-- Limpar -->
+                                <button type="button" class="form-control btn-sm btn-secondary" style="width: auto;height: fit-content;" 
+                                    onclick="(function() {
+                                        document.getElementById('filter_Data').value='';
+                                        document.getElementById('filter_Setor').value='';
+                                        document.getElementById('filter_Titulo').value='';
+                                        document.getElementById('filter_Conteudo').value='';
+                                        document.getElementById('filter_Visivel').value='';
+                                    })()">&nbsp;&nbsp;&nbsp;Limpar&nbsp;&nbsp;&nbsp;
+                                </button>
+                                <!-- Dicas -->
+                                <i class="far fa-question-circle" style="margin: 5px 0px 0px auto;color: #474f549f;"
+                                    data-toggle="popover" data-placement="top" 
+                                    title="Dicas!" 
+                                    data-content="Você pode pesquisar vários critérios de uma vez, separando-os por ponto e vírgula<br>
+                                                  <b>Exemplo:</b> <i>texto1;texto2;texto3</i><br><br>
+                                                  Caso seja um campo data, digite a data no formato americano: AAAA-MM-DD<br>
+                                                  <b>Exemplo:</b> <i>2021-05-22</i>">
+                                </i>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CRUD -->
+        <div class="row">
+            <div class="col-sm-12">
+
+                <!-- Para iniciar fechado, adicione collapsed-card na class-->
+                <div class="card card-primary card-outline">
+
+                    <!-- ######################################################################### Cabeçalho -->
+                    <div class="card-header">
+                        <!-- Botões -->
+                        <div class="btn-group">
+                            <!-- Abre o modal para INSERT -->
+                            <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="modal" 
+                                data-target="#modalADD">
+                                &nbsp;Adicionar&nbsp;
+                            </button>
+                        </div>
+
+                        <div class="btn-group">
+                            <!-- Botão para exportar dados da tabela (tableExport) -->
+                            <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-download" aria-hidden="true"></i>
+                                <span class="caret"></span>
+                            </button>
+
+                            <!-- Exportar -->
+                            <div class="dropdown-menu" role="menu">
+                                <!-- Exportar para Excel -->
+                                <a class="dropdown-item" style="cursor: pointer;" 
+                                    onclick="(function(){
+                                        $('#TBtableBigData').tableExport({type:'excel', fileName: 'Secoes', exportHiddenCells: true, ignoreColumn:'[],[],[]'});
+                                    })()">
+                                    <i class="fas fa-file-excel" style="color: #118311;"></i>
+                                    &nbsp;&nbsp;Ms-Excel
+                                </a>
+                                <!-- Exportar para PDF -->
+                                <a class="dropdown-item" style="cursor: pointer;" 
+                                    onclick="(function(){
+                                        $('#TBtableBigData').tableExport({type:'pdf', fileName: 'Secoes', exportHiddenCells: true, ignoreColumn:'[],[]'});
+                                    })()">
+                                    <i class="fas fa-file-pdf" style="color: #d17021;"></i>
+                                    &nbsp;&nbsp;PDF
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Botão Ocultar ou exibir o card -->
+                        <div class="card-tools">
+                            <!-- Botão Abrir/fechar card (Icone: fa-minus ou fa-plus) -->
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <!-- Botão destruir card -->
+                            <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <!-- ######################################################################### Tabela -->
+                    <div class="card-body">
+                        <% if (!Array.isArray(DTInformativo) || !DTInformativo.length) { %>
+                            <!-- Não existe dados na tabela -->
+                            <p class="text-center">Clique <a data-toggle="modal" data-target="#modalADD" style="cursor:pointer; color:rgb(79, 79, 255)"> aqui </a>para adicionar um novo registro.</p>
+    
+                            <% } else { %>
+                                <table id="TBtableBigData" class="table table-hover" style="display: none;">
+                                
+                                <!-- Paginação do BD -->
+                                <div class="row" style="place-items: center;margin-top: -31px;margin-bottom: -17px;flex-flow: nowrap;">
+                                    <% if (pageCount>= 1) { %>
+                                    <!-- Texto lateral esquerdo mostrando a qtde de páginas -->
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="dataTables_info" aria-live="polite">
+                                            Página <%= currentPage %> de <%= pageCount %> de um total de <%= totalItens %> registros (<%= pageSize %> por página)
+                                        </div>
+                                    </div>
+
+                                    <!-- Lista de botões superior direito para paginação -->
+                                    <div class="col-sm-12 col-md-6" style="text-align-last: right;">
+                                        <div class="dataTables_paginate paging_simple_numbers">
+                                            <ul class="pagination">
+                                                <!-- Primeiro botão « -->
+                                                <% if (currentPage>= 1) { %>
+                                                    <li><a href="#" 
+                                                        onclick="(function() {
+                                                            window.location = '/informativo/?page=1' + 
+                                                            '&[data]=' + document.getElementById('filter_Data').value + 
+                                                            '&[setor]=' + document.getElementById('filter_Setor').value + 
+                                                            '&[titulo]=' + document.getElementById('filter_Titulo').value + 
+                                                            '&[conteudo]=' + document.getElementById('filter_Conteudo').value + 
+                                                            '&[visivel]=' + document.getElementById('filter_Visivel').value;
+                                                        })()">&laquo;</a>
+                                                    </li>
+                                                <% } %>
+
+                                                <!-- Segundo botão desabilitado caso páginação > 5 -->
+                                                <% var i=1; if (currentPage> 5) { i = + currentPage -4;} %>
+                                                <% if (i !==1) { %>
+                                                    <li class="disabled"><a href="#">...</a></li>
+                                                <% } %>
+
+                                                <!-- Botões da paginação -->
+                                                <% for (i; i <=pageCount; i++) { %>
+                                                    <% if (currentPage==i) { %>
+                                                        <!-- Página corrente -->
+                                                        <li class="active"><span><%= i %> <span class="sr-only">(current)</span></span></li>
+                                                    <% } else { %>
+                                                        <!-- Demais páginas -->
+                                                        <li><a href="#" 
+                                                            onclick="(function() {
+                                                                window.location = '/informativo/?page=<%= i %>' + 
+                                                                '&[data]=' + document.getElementById('filter_Data').value + 
+                                                                '&[setor]=' + document.getElementById('filter_Setor').value + 
+                                                                '&[titulo]=' + document.getElementById('filter_Titulo').value + 
+                                                                '&[conteudo]=' + document.getElementById('filter_Conteudo').value + 
+                                                                '&[visivel]=' + document.getElementById('filter_Visivel').value;
+                                                            })()"><%= i %>
+                                                            </a>
+                                                        </li>
+                                                    <% } %>
+
+                                                    <!-- Mostra apenas 5 botões atras e a frente da página atual -->
+                                                    <% if (i==(+currentPage +4)) { %>
+                                                        <li class="disabled"><a href="#">...</a></li>
+                                                    <% break; } %>
+                                                <% } %>
+
+                                                <!-- Último botão » -->
+                                                <% if(currentPage !=pageCount) { %>
+                                                    <li><a href="#" 
+                                                        onclick="(function() {
+                                                            window.location = '/informativo/?page=<%= pageCount %>' + 
+                                                            '&[data]=' + document.getElementById('filter_Data').value + 
+                                                            '&[setor]=' + document.getElementById('filter_Setor').value + 
+                                                            '&[titulo]=' + document.getElementById('filter_Titulo').value + 
+                                                            '&[conteudo]=' + document.getElementById('filter_Conteudo').value + 
+                                                            '&[visivel]=' + document.getElementById('filter_Visivel').value;
+                                                        })()">&raquo;
+                                                        </a>
+                                                    </li>
+                                                <% } %>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <% } %>
+                                </div>
+
+                                <!-- Cabeçalho: Titulos da tabela -->
+                                <thead class="thead-light">
+                                    <tr>                                    
+                                        <th scope="col">Cod</th>
+                                        <th scope="col">Data</th>
+                                        <th scope="col">Setor</th>
+                                        <th scope="col">Titulo</th>
+                                        <th scope="col">Visível</th>
+                                        <th scope="col">Autor</th>
+                                        <th scope="col">Opcoes</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <!-- Detalhes: Dados da tabela -->
+                                    <% DTInformativo.forEach((row, index) => { %>
+                                        <tr>                                    
+                                            <td><%= row.cod %></td>
+                                            <% if(row.data == null || row.data == '0000-00-00 00:00:00' || row.data == 'Invalid Date' ) { %>
+                                                <td></td>
+                                            <% } else { %>
+                                                <td><%- row.data.toLocaleString() %></td>
+                                            <% } %>
+                                            <td><%= row.setor %></td>
+                                            <td><%= row.titulo %></td>
+                                            <td><%= row.visivel %></td>
+                                            <td><%= row.autor %></td>
+
+                                            <!-- Coluna: Opções -->
+                                            <td style="min-width: 130px;">
+                                                <button class="btn btn-xs btn-warning" data-toggle="modal" data-target="#modalEDIT" 
+                                                    onclick="(function(){                      
+                                                        //Setando o valor nos campos de texto 
+                                                        document.getElementById('cod_EDIT').value = '<%= row.cod %>';
+                                                        $('#data_EDIT').data('datetimepicker').date('<%- row.data %>');
+                                                        $('#setor_EDIT').val('<%= row.setor %>');
+                                                        $('#setor_EDIT').trigger('change');
+                                                        document.getElementById('titulo_EDIT').value = '<%= row.titulo %>';
+                                                        if('<%= row.visivel %>' == '1'){                        
+                                                            document.getElementById('visivel_EDIT').checked = true;        
+                                                        }else{
+                                                            document.getElementById('visivel_EDIT').checked = false;                        
+                                                        };
+                                                        $('#color_EDIT').colorselector('setColor', '<%- row.cor %>');
+                                                        //Setando valor no conteúdo do TinyMCE
+                                                        window.tinymce.get('conteudo_EDIT').getBody().innerHTML = `<%= row.conteudo %>`;
+                                                        
+
+                                                    })()">&nbsp;&nbsp;&nbsp;Editar&nbsp;&nbsp;
+                                                </button>
+
+                                                <!-- Função anónima dentro da classe button
+                                                    que seta o cod do registro selecionado no campo oculto do modal -->
+                                                <button class="btn btn-xs btn-danger" data-toggle="modal"
+                                                    data-target="#modalDEL" 
+                                                    onclick="(function(){
+                                                        document.getElementById('cod_DEL').textContent = '<%= row.cod %>';
+                                                    })()">Eliminar
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    <% }) %>
+                                </tbody>
+
+                                <tfoot>
+                                    <tr>
+                                        <th scope="col">Cod</th>
+                                        <th scope="col">Data</th>
+                                        <th scope="col">Setor</th>
+                                        <th scope="col">Titulo</th>
+                                        <th scope="col">Visível</th>
+                                        <th scope="col">Autor</th>
+                                        <th scope="col">Opcoes</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        <% } %>
+                    </div>
+
+                    <!-- ######################################################################### Modal para ADICIONAR -->
+                    <div class="modal modal-full fade" id="modalADD" data-backdrop="static">
+                        <div class="modal-dialog modal-xl modal-dialog-full">
+                            <div class="modal-content modal-content-full">
+                                <!-- Cabeçalho central do modal -->
+                                <div class="modal-header">
+                                    <!-- Título do modal -->
+                                    <h4 class="modal-title">Adicionar</h4>
+                                    <!-- Botão fechar modal -->
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <!-- Campos do modal -->
+                                <div class="modal-body modal-body-full">
+                                    <!-- Formulário para Adicionar registro -->
+                                    <form role="form" action="/addInformativo" method="post" enctype="multipart/form-data">
+
+                                        <!-- Campos: Cod, Data, Setor -->
+                                        <div class="row">
+
+                                            <!-- Cod -->
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label for="cod_ADD" class="label">Cod</label>
+                                                    <input type="text" class="form-control form-control-sm" name="cod_ADD" id="cod_ADD" placeholder="Cod" readonly=“true”>
+                                                </div>
+                                            </div>
+
+                                            <!-- Data -->
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="data_ADD" class="label">Data</label>
+                                                    <div class="input-group date" id="data_ADD" data-target-input="nearest">
+                                                        <input type="text"
+                                                            class="form-control form-control-sm datetimepicker-input date_times"
+                                                            data-target="#data_ADD"
+                                                            name="data_INPUT_ADD" id="data_INPUT_ADD"
+                                                            required />
+                                                        <div class="input-group-append" data-target="#data_ADD" data-toggle="datetimepicker">
+                                                            <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Setor -->
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="setor_ADD" class="label">Setor</label>
+                                                    <select class="form-control form-control-sm select2" style="width: 100%;" name="setor_ADD" id="setor_ADD" required>
+                                                        <option value="">-- Selecione --</option>
+                                                        <option value="RH">RH</option>
+                                                        <option value="Qualidade">Qualidade</option>
+                                                        <option value="Segurança do trabalho">Segurança do trabalho</option>
+                                                        <option value="Saúde">Saúde</option>
+                                                        <option value="Cooperativa">Cooperativa</option>
+                                                        <option value="Logística">Logística</option>
+                                                        <option value="Engenharia">Engenharia</option>
+                                                        <option value="Diretoria">Diretoria</option>                                                   
+                                                    </select>
+                                                </div>
+                                            </div>   
+
+                                        </div>
+
+                                        <!-- Campos: Título -->
+                                        <div class="row">
+
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="titulo_ADD" class="label">Título de referência</label>
+                                                    <input type="text" class="form-control form-control-sm" name="titulo_ADD" id="titulo_ADD" placeholder="Título">
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <!-- Campos: Visivel, cor -->
+                                        <div class="row">
+
+                                            <!-- Visivel -->
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label for="visivel_ADD" class="label">Visível na página?</label>
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input class="custom-control-input" type="checkbox" style="cursor: pointer" 
+                                                            name="visivel_ADD" id="visivel_ADD">
+                                                        <label for="visivel_ADD" class="custom-control-label" style="cursor: pointer">Sim/Não</label>
+                                                    </div>
+                                                </div>
+                                            </div>                                               
+
+                                            <!-- Cor Plano de fundo da seção -->
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label for="color_ADD" class="label">Plano de fundo</label>
+                                                    <select class="form-control form-control-sm colorselector"
+                                                        style="width: 100%;" name="color_ADD" id="color_ADD">
+                                                        <option value="#FFFFFF" data-color="#FFFFFF" selected="selected">Branco</option>
+                                                        <option value="#0069b3" data-color="#0069b3">Azul</option>
+                                                        <option value="#815793" data-color="#815793">Roxo</option>
+                                                        <option value="#FF7F00" data-color="#FF7F00">Laranja</option>
+                                                        <option value="#EE82EE" data-color="#EE82EE">Lilás</option>
+                                                        <option value="#5B9F77" data-color="#5B9F77">Verde</option>
+                                                        <option value="#FFA644" data-color="#FFA644">Amarelo</option>
+                                                        <option value="#FF6169" data-color="#FF6169">Vermelho</option>
+                                                        <option value="#FFD700" data-color="#FFD700">Dourado</option>
+                                                        <option value="#FF69B4" data-color="#FF69B4">Rosa</option>
+                                                        <option value="#18191F" data-color="#18191F">Preto</option>                                                        
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Campos: Conteudo da seção -->
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="conteudo_ADD" class="label">Conteúdo do informativo</label>
+                                                    <!-- Plugin TinyMCE iniciado e configurado no arquivo tail.ejs -->
+                                                    <textarea class="form-control" name="conteudo_ADD" id="conteudo_ADD" rows="10" required></textarea>                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Botões -->
+                                        <div class="modal-footer-form justify-content-between" style="display: flex;">
+                                            <button type="submit" class="btn btn-primary">&nbsp;&nbsp;Salvar&nbsp;&nbsp;</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                     <!-- ######################################################################### Modal para EDITAR -->
+                    <div class="modal modal-full fade" id="modalEDIT" data-backdrop="static">
+                        <div class="modal-dialog modal-xl modal-dialog-full">
+                            <div class="modal-content modal-content-full">
+                                <!-- Cabeçalho central do modal -->
+                                <div class="modal-header">
+                                    <!-- Título do modal -->
+                                    <h4 class="modal-title">Editar</h4>
+                                    <!-- Botão fechar modal -->
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <!-- Campos do modal -->
+                                <div class="modal-body modal-body-full">
+                                    <!-- Formulário para Adicionar registro -->
+                                    <form role="form" action="/editInformativo/ <?= document.getElementById('cod_EDIT').value ?>" method="post" enctype="multipart/form-data">
+
+                                        <!-- Campos: Cod, Data, Setor -->
+                                        <div class="row">
+
+                                            <!-- Cod -->
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label for="cod_EDIT" class="label">Cod</label>
+                                                    <input type="text" class="form-control form-control-sm" name="cod_EDIT" id="cod_EDIT" placeholder="Cod" readonly=“true”>
+                                                </div>
+                                            </div>
+
+                                            <!-- Data -->
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="data_EDIT" class="label">Data</label>
+                                                    <div class="input-group date" id="data_EDIT" data-target-input="nearest">
+                                                        <input type="text"
+                                                            class="form-control form-control-sm datetimepicker-input date_times"
+                                                            data-target="#data_EDIT"
+                                                            name="data_INPUT_EDIT" id="data_INPUT_EDIT"
+                                                            required />
+                                                        <div class="input-group-append" data-target="#data_EDIT" data-toggle="datetimepicker">
+                                                            <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Setor -->
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="setor_EDIT" class="label">Setor</label>
+                                                    <select class="form-control form-control-sm select2" style="width: 100%;" name="setor_EDIT" id="setor_EDIT" required>
+                                                        <option value="">-- Selecione --</option>
+                                                        <option value="RH">RH</option>
+                                                        <option value="Qualidade">Qualidade</option>
+                                                        <option value="Segurança do trabalho">Segurança do trabalho</option>
+                                                        <option value="Saúde">Saúde</option>
+                                                        <option value="Cooperativa">Cooperativa</option>
+                                                        <option value="Logística">Logística</option>
+                                                        <option value="Engenharia">Engenharia</option>
+                                                        <option value="Diretoria">Diretoria</option>                                                        
+                                                    </select>
+                                                </div>
+                                            </div>   
+
+                                        </div>
+
+                                        <!-- Campos: Título -->
+                                        <div class="row">
+
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="titulo_EDIT" class="label">Título de referência</label>
+                                                    <input type="text" class="form-control form-control-sm" name="titulo_EDIT" id="titulo_EDIT" placeholder="Título">
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <!-- Campos: Visivel, cor -->
+                                        <div class="row">
+
+                                            <!-- Visivel -->
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label for="visivel_EDIT" class="label">Visível na página?</label>
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input class="custom-control-input" type="checkbox" style="cursor: pointer" 
+                                                            name="visivel_EDIT" id="visivel_EDIT">
+                                                        <label for="visivel_EDIT" class="custom-control-label" style="cursor: pointer">Sim/Não</label>
+                                                    </div>
+                                                </div>
+                                            </div>                                               
+
+                                            <!-- Cor Plano de fundo da seção -->
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label for="color_EDIT" class="label">Plano de fundo</label>
+                                                    <select class="form-control form-control-sm colorselector"
+                                                        style="width: 100%;" name="color_EDIT" id="color_EDIT">
+                                                        <option value="#FFFFFF" data-color="#FFFFFF" selected="selected">Branco</option>
+                                                        <option value="#0069b3" data-color="#0069b3">Azul</option>
+                                                        <option value="#815793" data-color="#815793">Roxo</option>
+                                                        <option value="#FF7F00" data-color="#FF7F00">Laranja</option>
+                                                        <option value="#EE82EE" data-color="#EE82EE">Lilás</option>
+                                                        <option value="#5B9F77" data-color="#5B9F77">Verde</option>
+                                                        <option value="#FFA644" data-color="#FFA644">Amarelo</option>
+                                                        <option value="#FF6169" data-color="#FF6169">Vermelho</option>
+                                                        <option value="#FFD700" data-color="#FFD700">Dourado</option>
+                                                        <option value="#FF69B4" data-color="#FF69B4">Rosa</option>
+                                                        <option value="#18191F" data-color="#18191F">Preto</option>                                                        
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Campos: Conteudo da seção -->
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="conteudo_EDIT" class="label">Conteúdo do informativo</label>
+                                                    <!-- Plugin TinyMCE iniciado e configurado no arquivo tail.ejs -->
+                                                    <textarea class="form-control" name="conteudo_EDIT" id="conteudo_EDIT" rows="10" required></textarea>                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Botões -->
+                                        <div class="modal-footer-form justify-content-between" style="display: flex;">
+                                            <button type="submit" class="btn btn-primary">&nbsp;&nbsp;Salvar&nbsp;&nbsp;</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ######################################################################### Modal para ELIMINAR -->
+                    <div class="modal fade" id="modalDEL" id="modal-danger" data-backdrop="static">
+                        <div class="modal-dialog">
+                            <div class="modal-content bg-danger">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Atenção!</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Tem certeza que deseja eliminar o registro selecionado?</p>
+                                </div>
+                                <div class="modal-footer justify-content-between">
+                                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Não, cancelar</button>
+
+                                    <!-- Esse span é oculto pois apenas recebe o texto contendo 
+                                         o cod para eliminação na função abaixo -->
+                                    <span style="display:none" id="cod_DEL"></span>
+
+                                    <!-- Função anónima dentro da classe button
+                                         que direciona para a route /delete/:id após o usuário clicar em sim no modal -->
+                                    <button type="button" class="btn btn-outline-light" 
+                                        onclick="(function() {
+                                            window.location = '/delInformativo/' + document.getElementById('cod_DEL').textContent;
+                                        })()" id="btnDeletar_DEL">Sim, eliminar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Grava o texto recebido da variável status_Crud do routes/usuario
+		 lá no "tails.ejs" tem uma função no final que verifica o que tem neste span"
+		 e dispara uma função de alerta do toastr de acordo com o texto -->
+<span style="display:none" id='status_Crud'><%= status_Crud %></span>

@@ -1,0 +1,67 @@
+{
+  "_from": "@fullcalendar/moment",
+  "_id": "@fullcalendar/moment@5.5.0",
+  "_inBundle": false,
+  "_integrity": "sha512-/Gko/SKOyJo9PuPgr7QwXrcpKsFP0A9qHvjIXhI2pGRmaf7SVo2+0g17M8eBmKeBn5iGRaZXJ8ps60pYe3kl/g==",
+  "_location": "/@fullcalendar/moment",
+  "_phantomChildren": {
+    "ical.js": "1.4.0"
+  },
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "@fullcalendar/moment",
+    "name": "@fullcalendar/moment",
+    "escapedName": "@fullcalendar%2fmoment",
+    "scope": "@fullcalendar",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@fullcalendar/moment/-/moment-5.5.0.tgz",
+  "_shasum": "687009d08e5d18ce8d6ee91aad2d806fddf8c70e",
+  "_spec": "@fullcalendar/moment",
+  "_where": "F:\\Programação\\Projetos WEB\\PCP WEB\\PCP-WEB",
+  "author": {
+    "name": "Adam Shaw",
+    "email": "arshaw@arshaw.com",
+    "url": "http://arshaw.com/"
+  },
+  "browserGlobal": "FullCalendarMoment",
+  "bugs": {
+    "url": "https://fullcalendar.io/reporting-bugs"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "@fullcalendar/common": "~5.5.0",
+    "tslib": "^2.0.3"
+  },
+  "deprecated": false,
+  "description": "A connector to the MomentJS date library",
+  "devDependencies": {
+    "@fullcalendar/core-preact": "5.5.0",
+    "moment": "^2.29.1"
+  },
+  "docs": "https://fullcalendar.io/docs/moment-plugin",
+  "homepage": "https://fullcalendar.io/",
+  "jsdelivr": "main.global.min.js",
+  "license": "MIT",
+  "main": "main.cjs.js",
+  "module": "main.js",
+  "name": "@fullcalendar/moment",
+  "peerDependencies": {
+    "moment": "^2.29.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fullcalendar/fullcalendar.git",
+    "homepage": "https://github.com/fullcalendar/fullcalendar"
+  },
+  "title": "FullCalendar Moment Plugin",
+  "types": "main.d.ts",
+  "version": "5.5.0"
+}
