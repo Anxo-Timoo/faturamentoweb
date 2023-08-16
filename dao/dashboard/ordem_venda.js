@@ -4,6 +4,7 @@ const FUNCOES = require('../util/funcoes');
 const mysql = require('mysql2');
 const config = require('../../database/config');
 const conn = mysql.createPool(config);
+var salesorder;
 
 //Variáveis a serem utilizadas
 var status_Crud = '';
@@ -18,20 +19,24 @@ module.exports = {
         let DBModel = new DB(conn);
         (async function () {
             //Atribuindo o conteúdo central
-            page = './includes/dashboard/inc_embalagem';
+            page = './includes/dashboard/inc_ordem_venda';
             //page = './includes/default/3-content_manutencao';
 
             //Consultas diversas para popular elementos
             //let embalagens = await DBModel.getSFEmbalagens(req.query.data, req.query.semana, req.query.turno);
             //var embalagens  = [];
             // embalagens = await DBModel.getSFOrdemDeVenda(req.query.data, req.query.semana, req.query.turno);
-            let embalagens = await DBModel.getSalesOrderRFC("ZRV_SALES_DOCUMENT_VIEW_3",req.query.dataini,req.query.datafim,req.query.cliente,req.query.ov);
+            let ordens = await DBModel.getSalesOrderRFC("ZRV_SALES_DOCUMENT_VIEW_3",req.query.dataini,req.query.datafim,req.query.cliente,req.query.ov);
             //console.log("Retorno embalagens",embalagens);
-           //embalagens = res_array;
-
+            let textos = await DBModel.getSalesOrderTextsRFC("ZRV_SALES_DOCUMENT_VIEW_3",req.query.dataini,req.query.datafim,req.query.cliente,req.query.ov);
+           // RECUPERA AS CONDIÇÕES DE PAGAMENTO
+            let condicoes = await DBModel.getSalesConditionsRFC("ZME_VALUES_T052");
+            
 
             //Variáveis utilizadas para paginação
-            var totalItens = embalagens.length;//Qtde total de registros
+            var totalItens = ordens.length;//Qtde total de registros
+            var totalTextos = textos.length;
+            var totalCondicoes = condicoes.length;
             //console.log(totalItens.toString());
              var   pageSize = 10,//Número máximo de registros por página
                 pageCount = Math.ceil(totalItens / pageSize),//Número de páginas (Arredondar p/ cima)
@@ -39,11 +44,24 @@ module.exports = {
                 currentPage = 1,//Página corrente ao entrar na rota
                 itens = [],//Array que receberá todos os registros
                 itensArrays = [],//Array que receberá os registros limitados a qtde registros por páginas
+                textArrays = [],//Array cmo os textos das ovs
+                condArrays = [],
                 itensList = [];//Array que receberá os registros limitados a de páginas
 
             //Criando a lista de itens
             for (var i = 0; i < totalItens; i++) {
-                itens.push(embalagens[i]);
+                itens.push(ordens[i]);
+            }
+            
+            
+            //Criando a lista de textos
+            for (var i = 0; i < totalTextos; i++) {
+                textArrays.push(textos[i]);
+            }
+
+              //Criando a lista de condicoes
+              for (var i = 0; i < totalCondicoes; i++) {
+                condArrays.push(condicoes[i]);
             }
 
             //Divide a lista em grupos (páginas)
@@ -62,7 +80,10 @@ module.exports = {
             //Passa o conteúdo das variáveis para a página principal
             res.render('./pageAdmin', {
                 //Populando elementos
-                DTEmbalagem: itensList,
+                DTOrdens: itensList,
+                DTTextos:textArrays,
+                DTCondicoes: condArrays,
+                OVPage:'',
                 pageSize: pageSize,
                 totalItens: totalItens,
                 pageCount: pageCount,
@@ -91,6 +112,7 @@ module.exports = {
                 CadShopfloor: '',
                 CadInformacoes_Gerais: '',
                 CadOcorrencia_sf: '',
+                CadFaturamento:'',
                 CadRecebimento: '',
                 CadEmbalagem: 'active',
                 CadPreparacao: '',
@@ -100,6 +122,7 @@ module.exports = {
                 //Chat
                 ChatOpen: '',
                 Chat: '',
+                Index:'',
                 CadChat: ''
             });
 
@@ -159,6 +182,79 @@ module.exports = {
             }
         });
     },
+    editOV: (req, res) => {
+        let ov = req.body.cod_EDIT1;
+        let query;
+        //console.log("IVES",ov);
+        let vencimento = FUNCOES.formatDateTimeToBD(req.body.venc_EDIT);
+        let dadosBanco = req.body.txtBank_EDIT;
+        let dadosImposto = req.body.taxText_EDIT;
+        let descServico = req.body.txtServiceEDIT;
+        let zterm = req.body.condition_EDIT;
+        /* let data = FUNCOES.formatDateTimeToBD(req.body.data_INPUT_EDIT);
+        let semana = FUNCOES.formatDateTimeToWeek(req.body.data_INPUT_EDIT);        
+        let bo_objetivo_outros = FUNCOES.formatDecimalToBD(req.body.bo_objetivo_outros_EDIT);
+        let bo_entrega_outros = FUNCOES.formatDecimalToBD(req.body.bo_entrega_outros_EDIT); */
+
+        //Chama a BAPI para faturar
+        let DBModel = new DB(conn);            
+
+        //(async function () {
+        
+            //let ovBD = await DBModel.getSalesOrderById(ov);
+           // console.log(ovBD);
+            //if(ovBD)
+           // {
+           //   query = "UPDATE `tb_sf_ordem_venda` SET " +
+           // "`valdt` = '" + vencimento + "', " +
+           // "`dados_bancarios` = '" + dadosBanco + "', " +
+           // "`dados_impostos` = '" + dadosImposto + "', " +
+           // "`desc_servico` = '" + descServico + "' " +
+            
+            //" WHERE `tb_sf_ordem_venda`.`vbeln` = '" + ov + "'"; 
+         
+            //}
+            //else
+           // {
+        
+                //docFaturamento = await DBModel.faturaOVRFC("BAPI_BILLINGDOC_CREATEMULTIPLE",ov);
+                // console.log("RETORNO",docFaturamento);
+                    //Faz o INSERT somente nos campos da RNC parte cliente
+                query = "INSERT INTO `tb_sf_ordem_venda` " +
+                "(vbeln, valdt, dados_bancarios, dados_impostos, desc_servico, desc_condicao) VALUES ('" +
+                ov + "', '" +
+                vencimento + "', '" +
+                dadosBanco + "', '" +
+                dadosImposto + "', '" +
+                descServico + "', '" +                
+                zterm + "')";
+            //}
+            //Executa o INSERT ou update
+            db.query(query, (err, results, fields) => {
+                if (err) {
+                    console.log('Erro 003: ', err);
+                    status_Crud = 'nao';
+                    //res.redirect('/ordem_venda');
+                } else {
+                    //INSERT realizado com sucesso
+                    status_Crud = 'sim';
+                    //res.redirect('/ordem_venda');
+                }
+            });
+         
+        //Executa o UPDATE NO SAP R3
+            (async function () {
+            var ano = vencimento.substring(0,4);
+            var dia = vencimento.substring(8,10);
+            var mes = vencimento.substring(5,7);
+            vencimento = ano + mes + dia;
+                    
+            let retorno = await DBModel.editaOVRFC('ZSAVE_TEXTS_OV_EDIT_PORTAL',ov,dadosBanco,dadosImposto,descServico,vencimento,zterm);
+            res.redirect('/ordem_venda');
+
+})();//async
+    
+},    
 
     faturaOV: (req, res) => {
         let ov = req.body.cod_EDIT;
@@ -186,39 +282,7 @@ module.exports = {
         (async function () {
         
            docFaturamento = await DBModel.faturaOVRFC("BAPI_BILLINGDOC_CREATEMULTIPLE",ov);
-          // console.log("RETORNO",docFaturamento);
-           
-           /* let query = "UPDATE `tb_sf_embalagem` SET " +
-            "`data` = '" + data + "', " +
-            "`semana` = '" + semana + "', " +
-            "`turno` = '" + turno + "', " +
-            "`setup_pe` = '" + setup_pe + "', " +
-            "`setup_cilindro` = '" + setup_cilindro + "', " +
-            "`setup_outros` = '" + setup_outros + "', " +
-            "`takt_pe` = '" + takt_pe + "', " +
-            "`takt_cilindro` = '" + takt_cilindro + "', " +
-            "`takt_outros` = '" + takt_outros + "', " +
-            "`bo_objetivo_pe` = '" + bo_objetivo_pe + "', " +
-            "`bo_entrega_pe` = '" + bo_entrega_pe + "', " +
-            "`bo_objetivo_cilindro` = '" + bo_objetivo_cilindro + "', " +
-            "`bo_entrega_cilindro` = '" + bo_entrega_cilindro + "', " +
-            "`bo_objetivo_outros` = '" + bo_objetivo_outros + "', " +
-            "`bo_entrega_outros` = '" + bo_entrega_outros + "'" +
-            " WHERE `tb_sf_embalagem`.`cod` = '" + cod + "'"; */
-         
-        //Executa o UPDATE
-       /*  db.query(query, (err, results, fields) => {
-            if (err) {
-                console.log('Erro 003: ', err);
-                status_Crud = 'nao';
-                res.redirect('/embalagem');
-            } else {
-                //UPDATE finalizado
-                status_Crud = 'sim';
-                res.redirect('/embalagem');
-            }
-        });
-    }, */
+          // console.log("RETORNO",docFaturamento);                                     
      
     
     
@@ -238,20 +302,21 @@ module.exports = {
     
 },    
     delOV: (req, res) => {
-        let cod = req.params.id;
-        let query = 'DELETE FROM `tb_sf_embalagem` WHERE cod = "' + cod + '"';
+        //let cod = req.params.id;
+        //let query = 'DELETE FROM `tb_sf_ordem_venda` WHERE cod = "' + cod + '"';
 
-        db.query(query, (err, results, fields) => {
-            if (err) {
-                console.log('Erro 014: ', err);
-                status_Crud = 'nao';
-                res.redirect('/embalagem');
-            }
+        //db.query(query, (err, results, fields) => {
+            //if (err) {
+            //    console.log('Erro 014: ', err);
+            //    status_Crud = 'nao';
+            //    res.redirect('/ordem_venda');
+            //}
 
             //DELETE realizado com sucesso
             status_Crud = 'sim';
-            res.redirect('/embalagem');
-        });
+            res.redirect('/ordem_venda');
+       // }
+       // );
     },
 
     //Funções que passam o valor da variável para outro arquivo js

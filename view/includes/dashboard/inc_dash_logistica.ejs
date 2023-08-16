@@ -227,8 +227,8 @@
                                                             <!-- Cabeçalho: Titulos da tabela -->
                                                             <tr>
                                                                 <th scope="col">Dia</th>
-                                                                <th scope="col" style="white-space: pre-wrap;text-align: center;">Volumes em stage</th>
-                                                                <th scope="col" style="white-space: pre-wrap;text-align: center;">Veículos previstos</th>
+                                                                <th scope="col" style="white-space: pre-wrap;text-align: center;">Ordens em stage</th>
+                                                                <th scope="col" style="white-space: pre-wrap;text-align: center;">Faturamentos previstos</th>
                                                                 <th scope="col" style="white-space: pre-wrap;text-align: center;">Volumes previstos</th>
                                                             </tr>
                                                         </thead>
@@ -252,7 +252,7 @@
                                             </li>
                                         </ul><br>
                                         <!-- [Gráfico de Linha T1] -->
-                                        <h5 class="card-title">Tempo médio (Mês atual)</h5><br>
+                                        <h5 class="card-title">Valor médio (Mês atual)</h5><br>
                                         <ul class="products-list">
                                             <li class="item">
                                                 <canvas id="tempo_stage_recebimento_T1"></canvas>
@@ -276,8 +276,8 @@
                                                             <!-- Cabeçalho: Titulos da tabela -->
                                                             <tr>
                                                                 <th scope="col">Dia</th>
-                                                                <th scope="col" style="white-space: pre-wrap;text-align: center;">Volumes em stage</th>
-                                                                <th scope="col" style="white-space: pre-wrap;text-align: center;">Veículos previstos</th>
+                                                                <th scope="col" style="white-space: pre-wrap;text-align: center;">Faturamentos em stage</th>
+                                                                <th scope="col" style="white-space: pre-wrap;text-align: center;">Recebimentos previstos</th>
                                                                 <th scope="col" style="white-space: pre-wrap;text-align: center;">Volumes previstos</th>
                                                             </tr>
                                                         </thead>
@@ -301,7 +301,7 @@
                                             </li>
                                         </ul><br>
                                         <!-- [Gráfico de Linha T2] -->
-                                        <h5 class="card-title">Tempo médio (Mês atual)</h5><br>
+                                        <h5 class="card-title">Valor médio (Mês atual)</h5><br>
                                         <ul class="products-list">
                                             <li class="item">
                                                 <canvas id="tempo_stage_recebimento_T2"></canvas>
@@ -317,32 +317,32 @@
         </div>
 
         <!-- Embalagem -->
-        <!-- <div class="row">
+         <div class="row">
             <div class="col-md-12">
-                 Para iniciar fechado, adicione collapsed-card na class
+                 <!--Para iniciar fechado, adicione collapsed-card na class-->
                 <div class="card card-gray">
-                     ######################################################################### Cabeçalho 
+                    <!--  ######################################################################### Cabeçalho -->
                     <div class="card-header">
                          Cabeçalho 
                         <div class="btn-group">                            
                             <h1 class="card-title">
                                 <i class="fas fa-box"></i>
                                 &nbsp;&nbsp;&nbsp;
-                                Embalagem
+                                Faturamento
                             </h1>
                         </div>
 
-                         Botão Ocultar ou exibir o card 
+                         <!--Botão Ocultar ou exibir o card -->
                         <div class="card-tools">
-                            Botão Abrir/fechar card (Icone: fa-minus ou fa-plus) 
+                             <!--Botão Abrir/fechar card (Icone: fa-minus ou fa-plus)--> 
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                                 <i class="fas fa-minus"></i>
                             </button>
-                             Botão Maximizar card 
+                            <!--  Botão Maximizar card -->
                             <button type="button" class="btn btn-tool" data-card-widget="maximize">
                                 <i class="fas fa-expand"></i>
                             </button>
-                             Botão destruir card 
+                             <!-- Botão destruir card -->
                             <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
                                 <i class="fas fa-times"></i>
                             </button>
@@ -350,15 +350,15 @@
 
                     </div>
 
-                    ######################################################################### Conteúdo -->
-                    <!-- <!-- <div class="card-body">
+                    <!--######################################################################### Conteúdo-->
+                      <div class="card-body">
                         <div class="row">
-                            <!-- Informações T1 
+                             <!--Informações T1 -->
                             <div class="col-sm-12 col-md-6">
                                 <div class="card bg-light mb-3">
-                                    <div class="card-header"><h5>Informações T1</h5></div>
+                                    <div class="card-header"><h5>Informações Faturamento</h5></div>
                                     <div class="card-body">
-                                        <h5 class="card-title">Previsão de entrega vs Valor em BO</h5><br>
+                                        <h5 class="card-title">Previsão de Faturamento vs Valor em NF</h5><br>
                                         <ul class="products-list">
                                             <li class="item">
                                                 <div class="progress-group">
@@ -426,12 +426,12 @@
                                 </div>
                             </div> 
  
-                             Informações T2 
+                             <!--Informações T2 -->
                             <div class="col-sm-12 col-md-6">
                                 <div class="card bg-light mb-3">
-                                    <div class="card-header"><h5>Informações T2</h5></div>
+                                    <div class="card-header"><h5>Informações Recebimento</h5></div>
                                     <div class="card-body">
-                                        <h5 class="card-title">Previsão de entrega vs Valor em BO</h5><br>
+                                        <h5 class="card-title">Previsão de recebimento vs Valor em BO</h5><br>
                                         <ul class="products-list">
                                             <li class="item">
                                                 <div class="progress-group">
@@ -444,7 +444,7 @@
                                                             </div>
                                                         <% }) %>
                                                     <% } else { %>
-                                                        <!-- Não existe dados na tabela 
+                                                         <!--Não existe dados na tabela -->
                                                          <p class="text-center">Não há informações disponíveis</p>
                                                     <% } %>
                                                 </div>
@@ -459,7 +459,7 @@
                                                             </div>
                                                         <% }) %>
                                                     <% } else { %>
-                                                         Não existe dados na tabela 
+                                                        <!-- Não existe dados na tabela -->
                                                          <p class="text-center">Não há informações disponíveis</p>
                                                     <% } %>
                                                 </div>
@@ -474,21 +474,21 @@
                                                             </div>
                                                         <% }) %>
                                                     <% } else { %>
-                                                         Não existe dados na tabela 
+                                                         <!--Não existe dados na tabela -->
                                                          <p class="text-center">Não há informações disponíveis</p>
                                                     <% } %>
                                                 </div>
 
                                             </li>
                                         </ul><br>
-                                         [Gráfico de Linha: Setup T2] 
+                                        <!-- [Gráfico de Linha: Setup T2] -->
                                         <h5 class="card-title">Setup médio (Mês atual)</h5><br>
                                         <ul class="products-list">
                                             <li class="item">
                                                 <canvas id="setup_embalagem_T2"></canvas>
                                             </li>
                                         </ul><br>
-                                         [Gráfico de Linha: Takt T2] 
+                                        <!-- [Gráfico de Linha: Takt T2] -->
                                         <h5 class="card-title">Takt - Percentual atingido (Mês atual)</h5><br>
                                         <ul class="products-list">
                                             <li class="item">
@@ -502,7 +502,7 @@
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div> 
 
         <!-- Preparação -->
         <div class="row">
@@ -522,11 +522,11 @@
 
                         <!-- Botão Ocultar ou exibir o card -->
                         <div class="card-tools">
-                            <!-- Botão Abrir/fechar card (Icone: fa-minus ou fa-plus) -->
+                           <!--- Botão Abrir/fechar card (Icone: fa-minus ou fa-plus)-->
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                                 <i class="fas fa-minus"></i>
                             </button>
-                            <!-- Botão Maximizar card -->
+                          <!--  Botão Maximizar card -->
                             <button type="button" class="btn btn-tool" data-card-widget="maximize">
                                 <i class="fas fa-expand"></i>
                             </button>
@@ -874,11 +874,11 @@
         </div>
 
         <!-- Qualidade -->
-        <!--<div class="row">
+        <div class="row">
             <div class="col-md-12">
-                Para iniciar fechado, adicione collapsed-card na class-->
+               <!-- Para iniciar fechado, adicione collapsed-card na class-->
                 <div class="card card-warning">
-                    <!-- ######################################################################### Cabeçalho 
+                    <!-- ######################################################################### Cabeçalho-->
                     <div class="card-header">
                          Cabeçalho 
                         <div class="btn-group">                            
@@ -889,24 +889,24 @@
                             </h1>
                         </div>
 
-                         Botão Ocultar ou exibir o card -->
+                        <!-- Botão Ocultar ou exibir o card -->
                         <div class="card-tools">
-                            <!-- Botão Abrir/fechar card (Icone: fa-minus ou fa-plus) 
+                            <!-- Botão Abrir/fechar card (Icone: fa-minus ou fa-plus) -->
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                                 <i class="fas fa-minus"></i>
                             </button>
-                            Botão Maximizar card 
+                          <!--  Botão Maximizar card -->
                             <button type="button" class="btn btn-tool" data-card-widget="maximize">
                                 <i class="fas fa-expand"></i>
                             </button>
-                             Botão destruir card -
+                             <!-- Botão destruir card -->
                             <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
                                 <i class="fas fa-times"></i>
                             </button>
                         </div>
                     </div>
 
-                    ######################################################################### Conteúdo 
+                    <!--######################################################################### Conteúdo -->
                     <div class="card-body">
                         <div class="row">
                             Informações 
@@ -983,7 +983,7 @@
                     </div>
                 </div>
             </div>
-        </div>-->
+        </div>
 
         <!-- Informativo -->
         <% if (DTInformativo.length > 0) {%>
@@ -1122,7 +1122,7 @@ var myChart = new Chart(ctx, {
         labels: dia,
         datasets: [{
             data: meta,
-            label: "Status",
+            label: "Canceladas",
             borderColor: "#CD5C5C",
             fill: false,
             pointStyle: 'circle',
@@ -1223,7 +1223,7 @@ $(function () {
     '<% DTChartLinhaTempoStageT2.forEach((row, index) => { %>'
         dia.push('<%= row.Dia %>');
         meta.push(moment('<%- row.Meta %>', 'HH:mm:ss').diff(moment().startOf('day'), 'seconds'));
-        conferencia.push(moment('<%- row.tempo_conferencia %>', 'HH:mm:ss').diff(moment().startOf('day'), 'seconds'));
+        conferencia.push('<%- row.tempo_conferencia %>');
         inspecao.push(moment('<%- row.tempo_inspecao %>', 'HH:mm:ss').diff(moment().startOf('day'), 'seconds'));
     '<% }); %>'
 
@@ -1231,102 +1231,162 @@ $(function () {
     //var ctx = document.getElementById('tempo_stage_recebimento').getContext('2d');
     var canvas = document.getElementById('tempo_stage_recebimento_T2');
     var ctx = canvas.getContext("2d");
-
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        maintainAspectRatio: true,
-        responsive: true,
-        data: {
-            labels: dia,
-            datasets: [{
-                data: meta,
-                label: "Status",
-                borderColor: "#CD5C5C",
-                fill: false,
-                pointStyle: 'circle',
-                radius: '0',
-                borderDash: [5],
-                borderWidth: 2
-            },
-            {
-                data: conferencia,
-                label: "Pagos",
-                borderColor: "#28a745",
-                fill: false,
-                pointStyle: 'circle',
-                radius: '4',
-            },
-            {
-                data: inspecao,
-                label: "Em aberto",
-                borderColor: "#FF7F24",
-                fill: false,
-                pointStyle: 'circle',
-                radius: '4',
-            }
-            ]
+    var labelsarr = ['CLARO S.A', 'BANCO BTG PACTUAL', 'ITAU UNIBANCO S.A.', 'REDECARD S/A', 'THINKINTERNATIONAL', 'RENAULT DO BRASIL', 'TIM S/A', 'BANCO BRADESCO SA', 'Cosan Lubrificantes', 'RAIA DROGASIL'];
+    var values = ["AAAA", 100, 10000, 2310, 24420, 30, 50000, 400000, 70000, 700, 823200, 923200, 1111];
+    var labelOpen = ['CLARO S.A', 'BANCO BTG PACTUAL'];
+    var valuesOpen = [823200, 923200];
+    var chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: labelsarr,
+        datasets: [{
+            
+            data: values,
+            label: "Pagos",
+            backgroundColor: 'rgba(0, 148, 78)',
+                    fill: false,
+                    pointStyle: 'circle',
+                    radius: '0',
+                    borderDash: [5],
+                    borderWidth: 2
+            
         },
-        options: {
-            maintainAspectRatio: true,
-            responsive: true,
-            title: {
-                display: false,
-                text: 'Tempo medio'
+        
+        {   labels:labelOpen,
+            data: valuesOpen,
+            label: "Abertos",
+            backgroundColor:'rgba(0, 119, 204, 0.8)',
+            fill: false,
+            pointStyle: 'circle',
+            radius: '4',
             },
-            legend: {
-                display: true,
-                position: 'bottom',
-                labels: {
-                    boxWidth: 15
-                }
-            },
-            tooltips: {
+                
+        ]
+    },
+    options: {
+        tooltips: {
                 mode: 'index',
                 intersect: false,
                 displayColors: true,
-                callbacks: {
-                    label: function (tooltipItem, data) {
-                        var label = data.datasets[tooltipItem.datasetIndex].label || '';
-
-                        if (label) {
-                            label += ': ';
-                        }
-                        label += moment.utc((Math.round(tooltipItem.yLabel * 100) / 100) * 1000).format('HH:mm:ss');
-                        return label;
+            callbacks: {
+                label: function(t, d) {
+                var xLabel = d.datasets[t.datasetIndex].label;
+                var yLabel = t.yLabel >= 1000 ? 'R$' + t.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 'R$' + t.yLabel;
+                return xLabel + ': ' + yLabel;
+                }
+            }
+        },
+        scales: {
+            yAxes: [{
+                ticks: {
+                callback: function(value, index, values) {
+                    if (parseInt(value) >= 1000) {
+                        return 'R$' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    } else {
+                        return 'R$' + value;
                     }
                 }
-            },
-            hover: {
-                mode: 'nearest',
-                intersect: true,
-            },
-            scales: {
-                xAxes: [{
-                    gridLines: {
-                        display: true,
-                        drawBorder: true
-                    }
-                }],
-                yAxes: [{
-                display: true,
-                gridLines: {
-                    display: true,
-                    drawBorder: true
-                },
-                ticks: {
-                    min: 0,
-                    //max: 15400,
-                    stepSize: 1800,
-                    scaleStartValue: 0,
-                    fontSize: 10,
-                    callback: function(value) {
-                        return moment.utc((Math.round(value * 100) / 100) * 1000).format('HH:mm:ss')
-                    }
                 }
             }]
-            },
         }
+    }
     });
+
+    // var myChart = new Chart(ctx, {
+    //     type: 'line',
+    //     maintainAspectRatio: true,
+    //     responsive: true,
+    //     data: {
+    //         labels: dia,
+    //         datasets: [{
+    //             data: meta,
+    //             label: "Status",
+    //             borderColor: "#CD5C5C",
+    //             fill: false,
+    //             pointStyle: 'circle',
+    //             radius: '0',
+    //             borderDash: [5],
+    //             borderWidth: 2
+    //         },
+    //         {
+    //             data: conferencia,
+    //             label: "Pagos",
+    //             borderColor: "#28a745",
+    //             fill: false,
+    //             pointStyle: 'circle',
+    //             radius: '4',
+    //         },
+    //         {
+    //             data: inspecao,
+    //             label: "Em aberto",
+    //             borderColor: "#FF7F24",
+    //             fill: false,
+    //             pointStyle: 'circle',
+    //             radius: '4',
+    //         }
+    //         ]
+    //     },
+    //     options: {
+    //         maintainAspectRatio: true,
+    //         responsive: true,
+    //         title: {
+    //             display: false,
+    //             text: 'Tempo medio'
+    //         },
+    //         legend: {
+    //             display: true,
+    //             position: 'bottom',
+    //             labels: {
+    //                 boxWidth: 15
+    //             }
+    //         },
+    //         tooltips: {
+    //             mode: 'index',
+    //             intersect: false,
+    //             displayColors: true,
+    //             callbacks: {
+    //                 label: function (tooltipItem, data) {
+    //                     var label = data.datasets[tooltipItem.datasetIndex].label || '';
+
+    //                     if (label) {
+    //                         label += ': ';
+    //                     }
+    //                     label += moment.utc((Math.round(tooltipItem.yLabel * 100) / 100) * 1000).format('HH:mm:ss');
+    //                     return label;
+    //                 }
+    //             }
+    //         },
+    //         hover: {
+    //             mode: 'nearest',
+    //             intersect: true,
+    //         },
+    //         scales: {
+    //             xAxes: [{
+    //                 gridLines: {
+    //                     display: true,
+    //                     drawBorder: true
+    //                 }
+    //             }],
+    //             yAxes: [{
+    //             display: true,
+    //             gridLines: {
+    //                 display: true,
+    //                 drawBorder: true
+    //             },
+    //             ticks: {
+    //                 min: 0,
+    //                 //max: 15400,
+    //                 stepSize: 1800,
+    //                 scaleStartValue: 0,
+    //                 fontSize: 10,
+    //                 callback: function(value) {
+    //                     return moment.utc((Math.round(value * 100) / 100) * 1000).format('HH:mm:ss')
+    //                 }
+    //             }
+    //         }]
+    //         },
+    //     }
+    // });
 });
 
 
@@ -1380,7 +1440,7 @@ var myChart = new Chart(ctx, {
         },
         {
             data: setupCilindro,
-            label: "KIT Cilindro",
+            label: "Canceladas",
             borderColor: "#28a745",
             fill: false,
             pointStyle: 'circle',
@@ -1388,7 +1448,7 @@ var myChart = new Chart(ctx, {
         },
         {
             data: setupOutros,
-            label: "KIT Outros",
+            label: "Outros",
             borderColor: "#ffc107",
             fill: false,
             pointStyle: 'circle',
@@ -1509,7 +1569,7 @@ var myChart = new Chart(ctx, {
         },
         {
             data: setupCilindro,
-            label: "KIT Cilindro",
+            label: "Canceladas",
             borderColor: "#28a745",
             fill: false,
             pointStyle: 'circle',
@@ -1517,7 +1577,7 @@ var myChart = new Chart(ctx, {
         },
         {
             data: setupOutros,
-            label: "KIT Outros",
+            label: "Outros",
             borderColor: "#ffc107",
             fill: false,
             pointStyle: 'circle',
@@ -1638,7 +1698,7 @@ var myChart = new Chart(ctx, {
         },
         {
             data: taktCilindro,
-            label: "KIT Cilindro",
+            label: "Canceladas",
             borderColor: "#28a745",
             fill: false,
             pointStyle: 'circle',
@@ -1646,7 +1706,7 @@ var myChart = new Chart(ctx, {
         },
         {
             data: taktOutros,
-            label: "KIT Outros",
+            label: "Outros",
             borderColor: "#ffc107",
             fill: false,
             pointStyle: 'circle',
@@ -1767,7 +1827,7 @@ var myChart = new Chart(ctx, {
         },
         {
             data: taktCilindro,
-            label: "KIT Cilindro",
+            label: "Canceladas",
             borderColor: "#28a745",
             fill: false,
             pointStyle: 'circle',
@@ -1775,7 +1835,7 @@ var myChart = new Chart(ctx, {
         },
         {
             data: taktOutros,
-            label: "KIT Outros",
+            label: "Outros",
             borderColor: "#ffc107",
             fill: false,
             pointStyle: 'circle',

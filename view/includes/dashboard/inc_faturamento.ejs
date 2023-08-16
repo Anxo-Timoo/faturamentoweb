@@ -4,14 +4,14 @@
         <div class="row sm-2">
             <!-- Título -->
             <div class="col-sm-6">
-                <h1>Recebimento</h1>
+                <h1>Relatorio de Faturamento</h1>
             </div>
             <!-- Navegação histórica -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="/home">Home</a></li>
                     <li class="breadcrumb-item active">Dashboard</li>
-                    <li class="breadcrumb-item active">Recebimento</li>
+                    <li class="breadcrumb-item active">Faturamento</li>
                 </ol>
             </div>
         </div>
@@ -27,14 +27,14 @@
                 <div class="content-collapse">
                     <a data-toggle style="color: white;padding-left: 20px;"><i class="fas fa-filter" style="color: white;padding-right: 10px;"></i>Filtros</a>
                     <div class="content">
-                        <form role="form" action="/recebimento" method="post">
+                        <form role="form" action="/faturamento" method="post">
                             <div class="card-body" style="display: grid;margin: -26px -21px -11px -21px;">
 
                                 <!-- Campos do filtro -->
-                                <label for="filter_DataIni" style="margin: 10px 0 0 0;">Recebimento - Data Inicio</label>
+                                <label for="filter_DataIni" style="margin: 10px 0 0 0;">Data Inicio</label>
                                 <textarea class="form-control form-control-sm" placeholder = 'Formato: 01011900'name="filter_DataIni" id="filter_DataIni" rows="1"><%= body.dataIni %></textarea>
 
-                                <label for="filter_DataFim" style="margin: 10px 0 0 0;">Recebimento - Data Fim</label>
+                                <label for="filter_DataFim" style="margin: 10px 0 0 0;">Data Fim</label>
                                 <textarea class="form-control form-control-sm"  placeholder = 'Formato: 01011900' name="filter_DataFim" id="filter_DataFim" rows="1"><%= body.dataFim %></textarea>
                                 
                                 <label for="filter_Cliente" style="margin: 10px 0 0 0;">Cliente</label>
@@ -49,7 +49,7 @@
                             <div class="card-footer" style="background: center;padding: 8px 0 8px 0px;display: flex;">
                                 <!-- Filtrar -->
                                 <button type="button" class="form-control btn-sm btn-primary" style="width: auto;height: fit-content;" onclick="(function() {
-                                        window.location = '/recebimento/?page=1' + 
+                                        window.location = '/faturamento/?page=1' + 
                                         '&[dataIni]=' + document.getElementById('filter_DataIni').value + 
                                         '&[dataFim]=' + document.getElementById('filter_DataFim').value + 
                                         '&[cliente]=' + document.getElementById('filter_Cliente').value + 
@@ -134,7 +134,7 @@
 
                     <!-- ######################################################################### Tabela -->
                     <div class="card-body" style="overflow: auto; height: 600px; width: 100%">
-                        <% if (!Array.isArray(DTRecebimento) || !DTRecebimento.length) { %>
+                        <% if (!Array.isArray(DTFaturamento) || !DTFaturamento.length) { %>
                         <!-- Não existe dados na tabela 
                         <p class="text-center">Clique <a data-toggle="modal" data-target="#modalADD" style="cursor:pointer; color:rgb(79, 79, 255)"> aqui </a>para adicionar um novo registro.</p>-->
     
@@ -158,7 +158,7 @@
                                                 <% if (currentPage>= 1) { %>
                                                     <li><a href="#" 
                                                         onclick="(function() {
-                                                            window.location = '/recebimento/?page=1' + 
+                                                            window.location = '/faturamento/?page=1' + 
                                                             '&[dataIni]=' + document.getElementById('filter_DataIni').value + 
                                                             '&[dataFim]=' + document.getElementById('filter_DataFim').value + 
                                                             '&[cliente]=' + document.getElementById('filter_Cliente').value + 
@@ -182,7 +182,7 @@
                                                         <!-- Demais páginas -->
                                                         <li><a href="#" 
                                                             onclick="(function() {
-                                                                window.location = '/recebimento/?page=<%= i %>' + 
+                                                                window.location = '/faturamento/?page=<%= i %>' + 
                                                                 '&[dataIni]=' + document.getElementById('filter_DataIni').value + 
                                                                 '&[dataFim]=' + document.getElementById('filter_DataFim').value + 
                                                                 '&[cliente]=' + document.getElementById('filter_Cliente').value + 
@@ -202,7 +202,7 @@
                                                 <% if(currentPage !=pageCount) { %>
                                                     <li><a href="#" 
                                                         onclick="(function() {
-                                                                window.location = '/recebimento/?page=<%= pageCount %>' + 
+                                                                window.location = '/faturamento/?page=<%= pageCount %>' + 
                                                                 '&[dataIni]=' + document.getElementById('filter_DataIni').value + 
                                                                 '&[dataFim]=' + document.getElementById('filter_DataFim').value + 
                                                                 '&[cliente]=' + document.getElementById('filter_Cliente').value + 
@@ -220,25 +220,27 @@
                                 <thead class="thead-light">                                    
                                     <tr>
                                         <th scope="col">Nota Fiscal</th>                                        
-                                        <th scope="col">Dt.Emissao</th>
-                                        <th scope="col">Stat.Pgto</th>
-                                        <th scope="col">Dt.Pagto</th>
-                                        <th scope="col">Doc.Pagto</th>
+                                        <th scope="col">Dt.Emissão</th>
+                                        <th scope="col">Stat.NF</th>
+                                        <!--<th scope="col">Dt.Pagto</th>
+                                        <th scope="col">Doc.Pagto</th>-->
                                         <th scope="col">Doc.Faturamento</th>
-                                        <th scope="col">Valor Bruto</th>
-                                        <th scope="col">Valor Liquido</th>
+                                        <th scope="col">Doc.Compensação</th>
+                                        <th scope="col">Vlr.Bruto Item</th>
+                                        <th scope="col">Vlr.Líquido</th>
+                                        <th scope="col">Cliente</th>
+                                        <th style="width: 100%;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">Nome</th>
+                                        <th scope="col">CNPJ</th>
                                         <th scope="col">Projeto</th>
                                         <th scope="col">Descriçao</th>                                                                     
                                         <th scope="col">Filial</th>
-                                        <th scope="col">Dt.Vencimento</th>
-                                        <th scope="col">Cliente</th>
-                                        <th style="width: 100%;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">Nome</th>
+                                        <th scope="col">Dt.Vencimento</th>                                        
                                         <th scope="col" style="width: 100%;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">Texto Item</th>
-                                        <th scope="col">Valor Pago</th>
+                                       <!-- <th scope="col">Valor Pago</th>
                                         <th scope="col">Doc.Reclass</th>
                                         <th scope="col">Proj.Final</th>
                                         <th scope="col">Nome</th>
-                                        <th scope="col">Vlr.Proj.Atual</th>
+                                        <th scope="col">Vlr.Proj.Atual</th>-->
                                         <!-- <th scope="col">Veículos previstos</th>
                                         <th scope="col">Volumes previstos</th>-->
                                        <!-- <th scope="col">Opcoes</th> -->
@@ -247,7 +249,8 @@
 
                                 <tbody>
                                     <!-- Detalhes: Dados da tabela -->
-                                    <% DTRecebimento.forEach((row, index) => { %>
+                                    <% DTFaturamento.forEach((row, index) => { %>
+                                        
                                         <tr>
                                            <!-- <td style="min-width: 30px;"><%= row.cod %></td>                                            
                                             <% if(row.data == null || row.data == '0000-00-00 00:00:00' || row.data == 'Invalid Date') { %>
@@ -257,30 +260,24 @@
                                             <% } %>
                                             
                                             <td><%= row.dia_semana %></td>-->
-                                            <td><%= DTRecebimento[index].nfnum.toString() %></td>                                           
-                                            <td><%= DTRecebimento[index].docdat.toString().substring(6,8)+'/'+DTRecebimento[index].docdat.toString().substring(4,6)+'/'+DTRecebimento[index].docdat.toString().substring(0,4) %></td>
-                                            <td><%= DTRecebimento[index].statuspag.toString() %></td> 
-                                            <td><%= DTRecebimento[index].augdt.toString().substring(6,8)+'/'+DTRecebimento[index].augdt.toString().substring(4,6)+'/'+DTRecebimento[index].augdt.toString().substring(0,4) %></td> 
-                                            <!-- <td><%= row.turno %></td> -->
-                                            <td><%= DTRecebimento[index].augbl.toString() %></td>
-                                            <td><%= DTRecebimento[index].refkey.toString() %></td>
-                                            <td><%= DTRecebimento[index].nftot.toString() %></td>
-                                            <td><%= DTRecebimento[index].vlr_liquido.toString() %></td>
-                                            <!-- <td><%= row.tempo_conferencia %></td> -->
-                                            <td><%= DTRecebimento[index].projk.toString() %></td>
-                                            <td><%= DTRecebimento[index].post1.toString() %></td>
-                                            <td><%= DTRecebimento[index].werks.toString() %></td>
-                                            <td><%= DTRecebimento[index].zfbdt.toString().substring(6,8)+'/'+DTRecebimento[index].zfbdt.toString().substring(4,6)+'/'+DTRecebimento[index].zfbdt.toString().substring(0,4) %></td>
-                                            <td><%= DTRecebimento[index].parid.toString() %></td>
-                                            <td style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;"><%= DTRecebimento[index].name1.toString() %></td>
-                                            <td style="width: 100%;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;"><%= DTRecebimento[index].sgtxt.toString() %></td>
-                                            <td><%= DTRecebimento[index].vlr_pago.toString() %></td>
-                                            <td><%= DTRecebimento[index].belnr_reclas.toString() %></td>
-                                            <td><%= DTRecebimento[index].pep_reclas.toString() %></td>
-                                            <td><%= DTRecebimento[index].post1_reclas.toString() %></td>
-                                            <td><%= DTRecebimento[index].vlr_proj_atual.toString() %></td>
-                                           <!--  <td><%= row.veiculos_previstos %></td>
-                                            <td><%= row.volumes_previstos %></td> -->
+                                            <td><%= DTFaturamento[index].nfnum.toString() %></td>                                           
+                                            <td><%= DTFaturamento[index].docdat.toString().substring(6,8)+'/'+DTFaturamento[index].docdat.toString().substring(4,6)+'/'+DTFaturamento[index].docdat.toString().substring(0,4) %></td>
+                                            <td><%= DTFaturamento[index].statusnf.toString() %></td> 
+                                           
+                                            <td><%= DTFaturamento[index].refkey.toString() %></td>
+                                            <td><%= DTFaturamento[index].augbl === undefined ? 'Não pago' : DTFaturamento[index].augbl.toString() %></td>
+                                            <td><%= DTFaturamento[index].netwr.toString() %></td>
+                                            <td><%= DTFaturamento[index].vlr_liquido === undefined ? '' : DTFaturamento[index].vlr_liquido.toString()%></td>
+                                            <td><%= DTFaturamento[index].parid.toString() %></td>
+                                            <td style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;"><%= DTFaturamento[index].name1.toString() %></td>
+                                            <td><%= DTFaturamento[index].cnpj.toString() %></td>
+                                            <td><%= DTFaturamento[index].projk.toString() %></td>
+                                            <td><%= DTFaturamento[index].post1.toString() %></td>
+                                            <td><%= DTFaturamento[index].werks.toString() %></td>
+                                            <td><%= DTFaturamento[index].zfbdt.toString() %></td>
+                                            
+                                            <td style="width: 100%;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;"><%= DTFaturamento[index].maktx_i.toString() %></td>
+                                           
 
                                             <!-- Coluna: Opções -->
                                             <td style="min-width: 130px;">
@@ -316,26 +313,23 @@
 
                                 <tfoot>
                                     <tr>
-                                        <th scope="col">Nota Fiscal</th>
-                                        <th scope="col">Dt.Recebimento</th>
-                                        <th scope="col">Stat.Pgto</th>
-                                        <th scope="col">Dt.Pagto</th>
-                                        <th scope="col">Doc.Pagto</th>
+                                        <th scope="col">Nota Fiscal</th>                                        
+                                        <th scope="col">Dt.Emissao</th>
+                                        <th scope="col">Stat.NF</th>
+                                        <!--<th scope="col">Dt.Pagto</th>
+                                        <th scope="col">Doc.Pagto</th>-->
                                         <th scope="col">Doc.Faturamento</th>
-                                        <th scope="col">Valor Bruto</th>
-                                        <th scope="col">Valor Liquido</th>
-                                        <th scope="col">Projeto</th>
-                                        <th scope="col">Descriçao</th>                                                                                                        
-                                        <th scope="col">Filial</th>
-                                        <th scope="col">Dt.Vencimento</th>
+                                        <th scope="col">Doc.Compensação</th>
+                                        <th scope="col">Vlr.Bruto Item</th>
+                                        <th scope="col">Vlr.Líquido</th>
                                         <th scope="col">Cliente</th>
-                                        <th class="w-25">Nome</th>
-                                        <th scope="col" style="width: 100%;">Texto Item</th>
-                                        <th scope="col">Valor Pago</th>
-                                        <th scope="col">Doc.Reclass</th>
-                                        <th scope="col">Proj.Reclass</th>
-                                        <th scope="col">Nome</th>
-                                        <th scope="col">Vlr.Proj.Atual</th>
+                                        <th style="width: 100%;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">Nome</th>
+                                        <th scope="col">CNPJ</th>
+                                        <th scope="col">Projeto</th>
+                                        <th scope="col">Descriçao</th>                                                                     
+                                        <th scope="col">Filial</th>
+                                        <th scope="col">Dt.Vencimento</th>                                        
+                                        <th scope="col" style="width: 100%;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">Texto Item</th>
                                        
                                        <!-- <th scope="col">Opcoes</th>-->
                                     </tr>
@@ -358,7 +352,7 @@
                                 </div>
 
                                 <!-- Conteúdo central do modal -->
-                                <form role="form" action="/addRecebimento" method="post" enctype="multipart/form-data">
+                                <form role="form" action="/addFaturamento" method="post" enctype="multipart/form-data">
                                     <!-- Campos do formulário -->
                                     <div class="modal-body">
                                         <!-- Cod -->
@@ -503,7 +497,7 @@
                                 </div>
 
                                 <!-- Conteúdo central do modal -->
-                                <form role="form" action="/editRecebimento/ <?= document.getElementById('cod_EDIT').value ?>" method="post" enctype="multipart/form-data">
+                                <form role="form" action="/editFaturamento/ <?= document.getElementById('cod_EDIT').value ?>" method="post" enctype="multipart/form-data">
                                     <!-- Campos do formulário -->
                                     <div class="modal-body">
                                         <div class="row" style="display: none;">
@@ -565,7 +559,7 @@
                                             <!-- Tempo em stage -->
                                             <div class="col-sm-3">
                                                 <div class="form-group">
-                                                    <label for="tempo_conferencia_EDIT" class="label">Recebidos</label>
+                                                    <label for="tempo_conferencia_EDIT" class="label">Faturados</label>
                                                     <div class="input-group clockpicker">
                                                         <input type="text" 
                                                             class="form-control form-control-sm"
@@ -659,7 +653,7 @@
                                     <!-- Função anónima dentro da classe button
                                          que direciona para a route /delete/:id após o usuário clicar em sim no modal -->
                                     <button type="button" class="btn btn-outline-light" onclick="(function() {
-                                        window.location = '/delRecebimento/' + document.getElementById('cod_DEL').textContent;
+                                        window.location = '/delFaturamento/' + document.getElementById('cod_DEL').textContent;
                                         })()" id="btnDeletar_DEL">
                                         Sim, eliminar
                                     </button>

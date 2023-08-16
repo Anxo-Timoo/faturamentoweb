@@ -133,7 +133,7 @@
 
                     <!-- ######################################################################### Tabela -->
                     <div class="card-body">
-                        <% if (!Array.isArray(DTEmbalagem) || !DTEmbalagem.length) { %>
+                        <% if (!Array.isArray(DTOrdens) || !DTOrdens.length) { %>
                         <!-- Não existe dados na tabela -->
                         <!-- <p class="text-center">Clique <a data-toggle="modal" data-target="#modalADD" style="cursor:pointer; color:rgb(79, 79, 255)"> aqui </a>para adicionar um novo registro.</p> -->
     
@@ -226,14 +226,7 @@
                                         <th scope="col">Status</th>
                                         <th scope="col">Filial</th>
                                         <th scope="col">Usuário</th>
-                                        <!--<th scope="col">Takt atingido Cilindro</th>
-                                         <th scope="col">Takt atingido Outros</th>
-                                        <th scope="col">BO Objetivo PE</th>
-                                        <th scope="col">BO Entrega PE</th>
-                                        <th scope="col">BO Objetivo Cilindro</th>
-                                        <th scope="col">BO Entrega Cilindro</th>
-                                        <th scope="col">BO Objetivo Outros</th>                                        
-                                        <th scope="col">BO Entrega Outros</th>-->
+                                                                                                                      
                                         <th scope="col">Opções</th> 
                                     </tr>
                                 </thead>
@@ -243,22 +236,24 @@
                                 
                                      
                                    
-                                    <% DTEmbalagem.forEach((row, index) => { %>
-                                        
+
+                                    <% DTOrdens.forEach((row, index) => { 
+                                       
+                                   %>
                                         <tr>
-                                            <td style="min-width: 30px;"><%= DTEmbalagem[index].vbeln.toString() %></td>                                            
-                                            <td style="min-width: 30px;"><%= DTEmbalagem[index].erdat.toString().substring(6,8)+'/'+DTEmbalagem[index].erdat.toString().substring(4,6)+'/'+DTEmbalagem[index].erdat.toString().substring(0,4) %></td>   
+                                            <td style="min-width: 30px;"><%= DTOrdens[index].vbeln.toString() %></td>                                            
+                                            <td style="min-width: 30px;"><%= DTOrdens[index].erdat.toString().substring(6,8)+'/'+DTOrdens[index].erdat.toString().substring(4,6)+'/'+DTOrdens[index].erdat.toString().substring(0,4) %></td>   
                                              <%if(row.data == null || row.data == '0000-00-00 00:00:00' || row.data == 'Invalid Date') { %> 
-                                               <td><% DTEmbalagem[index].audat.toString() %></td> 
+                                               <td><% DTOrdens[index].audat.toString() %></td> 
                                             <% } else { %>
-                                                <td><%= DTEmbalagem[index].name1.toLocaleString()%></td> 
-                                                <!-- <td style="min-width: 120px;"><% DTEmbalagem[index].erdat.toDate() %></td> -->
+                                                <td><%= DTOrdens[index].name1.toLocaleString()%></td> 
+                                                <!-- <td style="min-width: 120px;"><% DTOrdens[index].erdat.toDate() %></td> -->
                                               <% } %>
-                                            <td><%= DTEmbalagem[index].name1.toLocaleString()%></td>
-                                            <td><%=DTEmbalagem[index].netwr.toLocaleString() %></td>
-                                            <td><%= DTEmbalagem[index].statu.toLocaleString()  %></td>
-                                            <td><%= DTEmbalagem[index].vkorg.toLocaleString()  %></td>
-                                            <td><%= DTEmbalagem[index].ernam.toLocaleString() %></td>
+                                            <td><%= DTOrdens[index].name1.toLocaleString()%></td>
+                                            <td><%=DTOrdens[index].netwr.toLocaleString() %></td>
+                                            <td><%= DTOrdens[index].statu.toLocaleString()  %></td>
+                                            <td><%= DTOrdens[index].vkorg.toLocaleString()  %></td>
+                                            <td><%= DTOrdens[index].ernam.toLocaleString() %></td>
                                             <!-- <td><%= row.takt_pe %>%</td> -->
                                             <!--<td><%= row.takt_cilindro %>%</td>
                                              
@@ -272,34 +267,99 @@
 
                                             <!-- Coluna: Opções -->
                                             <td style="min-width: 130px;">
-                                                <button class="btn btn-xs btn-success" data-toggle="modal" data-target="#modalEDIT" 
+                                                <button class="btn btn-xs btn-success" data-toggle="modal" data-target="#modalFAT" 
                                                 onclick="(function(){                      
                                                     //Setando o valor nos campos de texto 
-                                                    document.getElementById('cod_EDIT').value = '<%= DTEmbalagem[index].vbeln.toString() %>';
+                                                    document.getElementById('cod_EDIT').value = '<%= DTOrdens[index].vbeln.toString() %>';
                                                     /* $('#data_EDIT').data('datetimepicker').date('<%- row.data %>');
                                                     $('#turno_EDIT').val('<%= row.turno %>');
                                                     $('#turno_EDIT').trigger('change');
-                                                    $('#setup_PE_EDIT').data('datetimepicker').date('<%- row.setup_pe %>');
-                                                    $('#setup_Cilindro_EDIT').data('datetimepicker').date('<%- row.setup_cilindro %>');
-                                                    $('#setup_Outros_EDIT').data('datetimepicker').date('<%- row.setup_outros %>');
-                                                    document.getElementById('takt_PE_EDIT').value = formatBDToDecimal('<%= row.takt_pe %>');
-                                                    document.getElementById('takt_Cilindro_EDIT').value = formatBDToDecimal('<%= row.takt_cilindro %>');
-                                                    document.getElementById('takt_Outros_EDIT').value = formatBDToDecimal('<%= row.takt_outros %>');
-                                                    document.getElementById('bo_objetivo_pe_EDIT').value = formatBDToDecimal('<%= row.bo_objetivo_pe %>');
-                                                    document.getElementById('bo_entrega_pe_EDIT').value = formatBDToDecimal('<%= row.bo_entrega_pe %>');
-                                                    document.getElementById('bo_objetivo_cilindro_EDIT').value = formatBDToDecimal('<%= row.bo_objetivo_cilindro %>');
-                                                    document.getElementById('bo_entrega_cilindro_EDIT').value = formatBDToDecimal('<%= row.bo_entrega_cilindro %>');
-                                                    document.getElementById('bo_objetivo_outros_EDIT').value = formatBDToDecimal('<%= row.bo_objetivo_outros %>');
-                                                    document.getElementById('bo_entrega_outros_EDIT').value = formatBDToDecimal('<%= row.bo_entrega_outros %>'); */
+                                                    */
 
                                                 })()">&nbsp;&nbsp;&nbsp;Faturar&nbsp;&nbsp;
+
+                                                </button>
+                                                
+                                                <button class="btn btn-xs btn-warning" data-toggle="modal" data-target="#modalEDIT" 
+                                                onclick="(function(){   
+                                                    //alert('<%= DTOrdens[index].vbeln.toString() %>'); 
+                                                                                                                                                          
+                                                    
+                                                    document.getElementById('cod_EDIT1').value = '<%= DTOrdens[index].vbeln.toString() %>';  
+                                                    
+                                                    //dados de impostos
+                                                    '<% var txtTax = ``; var vbeln = DTOrdens[index].vbeln.toString();%>'
+                                                    + '<% txtTax = DTTextos.filter(({ text, object }) => text === 'TAX' && object === vbeln)[0].text_line %>';
+                                                    var txtTax = `<%=txtTax%>`;
+                                                    document.getElementById('taxText_EDIT').value = txtTax;
+                                                    
+                                                    //dados bancários                                                    
+                                                     '<% var txtBank = ``; var vbeln = DTOrdens[index].vbeln.toString();%>'
+                                                    + '<%txtBank = DTTextos.filter(({ text, object }) => text === 'BANK' && object === vbeln)[0].text_line %>';
+                                                    var txtBank = `<%=txtBank%>`;
+                                                    document.getElementById('txtBank_EDIT').value = txtBank;
+                                                    
+                                                    //Descrição do serviço - item                                                     
+                                                    
+                                                    '<% var vbeln = DTOrdens[index].vbeln.toString();%>'
+                                                    +'<% var txtService = ``;%>'                                               
+                                                    + '<%=DTTextos.forEach((row, index) => { if(DTTextos[index].text.toString() === 'ITM' && DTTextos[index].object.toString() === vbeln){ txtService += DTTextos[index].text_line.toString(); }})%>';
+                                                                                                        
+                                                    var testeMultiline = `<%=txtService%>`;                                                                                                        
+                                                    document.getElementById('txtServiceEDIT').value = testeMultiline;
+ 
+                                                    //condicoes
+                                                    var indice = '<%= DTOrdens[index].zterm.toString() %>';
+                                                    
+                                                    '<% DTCondicoes.forEach((row, index) => { %>'
+                                                        var newOption = document.createElement('option');
+                                                        newOption.text = '<%=DTCondicoes[index].zterm.toString() + ' -' +DTCondicoes[index].vtext.toString() %>';
+                                                        newOption.value = '<%=DTCondicoes[index].zterm.toString()%>';
+                                                       
+                                                        document.getElementById('condition_EDIT').add(newOption);                                                                                                                
+                                                     '<% }); %>'  
+                                                     
+                                                     //seta o ´indice
+                                                     
+                                                    $('#condition_EDIT').val(indice);
+                                                                                                        
+                                                    var comboCondicao =  document.getElementById('condition_EDIT');
+                                                    comboCondicao.dispatchEvent(new Event('change'));                                                
+                                                    comboCondicao.options[comboCondicao.options.selectedIndex].selected = true;
+                                                    
+                                                    //indice++;
+                                                    $('#condition_EDIT').prop('selectedIndex',indice);                                                                                                                                                                                                                
+                                                    //$('#condition_EDIT').val(indice);
+                                                    $('#condition_EDIT').prop('selected','selected');
+                                                    //$('#condition_EDIT').val(indice).change();
+                                                    //comboCondicao.dispatchEvent(new Event('change'));                                                
+                                                    //$('#condition_EDIT').prop('selectedIndex',indice);                                                                                                                                                                                                                
+                                                   // $('#condition_EDIT').val(indice);                                                                                                       
+                                                                                                                                 
+                                                    //$('#taxText_EDIT').val(SalesOrder);                                                                                                                                                                                                                                                                                                                                                                                                                               
+                                                    //document.getElementById('taxText_EDIT').value = '<%=DTOrdens[index].valdt;%>'
+                                                    var data = '<%=DTOrdens[index].valdt.toString()%>';
+                                                    //data = data.substring(0,4) + '-' + data.substring(6,4) + '-' + data.substring(8,6);
+                                                    var ano = parseInt(data.substring(0,4));
+                                                    var dia = parseInt(data.substring(8,6));
+                                                    var mes = parseInt(data.substring(6,4));
+                                                   
+                                                    mes = mes -1;
+                                                    
+                                                    var dataPicker = new Date(ano,mes,dia);
+                                                    
+                                                    $('#venc_EDIT').data('datetimepicker').date(dataPicker);
+                                                    $('#takt_Outros_EDIT').val(indice);                                                    
+                                                    
+
+                                                })()">&nbsp;&nbsp;&nbsp;Editar&nbsp;&nbsp;
 
                                                 </button>
 
                                                         <!-- Função anónima dentro da classe button
                                                     que seta o cod do registro selecionado no campo oculto do modal -->
                                                         <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#modalDEL" onclick="(function(){
-                                                    document.getElementById('cod_DEL').textContent = '<%= row.cod %>';
+                                                    document.getElementById('cod_DEL').textContent = '<%=DTOrdens[index].vbeln.toString()%>';
                                                     })()">
                                                     Rejeitar
                                                 </button>
@@ -318,14 +378,7 @@
                                         <th scope="col">Status</th>
                                         <th scope="col">Filial</th>
                                         <th scope="col">Usuário</th>
-                                         <!--<th scope="col">Takt atingido Cilindro</th>
-                                        <th scope="col">Takt atingido Outros</th>-->
-                                        <!-- <th scope="col">BO Objetivo PE</th>
-                                        <th scope="col">BO Entrega PE</th>
-                                        <th scope="col">BO Objetivo Cilindro</th>
-                                        <th scope="col">BO Entrega Cilindro</th>
-                                        <th scope="col">BO Objetivo Outros</th>
-                                        <th scope="col">BO Entrega Outros</th> -->
+                                      
                                         <th scope="col">Opções</th> 
                                     </tr>
                                 </tfoot>
@@ -571,8 +624,9 @@
                         </div>
                     </div>
 
+
                     <!-- ######################################################################### Modal para EDITAR -->
-                    <div class="modal fade" id="modalEDIT" data-backdrop="static">
+                    <div class="modal fade" id="modalFAT" data-backdrop="static">
                         <div class="modal-dialog modal-md">
                             <div class="modal-content">
                                 <!-- Header -->
@@ -603,104 +657,162 @@
                                             <div class="col-sm-5">
                                                 <div class="form-group">
                                                     <label for="data_EDIT" class="label">Deseja prosseguir com o Faturamento?</label>
-                                                   <!--  <div class="input-group date" id="data_EDIT"
-                                                        data-target-input="nearest">
-                                                        <input type="text"
-                                                            class="form-control form-control-sm datetimepicker-input date_times"
-                                                            data-target="#data_EDIT"
-                                                            name="data_INPUT_EDIT"
-                                                            id="data_INPUT_EDIT" defaultDate:dateNow />
-                                                        <div class="input-group-append"
-                                                            data-target="#data_EDIT"
-                                                            data-toggle="datetimepicker">
-                                                            <div class="input-group-text"><i class="far fa-calendar-alt"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div> -->
+                                                  
                                                 </div>
                                             </div>
 
-                                            <!-- Turno -->
-                                            <!-- <div class="col-sm-3">
-                                                <div class="form-group">
-                                                    <label for="turno_EDIT" class="label">Turno</label>
-                                                    <select class="form-control form-control-sm select2"
-                                                        style="width: 100%;" name="turno_EDIT" id="turno_EDIT" required>
-                                                        <option value="">-- Selecione --</option>
-                                                        <option value="T1">T1</option>
-                                                        <option value="T2">T2</option>
-                                                    </select>
-                                                </div>
-                                            </div> -->
+                                            
                                         </div>
 
-                                        <!-- Setup -->
-                                       <!--  <div class="row">
-                                             Setup PE -->
-                                           <!--  <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label for="setup_PE_EDIT" class="label">Setup PE</label>
-                                                    <div class="input-group time" id="setup_PE_EDIT"
-                                                        data-target-input="nearest">
-                                                        <input type="text"
-                                                            class="form-control form-control-sm datetimepicker-input datepicker"
-                                                            data-target="#setup_PE_EDIT"
-                                                            name="setup_PE_INPUT_EDIT"
-                                                            id="setup_PE_INPUT_EDIT" required />
-                                                        <div class="input-group-append"
-                                                        data-target="#setup_PE_EDIT"
-                                                            data-toggle="datetimepicker">
-                                                            <div class="input-group-text"><i class="far fa-clock"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div> -->
+                                     
+                                        <div class="row">
+                                            
 
-                                            <!-- Setup Cilindro -->
-                                           <!--  <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label for="setup_Cilindro_EDIT" class="label">Setup Cilindro</label>
-                                                    <div class="input-group time" id="setup_Cilindro_EDIT"
-                                                        data-target-input="nearest">
-                                                        <input type="text"
-                                                            class="form-control form-control-sm datetimepicker-input datepicker"
-                                                            data-target="#setup_Cilindro_EDIT"
-                                                            name="setup_Cilindro_INPUT_EDIT"
-                                                            id="setup_Cilindro_INPUT_EDIT" required />
-                                                        <div class="input-group-append"
-                                                            data-target="#setup_Cilindro_EDIT"
-                                                            data-toggle="datetimepicker">
-                                                            <div class="input-group-text"><i class="far fa-clock"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div> -->
+                                            <!-- Takt Cilindro -->
+                                            <div class="col-sm-4">
+                                             
+                                            </div>
+                                               
+                                                  <div class="col-sm-4">
+                                                     
 
-                                            <!-- Setup Outros -->
-                                            <!-- <div class="col-sm-4">
+                                                   </div>
+                                                                                                                                    
+                                        </div>
+
+                                        <!-- BO Objetivo --> 
+                                        <div class="row">
+                                                                    
+                                        </div>
+
+                                        <!-- BO a Entregar/Entregue --> 
+                                        <div class="row">
+                                                                      
+                                        </div>
+                                    </div>
+                                    <!-- Botões -->
+                                    <div class="modal-footer justify-content-between">
+                                        <button type="submit" class="btn btn-primary" id="btnSalvar_EDIT">&nbsp;&nbsp;Salvar&nbsp;&nbsp;</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ######################################################################### Modal para EDITAR -->
+                    <div class="modal fade" id="modalEDIT" data-backdrop="static">
+                        <div class="modal-dialog modal-md">
+                            <div class="modal-content">
+                                <!-- Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Editar</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <!-- Conteúdo central do modal -->
+                                <form role="form" action="/editOV/ <?= document.getElementById('cod_EDIT').value ?>" method="post" enctype="multipart/form-data">
+                                    <!-- Campos do formulário -->
+                                    <div class="modal-body">
+
+                                        <!-- Cod -->
+                                        <div class="row" >
+                                            <div class="col-sm-3">
                                                 <div class="form-group">
-                                                    <label for="setup_Outros_EDIT" class="label">Setup Outros</label>
-                                                    <div class="input-group time" id="setup_Outros_EDIT"
-                                                        data-target-input="nearest">
-                                                        <input type="text"
-                                                            class="form-control form-control-sm datetimepicker-input datepicker"
-                                                            data-target="#setup_Outros_EDIT"
-                                                            name="setup_Outros_INPUT_EDIT"
-                                                            id="setup_Outros_INPUT_EDIT" required />
-                                                        <div class="input-group-append"
-                                                            data-target="#setup_Outros_EDIT"
-                                                            data-toggle="datetimepicker">
-                                                            <div class="input-group-text"><i class="far fa-clock"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    <label for="cod_EDIT1" class="label">Ordem de Venda</label>
+                                                    <input type="text" class="form-control form-control-sm" id ="cod_EDIT1" name="cod_EDIT1" valid="cod_EDIT1" placeholder="Cod" readonly=“false”>
                                                 </div>
                                             </div>
-                                        </div>  -->
+                                        </div>
 
-                                        <!-- Takt -->
+                                        <label for="venc_EDIT" class="label">Vencimento</label>
+                                            <div class="input-group date" id="venc_EDIT"
+                                                data-target-input="nearest">
+                                                <input type="text"
+                                                    class="form-control form-control-sm datetimepicker-input date_times"
+                                                    data-target="#venc_EDIT"
+                                                    name="venc_EDIT"
+                                                    id="venc_EDIT" required />
+                                                <div class="input-group-append"
+                                                    data-target="#venc_EDIT"
+                                                    data-toggle="datetimepicker">
+                                                    <div class="input-group-text"><i class="far fa-calendar-alt"></i>
+                                                    </div>
+                                                </div>
+                                        </div>
+
+                                        <!-- Editar -->
+                                        <div class="row">
+                                            <!-- Data 
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <label for="data_EDIT" class="label">Ordem de venda </label>
+                                                     <div class="input-group date" id="data_EDIT"
+                                                        data-target-input="nearest">
+                                                        <input type="text" class="form-control form-control-sm" data-target="#cod_EDIT"  name="cod_EDIT" id="cod_EDIT" placeholder="Cod" readonly=“true”>
+                                                       
+                                                    </div> 
+                                                </div>
+                                            </div>-->                                                                                       
+                                            
+                                                <!-- Aviso / Feedback -->
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <label for="txtBank_EDIT" class="label">Dados bancários</label>
+                                                        <textarea class="form-control form-control-sm" name="txtBank_EDIT"
+                                                            id="txtBank_EDIT" placeholder="Dados bancários"
+                                                            rows="5">
+                                                                                                                                                                                   
+                                                        </textarea>
+                                                    </div>
+                                                </div>
+                                              
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <label for="taxText_EDIT" class="label">Dados de impostos</label>
+                                                        <textarea class="form-control form-control-sm" style="white-space: normal;text-align: left;" name="taxText_EDIT"
+                                                            id="taxText_EDIT" placeholder="Dados de impostos"
+                                                            rows="5">
+                                                            
+                                                        </textarea>
+                                                                            
+                                                                        
+                                                                                                                                                                                                                                                                                                      
+                                                        
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <label for="txtServiceEDIT" class="label">Descrição do serviço</label>
+                                                        <textarea class="form-control form-control-sm" style="white-space: normal;text-align: left;" name="txtServiceEDIT"
+                                                            id="txtServiceEDIT" placeholder="Descrição do serviço"
+                                                            rows="5">
+                                                        </textarea>
+                                                    </div>
+                                                </div>
+
+                                            <!-- Condição -->
+                                           
+                                            
+                                                                                                                                    
+                                             <div class="col-sm-11">
+                                                <div class="form-group">
+                                                    <label for="condition_EDIT" class="label">Condição</label>
+                                                    <select class="form-control form-control-sm select2"
+                                                        style="width: 100%;" name="condition_EDIT" id="condition_EDIT">                                                        
+                                                        
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            
+                                             
+                                            
+                                        </div>
+
+                                      
                                         <div class="row">
                                             <!-- Takt PE -->
                                            <!--  <div class="col-sm-4">
@@ -737,14 +849,14 @@
                                             
 
                                             <!-- Takt Outros -->
-                                            <!-- <div class="col-sm-4">
+                                             <div class="col-sm-4">
                                                 <div class="form-group">
-                                                    <label for="takt_Outros_EDIT" class="label">Takt Outros atingido (%)</label>
-                                                    <input type="text" class="form-control form-control-sm percent"
+                                                    <label for="takt_Outros_EDIT" class="label"></label>
+                                                    <input type="hidden" class="form-control form-control-sm percent"
                                                         name="takt_Outros_EDIT" id="takt_Outros_EDIT"
                                                         placeholder="% Atingido" required>
                                                 </div>
-                                            </div> -->
+                                            </div> 
                                         </div>
 
                                         <!-- BO Objetivo --> 
@@ -759,58 +871,12 @@
                                                 </div>
                                             </div> -->
 
-                                            <!-- BO Objetivo Cilindro -->
-                                           <!--  <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label for="bo_objetivo_cilindro_EDIT" class="label">BO Objetivo Cilindro</label>
-                                                    <input type="text" class="form-control form-control-sm money"
-                                                        name="bo_objetivo_cilindro_EDIT" id="bo_objetivo_cilindro_EDIT"
-                                                        placeholder="R$ Objetivo" required>
-                                                </div>
-                                            </div> -->
-
-                                            <!-- BO Objetivo Outros -->
-                                            <!-- <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label for="bo_objetivo_outros_EDIT" class="label">BO Objetivo Outros</label>
-                                                    <input type="text" class="form-control form-control-sm money"
-                                                        name="bo_objetivo_outros_EDIT" id="bo_objetivo_outros_EDIT"
-                                                        placeholder="R$ Objetivo" required>
-                                                </div>
-                                            </div>     -->                                        
+                                                                              
                                         </div>
 
                                         <!-- BO a Entregar/Entregue --> 
                                         <div class="row">
-                                            <!-- BO Entrega PE -->
-                                            <!-- <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label for="bo_entrega_pe_EDIT" class="label">BO Entrega PE</label>
-                                                    <input type="text" class="form-control form-control-sm money"
-                                                        name="bo_entrega_pe_EDIT" id="bo_entrega_pe_EDIT"
-                                                        placeholder="R$ Entrega" required>
-                                                </div>
-                                            </div> -->
-
-                                            <!-- BO Entrega Cilindro -->
-                                            <!-- <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label for="bo_entrega_cilindro_EDIT" class="label">BO Entrega Cilindro</label>
-                                                    <input type="text" class="form-control form-control-sm money"
-                                                        name="bo_entrega_cilindro_EDIT" id="bo_entrega_cilindro_EDIT"
-                                                        placeholder="R$ Entrega" required>
-                                                </div>
-                                            </div> -->
-
-                                            <!-- BO Entrega Outros -->
-                                            <!-- <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label for="bo_entrega_outros_EDIT" class="label">BO Entrega Outros</label>
-                                                    <input type="text" class="form-control form-control-sm money"
-                                                        name="bo_entrega_outros_EDIT" id="bo_entrega_outros_EDIT"
-                                                        placeholder="R$ Entrega" required>
-                                                </div>
-                                            </div>    -->                                         
+                                                                               
                                         </div>
                                     </div>
                                     <!-- Botões -->
@@ -866,3 +932,4 @@
            lá no "tails.ejs" tem uma função no final que verifica o que tem neste span"
            e dispara uma função de alerta do toastr de acordo com o texto -->
 <span style="display:none" id='status_Crud'><%= status_Crud %></span>
+                                                                         
