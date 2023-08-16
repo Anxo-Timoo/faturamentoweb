@@ -12,21 +12,21 @@ var status_Crud = '';
 var page = './includes/default/3-content';
 
 module.exports = {
-    pageEmbalagem: (req, res) => {
+    pageFaturamento: (req, res) => {
 
         //Executa certas funções em tempo de execução passando para a página
         let DBModel = new DB(conn);
         (async function () {
             //Atribuindo o conteúdo central
-            page = './includes/dashboard/inc_embalagem';
+            page = './includes/dashboard/inc_faturamento';
             //page = './includes/default/3-content_manutencao';
 
             //Consultas diversas para popular elementos
-            //let embalagens = await DBModel.getSFEmbalagens(req.query.data, req.query.semana, req.query.turno);
-            let embalagens = await DBModel.getSFOrdemDeVenda(req.query.data, req.query.semana, req.query.turno);
+            
+            let faturamentos = await DBModel.getFIARBillingsRFC('ZFIAR_REP_BILLING_OUTPUT',req.query.dataIni,req.query.dataFim,req.query.cliente,req.query.nfnum);
             
             //Variáveis utilizadas para paginação
-            var totalItens = embalagens.length,//Qtde total de registros
+            var totalItens = faturamentos.length,//Qtde total de registros
                 pageSize = 10,//Número máximo de registros por página
                 pageCount = Math.ceil(totalItens / pageSize),//Número de páginas (Arredondar p/ cima)
                 currentPage = 1,//Página corrente ao entrar na rota
@@ -36,7 +36,7 @@ module.exports = {
 
             //Criando a lista de itens
             for (var i = 0; i < totalItens; i++) {
-                itens.push(embalagens[i]);
+                itens.push(faturamentos[i]);
             }
 
             //Divide a lista em grupos (páginas)
@@ -55,7 +55,7 @@ module.exports = {
             //Passa o conteúdo das variáveis para a página principal
             res.render('./pageAdmin', {
                 //Populando elementos
-                DTEmbalagem: itensList,
+                DTFaturamento: itensList,
                 pageSize: pageSize,
                 totalItens: totalItens,
                 pageCount: pageCount,
@@ -84,8 +84,9 @@ module.exports = {
                 CadShopfloor: '',
                 CadInformacoes_Gerais: '',
                 CadOcorrencia_sf: '',
+                CadFaturamento:'active',
                 CadRecebimento: '',
-                CadEmbalagem: 'active',
+                CadEmbalagem: '',
                 CadPreparacao: '',
                 CadInventario: '',
                 CadQualidade: '',
@@ -102,122 +103,98 @@ module.exports = {
         })();//async
     },
 
-    addEmbalagem: (req, res) => {
+    addFaturamento: (req, res) => {
         let cod = req.body.cod_ADD;
         let data = FUNCOES.formatDateTimeToBD(req.body.data_INPUT_ADD);
+        let dia_semana = FUNCOES.formatDateTimeToDay(req.body.data_INPUT_ADD);
         let semana = FUNCOES.formatDateTimeToWeek(req.body.data_INPUT_ADD);
         let turno = req.body.turno_ADD;
-        let setup_pe = req.body.setup_PE_INPUT_ADD;
-        let setup_cilindro = req.body.setup_Cilindro_INPUT_ADD;
-        let setup_outros = req.body.setup_Outros_INPUT_ADD;
-        let takt_pe = FUNCOES.formatDecimalToBD(req.body.takt_PE_ADD);
-        let takt_cilindro = FUNCOES.formatDecimalToBD(req.body.takt_Cilindro_ADD);
-        let takt_outros = FUNCOES.formatDecimalToBD(req.body.takt_Outros_ADD);
-        let bo_objetivo_pe = FUNCOES.formatDecimalToBD(req.body.bo_objetivo_pe_ADD);
-        let bo_entrega_pe = FUNCOES.formatDecimalToBD(req.body.bo_entrega_pe_ADD);
-        let bo_objetivo_cilindro = FUNCOES.formatDecimalToBD(req.body.bo_objetivo_cilindro_ADD);
-        let bo_entrega_cilindro = FUNCOES.formatDecimalToBD(req.body.bo_entrega_cilindro_ADD);
-        let bo_objetivo_outros = FUNCOES.formatDecimalToBD(req.body.bo_objetivo_outros_ADD);
-        let bo_entrega_outros = FUNCOES.formatDecimalToBD(req.body.bo_entrega_outros_ADD);
+        let palete_pendente = req.body.palete_pendente_ADD;
+        let tempo_conferencia = req.body.tempo_conferencia_INPUT_ADD;
+        let tempo_inspecao = req.body.tempo_inspecao_INPUT_ADD;
+        let veiculos_previstos = req.body.veiculos_previstos_ADD;
+        let volumes_previstos = req.body.volumes_previstos_ADD;
 
         //Faz o INSERT somente nos campos da RNC parte cliente
-        let query = "INSERT INTO `tb_sf_embalagem` " +
-            "(data, semana, turno, setup_pe, setup_cilindro, setup_outros, takt_pe, takt_cilindro, takt_outros, bo_objetivo_pe, bo_entrega_pe, bo_objetivo_cilindro, bo_entrega_cilindro, bo_objetivo_outros, bo_entrega_outros) VALUES ('" +
+        let query = "INSERT INTO `tb_sf_recebimento` " +
+            "(data, dia_semana, semana, turno, palete_pendente, tempo_conferencia, tempo_inspecao, veiculos_previstos, volumes_previstos) VALUES ('" +
             data + "', '" +
+            dia_semana + "', '" +
             semana + "', '" +
             turno + "', '" +
-            setup_pe + "', '" +
-            setup_cilindro + "', '" +
-            setup_outros + "', '" +
-            takt_pe + "', '" +
-            takt_cilindro + "', '" +
-            takt_outros + "', '" +
-            bo_objetivo_pe + "', '" +
-            bo_entrega_pe + "', '" +
-            bo_objetivo_cilindro + "', '" +
-            bo_entrega_cilindro + "', '" +
-            bo_objetivo_outros + "', '" +
-            bo_entrega_outros + "')";
+            palete_pendente + "', '" +
+            tempo_conferencia + "', '" +
+            tempo_inspecao + "', '" +
+            veiculos_previstos + "', '" +
+            volumes_previstos + "')";
 
         //Executa o INSERT
         db.query(query, (err, results, fields) => {
             if (err) {
                 console.log('Erro 003: ', err);
                 status_Crud = 'nao';
-                res.redirect('/embalagem');
+                res.redirect('/recebimento');
             } else {
                 //INSERT realizado com sucesso
                 status_Crud = 'sim';
-                res.redirect('/embalagem');
+                res.redirect('/recebimento');
             }
         });
     },
 
-    editEmbalagem: (req, res) => {
+    editFaturamento: (req, res) => {
         let cod = req.body.cod_EDIT;
         let data = FUNCOES.formatDateTimeToBD(req.body.data_INPUT_EDIT);
+        let dia_semana = FUNCOES.formatDateTimeToDay(req.body.data_INPUT_EDIT);
         let semana = FUNCOES.formatDateTimeToWeek(req.body.data_INPUT_EDIT);
         let turno = req.body.turno_EDIT;
-        let setup_pe = req.body.setup_PE_INPUT_EDIT;
-        let setup_cilindro = req.body.setup_Cilindro_INPUT_EDIT;
-        let setup_outros = req.body.setup_Outros_INPUT_EDIT;
-        let takt_pe = FUNCOES.formatDecimalToBD(req.body.takt_PE_EDIT);
-        let takt_cilindro = FUNCOES.formatDecimalToBD(req.body.takt_Cilindro_EDIT);
-        let takt_outros = FUNCOES.formatDecimalToBD(req.body.takt_Outros_EDIT);
-        let bo_objetivo_pe = FUNCOES.formatDecimalToBD(req.body.bo_objetivo_pe_EDIT);
-        let bo_entrega_pe = FUNCOES.formatDecimalToBD(req.body.bo_entrega_pe_EDIT);
-        let bo_objetivo_cilindro = FUNCOES.formatDecimalToBD(req.body.bo_objetivo_cilindro_EDIT);
-        let bo_entrega_cilindro = FUNCOES.formatDecimalToBD(req.body.bo_entrega_cilindro_EDIT);
-        let bo_objetivo_outros = FUNCOES.formatDecimalToBD(req.body.bo_objetivo_outros_EDIT);
-        let bo_entrega_outros = FUNCOES.formatDecimalToBD(req.body.bo_entrega_outros_EDIT);
+        let palete_pendente = req.body.palete_pendente_EDIT;
+        let tempo_conferencia = req.body.tempo_conferencia_INPUT_EDIT;
+        let tempo_inspecao = req.body.tempo_inspecao_INPUT_EDIT;
+        let veiculos_previstos = req.body.veiculos_previstos_EDIT;
+        let volumes_previstos = req.body.volumes_previstos_EDIT;
 
         //Faz o UPDATE
-        let query = "UPDATE `tb_sf_embalagem` SET " +
+        let query = "UPDATE `tb_sf_recebimento` SET " +
             "`data` = '" + data + "', " +
+            "`dia_semana` = '" + dia_semana + "', " +
             "`semana` = '" + semana + "', " +
             "`turno` = '" + turno + "', " +
-            "`setup_pe` = '" + setup_pe + "', " +
-            "`setup_cilindro` = '" + setup_cilindro + "', " +
-            "`setup_outros` = '" + setup_outros + "', " +
-            "`takt_pe` = '" + takt_pe + "', " +
-            "`takt_cilindro` = '" + takt_cilindro + "', " +
-            "`takt_outros` = '" + takt_outros + "', " +
-            "`bo_objetivo_pe` = '" + bo_objetivo_pe + "', " +
-            "`bo_entrega_pe` = '" + bo_entrega_pe + "', " +
-            "`bo_objetivo_cilindro` = '" + bo_objetivo_cilindro + "', " +
-            "`bo_entrega_cilindro` = '" + bo_entrega_cilindro + "', " +
-            "`bo_objetivo_outros` = '" + bo_objetivo_outros + "', " +
-            "`bo_entrega_outros` = '" + bo_entrega_outros + "'" +
-            " WHERE `tb_sf_embalagem`.`cod` = '" + cod + "'";
+            "`palete_pendente` = '" + palete_pendente + "', " +
+            "`tempo_conferencia` = '" + tempo_conferencia + "', " +
+            "`tempo_inspecao` = '" + tempo_inspecao + "', " +
+            "`veiculos_previstos` = '" + veiculos_previstos + "', " +
+            "`volumes_previstos` = '" + volumes_previstos + "'" +
+            " WHERE `tb_sf_recebimento`.`cod` = '" + cod + "'";
 
         //Executa o UPDATE
         db.query(query, (err, results, fields) => {
             if (err) {
                 console.log('Erro 003: ', err);
                 status_Crud = 'nao';
-                res.redirect('/embalagem');
+                res.redirect('/recebimento');
             } else {
                 //UPDATE finalizado
                 status_Crud = 'sim';
-                res.redirect('/embalagem');
+                res.redirect('/recebimento');
             }
         });
     },
 
-    delEmbalagem: (req, res) => {
+    delFaturamento: (req, res) => {
         let cod = req.params.id;
-        let query = 'DELETE FROM `tb_sf_embalagem` WHERE cod = "' + cod + '"';
+        let query = 'DELETE FROM `tb_sf_recebimento` WHERE cod = "' + cod + '"';
 
         db.query(query, (err, results, fields) => {
             if (err) {
                 console.log('Erro 014: ', err);
                 status_Crud = 'nao';
-                res.redirect('/embalagem');
+                res.redirect('/recebimento');
             }
 
             //DELETE realizado com sucesso
             status_Crud = 'sim';
-            res.redirect('/embalagem');
+            res.redirect('/recebimento');
         });
     },
 

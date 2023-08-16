@@ -6,6 +6,18 @@ class DB {
         this.db = db;
     }
 
+      getSAPR3ConnectionString(){
+        
+        var abapSystem = {
+            user: 'rfcbrq',
+            passwd: 'rfc@brq12',
+            ashost: '10.2.0.226',
+            sysnr: '01',
+            client: '210'
+        };
+       return abapSystem;
+    }
+
     //-------------------------------------------------------------------------------------- Funções internas
 
     //Consulta sem parâmetro
@@ -43,6 +55,194 @@ class DB {
             return val;
         })
     }
+     
+    
+    async getFIARBillingsRFC(bapi,data_ini,data_fim,cliente,nfenum){
+         var objects = [];
+
+        var res_array = [];
+        var texts_array = [];
+        var mes;
+        var dia; 
+        var ano;
+
+        const promise = new Promise((resolve, reject) => {
+             
+            "use strict";
+                var rfc = require('node-rfc');
+                var abapSystem = this.getSAPR3ConnectionString();
+                var client = new rfc.Client(abapSystem);
+                var MAX_ROWS = 999;
+              
+                if(!data_ini){
+                    data_ini = '19000101';
+                    data_fim = '19000101';
+                }  
+                //caso a data fim não esteja preenchida, copia a data início para somente 1 dia
+                if(!data_fim){
+                    
+                    data_fim = data_ini;
+                }  
+                                           
+                if(!cliente){
+
+                 cliente = '';
+                }   
+
+                if(!nfenum){
+
+                    nfenum = '';
+                
+                }   
+
+                //inverte para o formato SAP - budat
+                dia = data_ini.substring(0,2);
+                mes = data_ini.substring(2,4);
+                ano = data_ini.substring(4,8);   
+
+                data_ini = ano + mes + dia;
+
+                dia = data_fim.substring(0,2);
+                mes = data_fim.substring(2,4);
+                ano = data_fim.substring(4,8); 
+                
+                data_fim = ano + mes + dia;
+
+
+                client.connect(function(err) {
+                    if (err) {
+                        return console.error('could not connect to server', err);
+                    }	
+                    client.invoke('ZFIAR_REP_BILLING_OUTPUT', {
+                            P_KUNNR: cliente,
+                            DTINI: data_ini,
+                            DTFIM: data_fim,
+                            PNFENUM:nfenum,
+                        },
+                        function(err, res) {
+                            if (err) {
+                                return console.error('Error invoking ZFIAR_REP_BILLING_OUTPUT:', err);
+                            }
+                        //console.log('Result ZFIAR_REP_BILLING_OUTPUT:', res);
+                        //console.log(JSON.stringify(res.USERLIST));
+                    
+                        for(let i in res.RETURN) { 
+                            res_array.push({
+                                refkey: res.RETURN[i].REFKEY,
+                                nfnum: res.RETURN[i].NFNUM,
+                                statusnf: res.RETURN[i].STATUSNF,
+                                parid: res.RETURN[i].PARID,
+                                name1: res.RETURN[i].NAME1,
+                                cnpj: res.RETURN[i].TXT_CPF_CNPJ,
+                                docdat: res.RETURN[i].DOCDAT,
+                                zfbdt: res.RETURN[i].ZFBDT,
+                                netwr: res.RETURN[i].NETWR,
+                                projk: res.RETURN[i].PROJK,
+                                post1: res.RETURN[i].POST1,
+                                maktx_i: res.RETURN[i].MAKTX_I,
+                                crenam: res.RETURN[i].CRENAM,
+                                werks:res.RETURN[i].WERKS,
+                                augdt:res.RETURN[i].AUGDT,
+                                augbl:res.RETURN[i].AUGBL,
+                                vlr_liquido:res.RETURN[i].WRBTR_L,
+
+                            });
+                            //res_array.push([i,res.USERLIST[i].USERNAME]); 
+                            //console.log(res.RETURN);
+                         }; 
+                       
+                          resolve(res_array);
+                          
+                        });	
+                });
+                //promise.then(result => return result);
+            })
+                return promise;
+
+
+    }
+
+     //Obtem uma ordem de venda pelo ID
+    async getSalesOrderById(vbeln) {
+        //Se campo do filtro vazio atribui "|" para ser usado no select de multipla consulta
+        if (vbeln == undefined || vbeln == '') { vbeln = "|"}
+        
+        
+        //Select para filtar varias coisas num mesmo campo usando "texto1;texto2"
+        //Porém o MySQL usa o REGEXP("texto1|texto2") para separar os textos digitados
+        //Desta forma substituimos o ";" digitado pelo usuário pelo "|" usando o REPLACE abaixo
+        let query = 
+        "SELECT * FROM tb_sf_ordem_venda WHERE " +
+        "IFNULL(vbeln, '') REGEXP(REPLACE('" + vbeln + "', ';' , '|')) " +        
+        "ORDER BY vbeln ASC";
+        return this.doQuery(query)      
+    }
+
+     async editaOVRFC(bapi,ov,text_bank,text_tax,text_service,valdt,condition)
+     {
+        var objects = [];
+        var docFaturamento;
+        var res_array = [];
+        let abap_table = [];
+
+        const promise = new Promise((resolve, reject) => {
+             
+            "use strict";
+                var rfc = require('node-rfc');
+                var abapSystem = this.getSAPR3ConnectionString();
+                var client = new rfc.Client(abapSystem);
+                var MAX_ROWS = 999;
+                
+               // if (ov){
+                    // ABAP structure
+                 //   const abap_structure = {
+                   //     REF_DOC: ov,
+                   //     REF_DOC_CA: 'C',                    
+                  //  };
+                    // ABAP table
+                  //   abap_table = [abap_structure];
+                //}                                                                                           
+                                                
+                client.connect(function(err) {
+                    if (err) {
+                        return console.error('could not connect to server', err);
+                    }	
+                      client.invoke('ZSAVE_TEXTS_OV_EDIT_PORTAL', 
+                       {
+                            I_TEXT_BANK:text_bank,
+                            I_VBELN:ov,
+                            I_TEXT_TAX:text_tax,
+                            I_TEXT_SERVICE:text_service,
+                            VALDT:valdt,
+                            PAYMNTRM:condition,                                                    
+                        },
+                        function(err, res) {
+                            if (err) {
+                                return console.error('Error invoking ZSAVE_TEXTS_OV_EDIT_PORTAL:', err);
+                            }
+                        //console.log('Result ZSAVE_TEXTS_OV_EDIT_PORTAL:', res);
+                        
+                    
+                        for(let i in res.RETURN) { 
+                            res_array.push({
+                                type: res.RETURN[i].TYPE,
+                                id: res.RETURN[i].ID,
+                                number: res.RETURN[i].NUMBER,
+                                message: res.RETURN[i].MESSAGE,
+                               
+
+                            });
+                            //res_array.push([i,res.USERLIST[i].USERNAME]); 
+                            //console.log(res.RETURN);
+                         }; 
+                          resolve(res_array);
+                        });	
+                });
+                //promise.then(result => return result);
+            })
+                return promise;
+       }
+
 
      async faturaOVRFC(bapi,ov)
      {
@@ -54,13 +254,7 @@ class DB {
              
             "use strict";
                 var rfc = require('node-rfc');
-                var abapSystem = {
-                    user: 'rfcbrq',
-                    passwd: 'rfc@brq12',
-                    ashost: '10.2.0.226',
-                    sysnr: '01',
-                    client: '210'
-                };
+                var abapSystem = this.getSAPR3ConnectionString();
                 var client = new rfc.Client(abapSystem);
                 var MAX_ROWS = 999;
                 
@@ -121,22 +315,16 @@ class DB {
         var objects = [];
 
         var res_array = [];
+        var texts_array = [];
+
         const promise = new Promise((resolve, reject) => {
              
             "use strict";
                 var rfc = require('node-rfc');
-                var abapSystem = {
-                    user: 'rfcbrq',
-                    passwd: 'rfc@brq12',
-                    ashost: '10.2.0.226',
-                    sysnr: '01',
-                    client: '210'
-                };
+                var abapSystem = this.getSAPR3ConnectionString();
                 var client = new rfc.Client(abapSystem);
                 var MAX_ROWS = 999;
-                //console.log("ov",ov);
-                //console.log("data_ov",data_ov);
-                //console.log("vbeln",ov);
+              
                 if(!data_ini){
                     data_ini = '19000101';
                     data_fim = '19000101';
@@ -212,7 +400,7 @@ class DB {
                             if (err) {
                                 return console.error('Error invoking ZRV_SALES_DOCUMENT_VIEW_3:', err);
                             }
-                        console.log('Result ZRV_SALES_DOCUMENT_VIEW_3:', res);
+                        //console.log('Result ZRV_SALES_DOCUMENT_VIEW_3:', res);
                         //console.log(JSON.stringify(res.USERLIST));
                     
                         for(let i in res.RETURN) { 
@@ -227,18 +415,223 @@ class DB {
                                 statu: res.RETURN[i].STATU,
                                 vkorg: res.RETURN[i].VKORG,
                                 erdat: res.RETURN[i].ERDAT,
+                                valdt: res.RETURN[i].WADAT,
+                                zterm: res.RETURN[i].KURST,
 
                             });
                             //res_array.push([i,res.USERLIST[i].USERNAME]); 
                             //console.log(res.RETURN);
                          }; 
+                       
                           resolve(res_array);
+                          
                         });	
                 });
                 //promise.then(result => return result);
             })
                 return promise;
        }
+
+       async getFIARPaymentsRFC(bapi,data_ini,data_fim,cliente,nfe)
+     {
+        var objects = [];
+        var res_array = [];     
+
+        const promise = new Promise((resolve, reject) => {
+             
+            "use strict";
+                var rfc = require('node-rfc');
+                var abapSystem = this.getSAPR3ConnectionString();
+                var client = new rfc.Client(abapSystem);
+                var MAX_ROWS = 999;
+                
+                if(!data_ini){
+                    data_ini = '19000101';
+                    data_fim = '19000101';
+                }  
+                //caso a data fim não esteja preenchida, copia a data início para somente 1 dia
+                if(!data_fim){
+                    
+                    data_fim = data_ini;
+                }                
+                
+                if(!cliente){
+                    cliente = '';
+                }
+
+                if(!nfe){
+                    nfe = '';
+                }
+               
+               // var SELECTION_RANGE_str = {
+                 //       PARAMETER: "USERNAME",
+                 //       SIGN:      "I",
+                  //      OPTION:    "CP",
+                 //       LOW:       "A*"
+                  //};	
+                //var VBCOM = [SELECTION_RANGE_str];
+                    
+                client.connect(function(err) {
+                    if (err) {
+                        return console.error('could not connect to server', err);
+                    }	
+                    client.invoke('ZFIAR_REPORT_PORTAL_OUTPUT', {
+                            P_KUNNR:cliente,
+                            PNFENUM:nfe,
+                            DTINI:data_ini,
+                            DTFIM:data_fim,                          
+                            
+                        },
+                        function(err, res) {
+                            if (err) {
+                                return console.error('Error invoking ZFIAR_REPORT_PORTAL_OUTPUT:', err);
+                            }
+                        console.log('Result ZFIAR_REPORT_PORTAL_OUTPUT:', res);
+                        //console.log(JSON.stringify(res.USERLIST));
+                    
+                        for(let i in res.RETURN) { 
+                            res_array.push({
+                                nfnum: res.RETURN[i].NFNUM,
+                                docdat: res.RETURN[i].DOCDAT,
+                                stcd1: res.RETURN[i].STCD1,
+                                statusnf: res.RETURN[i].STATUSNF,
+                                candat: res.RETURN[i].CANDAT,
+                                nftot: res.RETURN[i].NFTOT,
+                                statuspag: res.RETURN[i].STATUSPAG,
+                                augdt: res.RETURN[i].AUGDT,
+                                augbl: res.RETURN[i].AUGBL,
+                                wrbtr: res.RETURN[i].WRBTR,
+                                zfbdt: res.RETURN[i].ZFBDT,
+                                parid: res.RETURN[i].PARID,
+                                name1: res.RETURN[i].NAME1,
+                                cnpj: res.RETURN[i].TXT_CPF_CNPJ,
+                                refkey: res.RETURN[i].REFKEY,
+                                werks:res.RETURN[i].WERKS,
+                                maktx:res.RETURN[i].MAKTX,
+                                projk:res.RETURN[i].PROJK,
+                                post1:res.RETURN[i].POST1,
+                                sgtxt:res.RETURN[i].SGTXT,
+                                belnr_reclas:res.RETURN[i].BELNR_RECLAS,
+                                pep_reclas:res.RETURN[i].PEP_RECLASS,
+                                post1_reclas:res.RETURN[i].POST1_RECLAS,
+                                vlr_liquido:res.RETURN[i].VLR_LIQUIDO,
+                                vlr_pago:res.RETURN[i].VLR_PAGO,
+                                vlr_proj_atual:res.RETURN[i].VLR_PROJ_ATUAL,
+
+                            });
+                            //res_array.push([i,res.USERLIST[i].USERNAME]); 
+                            //console.log(res.RETURN);
+                         }; 
+                       
+                          resolve(res_array);
+                          
+                        });	
+                });
+                //promise.then(result => return result);
+            })
+                return promise;
+       }
+
+       async getSalesOrderTextsRFC(bapi,data_ini,data_fim,cliente,ov)
+       {
+                    
+          var texts_array = [];
+  
+          const promise = new Promise((resolve, reject) => {
+               
+              "use strict";
+                  var rfc = require('node-rfc');
+                  var abapSystem = this.getSAPR3ConnectionString();
+                  var client = new rfc.Client(abapSystem);
+                  var MAX_ROWS = 999;
+                
+                  if(!data_ini){
+                      data_ini = '19000101';
+                      data_fim = '19000101';
+                  }  
+                  //caso a data fim não esteja preenchida, copia a data início para somente 1 dia
+                  if(!data_fim){
+                      
+                      data_fim = data_ini;
+                  }  
+  
+                  if (ov){
+                      ST_VBCOM = {
+                          VKORG : 'BRQ1',
+                          ZUART : 'A',
+                          TRVOG : '0',
+                          STAT_DAZU : 'X',
+                          NAME_DAZU : 'X',
+                          KOPF_DAZU : 'X',
+                          VBOFF : 'X',                        
+                          VBELN: ov,                       
+                      };      
+  
+                  }
+  
+                  if (cliente){
+  
+                      ST_VBCOM = {
+                          VKORG : 'BRQ1',
+                          ZUART : 'A',
+                          TRVOG : '0',
+                          STAT_DAZU : 'X',
+                          NAME_DAZU : 'X',
+                          KOPF_DAZU : 'X',
+                          VBOFF : 'X',                        
+                          BSTKD: cliente,
+                      };      
+  
+                  }
+  
+                  if(!cliente && !ov)
+                  {
+                  var ST_VBCOM = {
+                                  VKORG : 'BRQ1',
+                                  ZUART : 'A',
+                                  TRVOG : '0',
+                                  STAT_DAZU : 'X',
+                                  NAME_DAZU : 'X',
+                                  KOPF_DAZU : 'X',
+                                  VBOFF : 'X',
+                   };
+                  }    
+                  
+                 
+               
+                  client.connect(function(err) {
+                      if (err) {
+                          return console.error('could not connect to server', err);
+                      }	
+                      client.invoke('ZRV_SALES_DOCUMENT_VIEW_3', {
+                              VBCOM: ST_VBCOM,
+                              DATAINI: data_ini,
+                              DATAFIM: data_fim
+                              
+                          },
+                          function(err, res) {
+                              if (err) {
+                                  return console.error('Error invoking ZRV_SALES_DOCUMENT_VIEW_3:', err);
+                              }
+                        
+                                                
+                           for(let i in res.IT_TXT) { 
+                              texts_array.push({
+                                  object: res.IT_TXT[i].OBJECTREFKEY,
+                                  text: res.IT_TXT[i].TEXT_ID,
+                                  text_line: res.IT_TXT[i].TEXT_LINE,                          
+                              });
+                              
+                              //console.log(res.IT_TXT);
+                           }; 
+                            
+                            resolve(texts_array);
+                          });	
+                  });
+                  //promise.then(result => return result);
+              })
+                  return promise;
+         }
 
        async getSalesMaterialRFC(bapi,matnr,maktx,ctitem,werks)
       {
@@ -249,13 +642,7 @@ class DB {
              
             "use strict";
                 var rfc = require('node-rfc');
-                var abapSystem = {
-                    user: 'rfcbrq',
-                    passwd: 'rfc@brq12',
-                    ashost: '10.2.0.226',
-                    sysnr: '01',
-                    client: '210'
-                };
+                var abapSystem = this.getSAPR3ConnectionString();
                 var client = new rfc.Client(abapSystem);
                 var MAX_ROWS = 999;                                                           
                 var ST_IN_MAT = { };
@@ -312,7 +699,7 @@ class DB {
                             if (err) {
                                 return console.error('Error invoking BAPI_MATERIAL_GETLIST:', err);
                             }
-                        console.log('Result BAPI_MATERIAL_GETLIST:', res);
+                       // console.log('Result BAPI_MATERIAL_GETLIST:', res);
                         //console.log(JSON.stringify(res.USERLIST));
                     
                         for(let i in res.RETURN) { 
@@ -338,6 +725,51 @@ class DB {
             })
                 return promise;
        }
+
+       async getSalesConditionsRFC(bapi)
+       {
+         var objects = [];
+ 
+         var res_array = [];
+         const promise = new Promise((resolve, reject) => {
+              
+             "use strict";
+                 var rfc = require('node-rfc');
+                 var abapSystem = this.getSAPR3ConnectionString();
+                 var client = new rfc.Client(abapSystem);
+                 var MAX_ROWS = 999;                                                           
+                 var ST_IN_MAT = { };
+                 
+                     
+                 client.connect(function(err) {
+                     if (err) {
+                         return console.error('could not connect to server', err);
+                     }	
+                     client.invoke('ZME_VALUES_T052', {
+                             I_KOART:'D'                                                          
+                         },
+                         function(err, res) {
+                             if (err) {
+                                 return console.error('Error invoking ZME_VALUES_T052:', err);
+                             }
+                        
+                     
+                         for(let i in res.RETURN) { 
+                             res_array.push({
+                                 zterm: res.RETURN[i].ZTERM,
+                                 vtext: res.RETURN[i].VTEXT,                                                            
+ 
+                             });
+                             
+                             //console.log(res.RETURN);
+                          }; 
+                           resolve(res_array);
+                         });	
+                 });
+                 //promise.then(result => return result);
+             })
+                 return promise;
+        }
 
     //-------------------------------------------------------------------------------------- Funções exportadas
     //Funções contendo os selects responsáveis por retornar o resultado caso chamado
@@ -829,13 +1261,14 @@ class DB {
 
     //Recebimento: Gráfico de linha: Tempo de stage T1 (Mes atual)
     async getChartLinhaTempoStageT1() {
-        let query = "SELECT DAY(data) AS Dia, '03:00:00' AS Meta, tempo_conferencia, tempo_inspecao FROM `tb_sf_recebimento` WHERE CONCAT(MONTH(CURRENT_TIMESTAMP()), '-', YEAR(CURRENT_TIMESTAMP())) = CONCAT(MONTH(data), '-', YEAR(DATA)) AND turno = 'T1' ORDER BY cod ASC";
+        //let query = "SELECT DAY(data) AS Dia, '03:00:00' AS Meta, tempo_conferencia, tempo_inspecao FROM `tb_sf_recebimento` WHERE CONCAT(MONTH(CURRENT_TIMESTAMP()), '-', YEAR(CURRENT_TIMESTAMP())) = CONCAT(MONTH(data), '-', YEAR(DATA)) AND turno = 'T1' ORDER BY cod ASC";
+        let query = "SELECT DAY(data) AS Dia, 'R$35000,00' AS Meta, tempo_conferencia, tempo_inspecao FROM `tb_sf_recebimento` WHERE turno = 'T1' ORDER BY cod ASC";
         return this.doQuery(query)
     }
 
     //Recebimento: Gráfico de linha: Tempo de stage T2 (Mes atual)
     async getChartLinhaTempoStageT2() {
-        let query = "SELECT DAY(data) AS Dia, '03:00:00' AS Meta, tempo_conferencia, tempo_inspecao FROM `tb_sf_recebimento` WHERE CONCAT(MONTH(CURRENT_TIMESTAMP()), '-', YEAR(CURRENT_TIMESTAMP())) = CONCAT(MONTH(data), '-', YEAR(DATA)) AND turno = 'T2' ORDER BY cod ASC";
+        let query = "SELECT DAY(data) AS Dia, 'R$35000,00' AS Meta, tempo_conferencia, tempo_inspecao FROM `tb_sf_recebimento` WHERE  turno = 'T2' ORDER BY cod ASC";
         return this.doQuery(query)
     }
 

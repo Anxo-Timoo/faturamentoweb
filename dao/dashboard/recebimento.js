@@ -22,8 +22,8 @@ module.exports = {
             //page = './includes/default/3-content_manutencao';
 
             //Consultas diversas para popular elementos
-            let recebimentos = await DBModel.getSFRecebimentos(req.query.data, req.query.semana, req.query.turno);
-            
+            //let recebimentos = await DBModel.getSFRecebimentos(req.query.data, req.query.semana, req.query.turno);
+            let recebimentos = await DBModel.getFIARPaymentsRFC('ZFIAR_REPORT_PORTAL_OUTPUT',req.query.dataIni,req.query.dataFim,req.query.cliente,req.query.nfnum);
             //Variáveis utilizadas para paginação
             var totalItens = recebimentos.length,//Qtde total de registros
                 pageSize = 10,//Número máximo de registros por página
@@ -84,6 +84,7 @@ module.exports = {
                 CadInformacoes_Gerais: '',
                 CadOcorrencia_sf: '',
                 CadRecebimento: 'active',
+                CadFaturamento:'',
                 CadEmbalagem: '',
                 CadPreparacao: '',
                 CadInventario: '',

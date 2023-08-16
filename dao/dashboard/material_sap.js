@@ -91,6 +91,7 @@ module.exports = {
                 CadShopfloor: '',
                 CadInformacoes_Gerais: '',
                 CadOcorrencia_sf: '',
+                CadFaturamento:'',
                 CadRecebimento: '',
                 CadEmbalagem: '',
                 CadPreparacao: '',

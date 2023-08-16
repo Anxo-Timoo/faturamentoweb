@@ -82,6 +82,7 @@ module.exports = {
                 CadInformacoes_Gerais: 'active',
                 CadOcorrencia_sf: '',
                 CadRecebimento: '',
+                CadFaturamento:'',
                 CadEmbalagem: '',
                 CadPreparacao: '',
                 CadInventario: '',

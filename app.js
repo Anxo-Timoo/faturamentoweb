@@ -31,6 +31,7 @@ app.use('/agenda', express.static(path.join(__dirname, 'public')));
 app.use('/shopfloor', express.static(path.join(__dirname, 'public')));
 app.use('/informacoes_gerais', express.static(path.join(__dirname, 'public')));
 app.use('/ocorrencia_sf', express.static(path.join(__dirname, 'public')));
+app.use('/faturamento', express.static(path.join(__dirname, 'public')));
 app.use('/recebimento', express.static(path.join(__dirname, 'public')));
 app.use('/embalagem', express.static(path.join(__dirname, 'public')));
 app.use('/ordem_venda', express.static(path.join(__dirname, 'public')));

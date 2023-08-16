@@ -94,6 +94,14 @@ module.exports = (io) => { //Aqui recebo o socket.io lá do app.js
     rotas.post('/editOcorrencia_sf/:id', editOcorrencia_sf); //Usado no post do botão "Salvar" do modal que altera um registro (CR"U"D)
     rotas.get('/delOcorrencia_sf/:id', delOcorrencia_sf); //Usado no get do botão "Sim, eliminar" do modal que deleta um registro (CRU"D")
 
+     //Rotas para a página de "Faturamento"
+     const { pageFaturamento, addFaturamento, editFaturamento, delFaturamento, } = require('../dao/dashboard/faturamento.js');
+     rotas.get('/faturamento', pageFaturamento); //localhost:3000/recebimento (ao clicar no menu da sidebar: Dashboard > Recebimento (C"R"UD))
+     rotas.post('/addFaturamento', addFaturamento); //Usado no post do botão "Salvar" do modal que cadastra um novo registro ("C"RUD)
+     rotas.post('/editFaturamento/:id', editFaturamento); //Usado no post do botão "Salvar" do modal que altera um registro (CR"U"D)
+     rotas.get('/delFaturamento/:id', delFaturamento); //Usado no get do botão "Sim, eliminar" do modal que deleta um registro (CRU"D")
+   
+   
     //Rotas para a página de "Recebimento"
     const { pageRecebimento, addRecebimento, editRecebimento, delRecebimento, } = require('../dao/dashboard/recebimento.js');
     rotas.get('/recebimento', pageRecebimento); //localhost:3000/recebimento (ao clicar no menu da sidebar: Dashboard > Recebimento (C"R"UD))
@@ -101,18 +109,19 @@ module.exports = (io) => { //Aqui recebo o socket.io lá do app.js
     rotas.post('/editRecebimento/:id', editRecebimento); //Usado no post do botão "Salvar" do modal que altera um registro (CR"U"D)
     rotas.get('/delRecebimento/:id', delRecebimento); //Usado no get do botão "Sim, eliminar" do modal que deleta um registro (CRU"D")
 
-    //Rotas para a página de "Embalagem"
-    const { pageEmbalagem, addEmbalagem, editEmbalagem, delEmbalagem, } = require('../dao/dashboard/embalagem.js');
-    rotas.get('/embalagem', pageEmbalagem); //localhost:3000/embalagem (ao clicar no menu da sidebar: Dashboard > Embalagem (C"R"UD))
-    rotas.post('/addEmbalagem', addEmbalagem); //Usado no post do botão "Salvar" do modal que cadastra um novo registro ("C"RUD)
-    rotas.post('/editEmbalagem/:id', editEmbalagem); //Usado no post do botão "Salvar" do modal que altera um registro (CR"U"D)
-    rotas.get('/delEmbalagem/:id', delEmbalagem); //Usado no get do botão "Sim, eliminar" do modal que deleta um registro (CRU"D")
+    //
+    //const { pageEmbalagem, addEmbalagem, editEmbalagem, delEmbalagem, } = require('../dao/dashboard/embalagem.js');
+    //rotas.get('/embalagem', pageEmbalagem); //localhost:3000/embalagem (ao clicar no menu da sidebar: Dashboard > Embalagem (C"R"UD))
+    //rotas.post('/addEmbalagem', addEmbalagem); //Usado no post do botão "Salvar" do modal que cadastra um novo registro ("C"RUD)
+    //rotas.post('/editEmbalagem/:id', editEmbalagem); //Usado no post do botão "Salvar" do modal que altera um registro (CR"U"D)
+    //rotas.get('/delEmbalagem/:id', delEmbalagem); //Usado no get do botão "Sim, eliminar" do modal que deleta um registro (CRU"D")
 
-    const { pageOV, addOV, faturaOV, delOV, } = require('../dao/dashboard/ordem_venda.js');
+    const { pageOV, addOV, faturaOV, delOV,editOV } = require('../dao/dashboard/ordem_venda.js');
     rotas.get('/ordem_venda', pageOV); //localhost:3000/ordem de venda (ao clicar no menu da sidebar: Dashboard > OV (C"R"UD))
     rotas.post('/addOV', addOV); //Usado no post do botão "Salvar" do modal que cadastra um novo registro ("C"RUD)
     rotas.post('/faturaOV/:id', faturaOV); //Usado no post do botão "Salvar" do modal que altera um registro (CR"U"D)
     rotas.get('/delOV/:id', delOV); //Usado no get do botão "Sim, eliminar" do modal que deleta um registro (CRU"D")
+    rotas.post('/editOV/:id', editOV); //Usado no post do botão "Editar" do modal que altera um registro (CR"U"D)
 
     //Rotas para a página de "Preparação"
     const { pagePreparacao, addPreparacao, editPreparacao, delPreparacao, } = require('../dao/dashboard/preparacao.js');
