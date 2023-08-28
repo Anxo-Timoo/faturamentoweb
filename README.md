@@ -1,7 +1,7 @@
 # ---------------------------------- #
 # Criado por: Marcelo Souza #
 # E-mail: mgsouza@brq.com #
-# Contato: (19) 9 9799-1755          #
+# Contato: (21) 97954-9810          #
 # PS: Não forneço suporte (perdão)   #
 # ---------------------------------- #
 
