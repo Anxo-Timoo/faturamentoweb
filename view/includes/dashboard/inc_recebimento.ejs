@@ -4,7 +4,7 @@
         <div class="row sm-2">
             <!-- Título -->
             <div class="col-sm-6">
-                <h1>Recebimento</h1>
+                <h1>Relatório de Recebimentos</h1>
             </div>
             <!-- Navegação histórica -->
             <div class="col-sm-6">
@@ -261,9 +261,19 @@
                                             <td><%= DTRecebimento[index].docdat.toString().substring(6,8)+'/'+DTRecebimento[index].docdat.toString().substring(4,6)+'/'+DTRecebimento[index].docdat.toString().substring(0,4) %></td>
                                             <td><%= DTRecebimento[index].statuspag.toString() %></td> 
                                             <td><%= DTRecebimento[index].augdt.toString().substring(6,8)+'/'+DTRecebimento[index].augdt.toString().substring(4,6)+'/'+DTRecebimento[index].augdt.toString().substring(0,4) %></td> 
-                                            <!-- <td><%= row.turno %></td> -->
-                                            <td><%= DTRecebimento[index].augbl.toString() %></td>
-                                            <td><%= DTRecebimento[index].refkey.toString() %></td>
+                                            <!-- <td><%= row.turno %></td> -->                                           
+                                               
+                                            <td><a href="#" data-toggle="modal"   
+                                                onclick="(function() {
+                                                window.open('/fb03/' + '<%= DTRecebimento[index].augbl.toString() %>'+ '&' +'<%=DTRecebimento[index].augdt.toString().substring(0,4)%>','_blank');
+                                                })()"><%= DTRecebimento[index].augbl === undefined ? 'Não pago' : DTRecebimento[index].augbl.toString() %></a>
+                                            </td>
+                                            <td><a href="#" data-toggle="modal"   
+                                                onclick="(function() {
+                                                window.open('/fb03/' + '<%= DTRecebimento[index].refkey.toString() %>' + '&' +'<%=DTRecebimento[index].docdat.toString().substring(0,4)%>','_blank');
+                                                })()"><%= DTRecebimento[index].refkey.toString() %></a>
+                                            </td>                                                                                     
+                                                                                       
                                             <td><%= DTRecebimento[index].nftot.toString() %></td>
                                             <td><%= DTRecebimento[index].vlr_liquido.toString() %></td>
                                             <!-- <td><%= row.tempo_conferencia %></td> -->

@@ -12,21 +12,21 @@ var status_Crud = '';
 var page = './includes/default/3-content';
 
 module.exports = {
-    pageInventario: (req, res) => {
+    pageFB03: (req, res) => {
 
         //Executa certas funções em tempo de execução passando para a página
         let DBModel = new DB(conn);
         (async function () {
             //Atribuindo o conteúdo central
-            page = './includes/dashboard/inc_inventario';
+            page = './includes/dashboard/inc_fb03';
             //page = './includes/default/3-content_manutencao';
 
             //Consultas diversas para popular elementos
-            let clientes = await DBModel.getJ1BTAXBrasilRFC('ZFIAR_CL_X_MAT_EX_PORTAL',req.query.cliente, req.query.material);            
+            let fb03 = await DBModel.getFB03ByBelnrRFC('ZFI_DOCUMENT_READ1',req.params.id,req.params.gjahr);
             
             //Variáveis utilizadas para paginação
-            var totalItens = clientes.length,//Qtde total de registros
-                pageSize = 10,//Número máximo de registros por página
+            var totalItens = fb03.length,//Qtde total de registros
+                pageSize = 99,//Número máximo de registros por página
                 pageCount = Math.ceil(totalItens / pageSize),//Número de páginas (Arredondar p/ cima)
                 currentPage = 1,//Página corrente ao entrar na rota
                 itens = [],//Array que receberá todos os registros
@@ -35,7 +35,7 @@ module.exports = {
 
             //Criando a lista de itens
             for (var i = 0; i < totalItens; i++) {
-                itens.push(clientes[i]);
+                itens.push(fb03[i]);
             }
 
             //Divide a lista em grupos (páginas)
@@ -54,7 +54,7 @@ module.exports = {
             //Passa o conteúdo das variáveis para a página principal
             res.render('./pageAdmin', {
                 //Populando elementos
-                DTClientes: itensList,
+                DTQualidade: itensList,
                 pageSize: pageSize,
                 totalItens: totalItens,
                 pageCount: pageCount,
@@ -87,8 +87,8 @@ module.exports = {
                 CadRecebimento: '',
                 CadEmbalagem: '',
                 CadPreparacao: '',
-                CadInventario: 'active',
-                CadQualidade: '',
+                CadInventario: '',
+                CadQualidade: 'active',
                 CadInformativo: '',
                 //Chat
                 ChatOpen: '',
@@ -102,86 +102,91 @@ module.exports = {
         })();//async
     },
 
-    addInventario: (req, res) => {
+    addFB03: (req, res) => {
         let cod = req.body.cod_ADD;
         let data = FUNCOES.formatDateTimeToBD(req.body.data_INPUT_ADD);
         let turno = req.body.turno_ADD;
-        let pns_em_contagem = req.body.pns_em_contagem_ADD;
-        let locais_aereo = req.body.locais_aereo_ADD;
-        let locais_picking = req.body.locais_picking_ADD;
-        let faltante = FUNCOES.formatDecimalToBD(req.body.faltante_ADD);
+        let avaria_interna = req.body.avaria_interna_ADD;
+        let rnc_operador = req.body.rnc_operador_ADD;
+        let ppm_atual = req.body.ppm_atual_ADD;
+        let ppm_acumulado = req.body.ppm_acumulado_ADD;
+        let observacoes = req.body.observacoes_ADD;
 
         //Faz o INSERT somente nos campos da RNC parte cliente
-        let query = "INSERT INTO `tb_sf_inventario` " +
-            "(data, turno, pns_em_contagem, locais_aereo, locais_picking, faltante) VALUES ('" +
+        let query = "INSERT INTO `tb_sf_qualidade` " +
+            "(data, turno, avaria_interna, rnc_operador, ppm_atual, ppm_acumulado, observacoes) VALUES ('" +
             data + "', '" +
             turno + "', '" +
-            pns_em_contagem + "', '" +
-            locais_aereo + "', '" +
-            locais_picking + "', '" +
-            faltante + "')";
+            avaria_interna + "', '" +
+            rnc_operador + "', '" +
+            ppm_atual + "', '" +
+            ppm_acumulado + "', '" +
+            observacoes + "')";
 
         //Executa o INSERT
         db.query(query, (err, results, fields) => {
             if (err) {
                 console.log('Erro 003: ', err);
                 status_Crud = 'nao';
-                res.redirect('/inventario');
+                res.redirect('/qualidade');
             } else {
-                //INSERT realizado com sucesso
+                //INSERT realizado com sucesso                            
+
                 status_Crud = 'sim';
-                res.redirect('/inventario');
+                res.redirect('/qualidade');
             }
         });
     },
 
-    editInventario: (req, res) => {
+    editFB03: (req, res) => {
         let cod = req.body.cod_EDIT;
         let data = FUNCOES.formatDateTimeToBD(req.body.data_INPUT_EDIT);
         let turno = req.body.turno_EDIT;
-        let pns_em_contagem = req.body.pns_em_contagem_EDIT;
-        let locais_aereo = req.body.locais_aereo_EDIT;
-        let locais_picking = req.body.locais_picking_EDIT;
-        let faltante = FUNCOES.formatDecimalToBD(req.body.faltante_EDIT);
+        let avaria_interna = req.body.avaria_interna_EDIT;
+        let rnc_operador = req.body.rnc_operador_EDIT;
+        let ppm_atual = req.body.ppm_atual_EDIT;
+        let ppm_acumulado = req.body.ppm_acumulado_EDIT;
+        let observacoes = req.body.observacoes_EDIT;
 
         //Faz o UPDATE
-        let query = "UPDATE `tb_sf_inventario` SET " +
+        let query = "UPDATE `tb_sf_qualidade` SET " +
             "`data` = '" + data + "', " +
             "`turno` = '" + turno + "', " +
-            "`pns_em_contagem` = '" + pns_em_contagem + "', " +
-            "`locais_aereo` = '" + locais_aereo + "', " +
-            "`locais_picking` = '" + locais_picking + "', " +
-            "`faltante` = '" + faltante + "'" +
-            " WHERE `tb_sf_inventario`.`cod` = '" + cod + "'";
+            "`avaria_interna` = '" + avaria_interna + "', " +
+            "`rnc_operador` = '" + rnc_operador + "', " +
+            "`ppm_atual` = '" + ppm_atual + "', " +
+            "`ppm_acumulado` = '" + ppm_acumulado + "', " +
+            "`observacoes` = '" + observacoes + "'" +
+            " WHERE `tb_sf_qualidade`.`cod` = '" + cod + "'";
 
         //Executa o UPDATE
         db.query(query, (err, results, fields) => {
             if (err) {
                 console.log('Erro 003: ', err);
                 status_Crud = 'nao';
-                res.redirect('/inventario');
+                res.redirect('/qualidade');
             } else {
                 //UPDATE finalizado
                 status_Crud = 'sim';
-                res.redirect('/inventario');
+                res.redirect('/qualidade');
             }
         });
     },
 
-    delInventario: (req, res) => {
+    delFB03: (req, res) => {
         let cod = req.params.id;
-        let query = 'DELETE FROM `tb_sf_inventario` WHERE cod = "' + cod + '"';
+        let query = 'DELETE FROM `tb_sf_qualidade` WHERE cod = "' + cod + '"';
 
         db.query(query, (err, results, fields) => {
             if (err) {
                 console.log('Erro 014: ', err);
                 status_Crud = 'nao';
-                res.redirect('/inventario');
+                res.redirect('/qualidade');
             }
 
             //DELETE realizado com sucesso
             status_Crud = 'sim';
-            res.redirect('/inventario');
+            res.redirect('/qualidade');
         });
     },
 

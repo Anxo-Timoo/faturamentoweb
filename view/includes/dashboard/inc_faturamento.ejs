@@ -4,7 +4,7 @@
         <div class="row sm-2">
             <!-- Título -->
             <div class="col-sm-6">
-                <h1>Relatorio de Faturamento</h1>
+                <h1>Relatório de Faturamento</h1>
             </div>
             <!-- Navegação histórica -->
             <div class="col-sm-6">
@@ -24,7 +24,7 @@
         <!-- Filtragem avançada -->
         <div class="row">
             <div class="col-sm-12">
-                <div class="content-collapse">
+                 <div class="content-collapse">
                     <a data-toggle style="color: white;padding-left: 20px;"><i class="fas fa-filter" style="color: white;padding-right: 10px;"></i>Filtros</a>
                     <div class="content">
                         <form role="form" action="/faturamento" method="post">
@@ -232,7 +232,7 @@
                                         <th style="width: 100%;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">Nome</th>
                                         <th scope="col">CNPJ</th>
                                         <th scope="col">Projeto</th>
-                                        <th scope="col">Descriçao</th>                                                                     
+                                        <th scope="col">Descrição</th>                                                                     
                                         <th scope="col">Filial</th>
                                         <th scope="col">Dt.Vencimento</th>                                        
                                         <th scope="col" style="width: 100%;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">Texto Item</th>
@@ -264,8 +264,16 @@
                                             <td><%= DTFaturamento[index].docdat.toString().substring(6,8)+'/'+DTFaturamento[index].docdat.toString().substring(4,6)+'/'+DTFaturamento[index].docdat.toString().substring(0,4) %></td>
                                             <td><%= DTFaturamento[index].statusnf.toString() %></td> 
                                            
-                                            <td><%= DTFaturamento[index].refkey.toString() %></td>
-                                            <td><%= DTFaturamento[index].augbl === undefined ? 'Não pago' : DTFaturamento[index].augbl.toString() %></td>
+                                            <td><a href="#" data-toggle="modal"   
+                                                onclick="(function() {
+                                                window.open('/fb03/' + '<%= DTFaturamento[index].refkey.toString() %>' + '&' +'<%=DTFaturamento[index].docdat.toString().substring(0,4)%>','_blank');
+                                                })()"><%= DTFaturamento[index].refkey.toString() %></a></td>
+                                               
+                                            <td><a href="#" data-toggle="modal"   
+                                                onclick="(function() {
+                                                window.open('/fb03/' + '<%= DTFaturamento[index].augbl.toString() %>'+ '&' +'<%=DTFaturamento[index].augdt.toString().substring(0,4)%>','_blank');
+                                                })()"><%= DTFaturamento[index].augbl === undefined ? 'Não pago' : DTFaturamento[index].augbl.toString() %></a>
+                                            </td>
                                             <td><%= DTFaturamento[index].netwr.toString() %></td>
                                             <td><%= DTFaturamento[index].vlr_liquido === undefined ? '' : DTFaturamento[index].vlr_liquido.toString()%></td>
                                             <td><%= DTFaturamento[index].parid.toString() %></td>
@@ -314,7 +322,7 @@
                                 <tfoot>
                                     <tr>
                                         <th scope="col">Nota Fiscal</th>                                        
-                                        <th scope="col">Dt.Emissao</th>
+                                        <th scope="col">Dt.Emissão</th>
                                         <th scope="col">Stat.NF</th>
                                         <!--<th scope="col">Dt.Pagto</th>
                                         <th scope="col">Doc.Pagto</th>-->
@@ -326,7 +334,7 @@
                                         <th style="width: 100%;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">Nome</th>
                                         <th scope="col">CNPJ</th>
                                         <th scope="col">Projeto</th>
-                                        <th scope="col">Descriçao</th>                                                                     
+                                        <th scope="col">Descrição</th>                                                                     
                                         <th scope="col">Filial</th>
                                         <th scope="col">Dt.Vencimento</th>                                        
                                         <th scope="col" style="width: 100%;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">Texto Item</th>
@@ -338,7 +346,95 @@
                             </table>
                         <% } %>
                     </div>
+                    
 
+  <!-- ######################################################################### Modal para ADICIONAR -->
+                    <div class="modal fade" id="modalFB03" data-backdrop="static">
+                        <div class="modal-dialog modal-md">
+                            <div class="modal-content">
+                                <!-- Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">FB03</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                <div class="row">
+                                    <!-- Data -->
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="data_ADD" class="label">Data</label>
+                                            <div class="input-group date" id="data_ADD"
+                                                data-target-input="nearest">
+                                                <input type="text"
+                                                    class="form-control form-control-sm datetimepicker-input date_times"
+                                                    data-target="#data_ADD"
+                                                    name="data_INPUT_ADD"
+                                                    id="data_INPUT_ADD" required />
+                                                <div class="input-group-append"
+                                                    data-target="#data_ADD"
+                                                    data-toggle="datetimepicker">
+                                                    <div class="input-group-text"><i class="far fa-calendar-alt"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Turno -->
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="turno_ADD" class="label">Turno</label>
+                                            <select class="form-control form-control-sm select2"
+                                                style="width: 100%;" name="turno_ADD" id="turno_ADD" required>
+                                                <option value="">-- Selecione --</option>
+                                                <option value="T1">T1</option>
+                                                <option value="T2">T2</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Data -->
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="data_ADD" class="label">Data</label>
+                                            <div class="input-group date" id="data_ADD"
+                                                data-target-input="nearest">
+                                                <input type="text"
+                                                    class="form-control form-control-sm datetimepicker-input date_times"
+                                                    data-target="#data_ADD"
+                                                    name="data_INPUT_ADD"
+                                                    id="data_INPUT_ADD" required />
+                                                <div class="input-group-append"
+                                                    data-target="#data_ADD"
+                                                    data-toggle="datetimepicker">
+                                                    <div class="input-group-text"><i class="far fa-calendar-alt"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Turno -->
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="turno_ADD" class="label">Turno</label>
+                                            <select class="form-control form-control-sm select2"
+                                                style="width: 100%;" name="turno_ADD" id="turno_ADD" required>
+                                                <option value="">-- Selecione --</option>
+                                                <option value="T1">T1</option>
+                                                <option value="T2">T2</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                    </div>
+                    </div>
+                    </div>  
+                </div> 
                     <!-- ######################################################################### Modal para ADICIONAR -->
                     <div class="modal fade" id="modalADD" data-backdrop="static">
                         <div class="modal-dialog modal-md">

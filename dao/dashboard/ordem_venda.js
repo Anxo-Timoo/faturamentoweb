@@ -3,6 +3,7 @@ const DB = require('../listas/selects');
 const FUNCOES = require('../util/funcoes');
 const mysql = require('mysql2');
 const config = require('../../database/config');
+const { DATETIME } = require('mysql2/lib/constants/types');
 const conn = mysql.createPool(config);
 var salesorder;
 
@@ -260,6 +261,7 @@ module.exports = {
         let ov = req.body.cod_EDIT;
         console.log("IVES",ov);
         var docFaturamento = [] ;
+        var erro;
         /* let data = FUNCOES.formatDateTimeToBD(req.body.data_INPUT_EDIT);
         let semana = FUNCOES.formatDateTimeToWeek(req.body.data_INPUT_EDIT);
         let turno = req.body.turno_EDIT;
@@ -282,29 +284,97 @@ module.exports = {
         (async function () {
         
            docFaturamento = await DBModel.faturaOVRFC("BAPI_BILLINGDOC_CREATEMULTIPLE",ov);
-          // console.log("RETORNO",docFaturamento);                                     
+           
+           //console.log("RETORNO",docFaturamento);                                     
+                     
+
+    
+    //SALVA AS MENSAGEM NO BANCO DE DADOS - OCORRÊNCIA
+    var currentdate = new Date(); 
+    
+    let data = FUNCOES.formatDateTimeToBD(currentdate);
+    let semana = FUNCOES.formatDateTimeToWeek(currentdate);   
+    
+    let setor = 'Erro';
+    let solucao = req.body.cod_EDIT;
+    let descricao = docFaturamento[0].message.toString();
+    let acao = "VF01";
+    let responsavel = 'rfcbrq';
+    let prazo = FUNCOES.formatDateTimeToBD(currentdate);
+    let update = prazo;
+    let status = docFaturamento[0].number.toString();
+    //docFaturamento[0].type.toString();
      
+    console.log("docFaturamento",docFaturamento);
+    //trata o retorno
+    docFaturamento.forEach(function(message, i) {        
+
+        descricao = docFaturamento[i].message.toString();
+        //acao = docFaturamento[i].type.toString();
+        status = docFaturamento[i].number.toString();
+        setor = docFaturamento[i].type.toString();        
+
+        //Faz o INSERT EM OCORRÊNCIA
+        let query = "INSERT INTO tb_sf_ocorrencia " +
+        "(data, semana, setor, solucao, descricao, acao, responsavel, prazo , status) VALUES ('" +
+        data + "', '" +
+        semana + "', '" +
+        setor + "', '" +
+        solucao + "', '" +
+        descricao + "', '" +
+        acao + "', '" +
+        responsavel + "', '" +
+        prazo + "', '" +
+       // update + "', '" +
+        status + "')";
+
+        //Executa o INSERT
+        db.query(query, (err, results, fields) => {
+            if (err) {
+                console.log('Erro 003: ', err);
+                //status_Crud = 'nao';
+                //res.redirect('/ocorrencia_sf');
+            } else {
+                //INSERT realizado com sucesso                            
+
+                //status_Crud = 'sim';
+                //res.redirect('/ocorrencia_sf');
+            }
+        });
+
+    });//FIM DAS MENSAGENS DE RETORNO DA RFC
     
+    erro =  docFaturamento.find(el => el.type.toString() == 'E');
     
-    if ( docFaturamento[0].type.toString() == 'E' ){
-        
+    if(erro) {
         console.log('Erro 014: ',  docFaturamento[0]["message"].toString());
         status_Crud = 'nao';
         res.redirect('/ordem_venda');
     }
     else{
 
-        //DELETE realizado com sucesso
+        //sucesso
         status_Crud = 'sim';
         res.redirect('/ordem_venda');
     }
-})();//async
-    
+
+})();//async  
 },    
     delOV: (req, res) => {
         //let cod = req.params.id;
         //let query = 'DELETE FROM `tb_sf_ordem_venda` WHERE cod = "' + cod + '"';
+        (async function () {
+            var ano = vencimento.substring(0,4);
+            var dia = vencimento.substring(8,10);
+            var mes = vencimento.substring(5,7);
+            vencimento = ano + mes + dia;
+                    
+            let retorno = await DBModel.bloqueiaOVRFC('BAPI_SALESORDER_CHANGE',ov);
+            let retorno2 = await DBModel.bapiTransactionCommitRFC('BAPI_TRANSACTION_COMMIT');
+            //res.redirect('/ordem_venda');
 
+         })();//async
+        
         //db.query(query, (err, results, fields) => {
             //if (err) {
             //    console.log('Erro 014: ', err);
@@ -322,6 +392,6 @@ module.exports = {
     //Funções que passam o valor da variável para outro arquivo js
     getStatusCrud() {
         return status_Crud;
-    },
+    },    
 
 };

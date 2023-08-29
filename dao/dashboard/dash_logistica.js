@@ -23,6 +23,7 @@ module.exports = {
             //Consultas diversas para popular elementos
             let informacoesGerais = await DBModel.getInformacoesGerais();
             let ocorrencias = await DBModel.getOcorrencias();
+            let ocorrenciasNFE = await DBModel.getOcorrenciasNFE();
             let volumesT1 = await DBModel.getVolumesT1();
             let volumesT2 = await DBModel.getVolumesT2();
             let chartLinhaTempoStageT1 = await DBModel.getChartLinhaTempoStageT1();
@@ -54,6 +55,7 @@ module.exports = {
                 //Populando elementos
                 DTInformacoesGerais: informacoesGerais,
                 DTOcorrencias: ocorrencias,
+                DTOcorrenciasNFE: ocorrenciasNFE,
                 DTVolumesT1: volumesT1,
                 DTVolumesT2: volumesT2,
                 DTChartLinhaTempoStageT1: chartLinhaTempoStageT1,

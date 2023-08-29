@@ -55,6 +55,54 @@ class DB {
             return val;
         })
     }
+
+    async bapiTransactionCommitRFC(bapi)
+    {
+      var objects = [];
+
+      var res_array = [];
+      const promise = new Promise((resolve, reject) => {
+           
+          "use strict";
+              var rfc = require('node-rfc');
+              var abapSystem = this.getSAPR3ConnectionString();
+              var client = new rfc.Client(abapSystem);
+              var MAX_ROWS = 999;                                                           
+              var ST_IN_MAT = { };
+              
+            
+              client.connect(function(err) {
+                  if (err) {
+                      return console.error('could not connect to server', err);
+                  }	
+                  client.invoke('BAPI_TRANSACTION_COMMIT', {
+                           WAIT:'X'                           
+                      },
+                      function(err, res) {
+                          if (err) {
+                              return console.error('Error invoking BAPI_TRANSACTION_COMMITL:', err);
+                          }
+                     
+                  
+                          for(let i in res.RETURN) { 
+                            res_array.push({
+                                type: res.RETURN[i].TYPE,
+                                id: res.RETURN[i].ID,
+                                number: res.RETURN[i].NUMBER,
+                                message: res.RETURN[i].MESSAGE,
+                               
+
+                            });
+                          
+                          //console.log(res.RETURN);
+                       }; 
+                        resolve(res_array);
+                      });	
+              });
+              //promise.then(result => return result);
+          })
+              return promise;
+}
      
     
     async getFIARBillingsRFC(bapi,data_ini,data_fim,cliente,nfenum){
@@ -241,7 +289,7 @@ class DB {
                 //promise.then(result => return result);
             })
                 return promise;
-       }
+    }
 
 
      async faturaOVRFC(bapi,ov)
@@ -532,6 +580,67 @@ class DB {
                 return promise;
        }
 
+       async getFB03ByBelnrRFC(bapi,belnr,gjahr)
+       {
+          var objects = [];
+          var res_array = [];     
+  
+          const promise = new Promise((resolve, reject) => {
+               
+              "use strict";
+                  var rfc = require('node-rfc');
+                  var abapSystem = this.getSAPR3ConnectionString();
+                  var client = new rfc.Client(abapSystem);
+                  var MAX_ROWS = 999;
+                                   
+                      
+                  client.connect(function(err) {
+                      if (err) {
+                          return console.error('could not connect to server', err);
+                      }	
+                      client.invoke('ZFI_DOCUMENT_READ1', {
+                              I_DOCNO:belnr,
+                              I_BYEAR:gjahr,
+                              I_COMPY:'BP01',                                                                                  
+                          },
+                          function(err, res) {
+                              if (err) {
+                                  return console.error('Error invoking ZFI_DOCUMENT_READ1:', err);
+                              }
+                          console.log('Result ZFI_DOCUMENT_READ1:', res);
+                          //console.log(JSON.stringify(res.USERLIST));
+                      
+                          for(let i in res.T_BSEG) { 
+                              res_array.push({
+                                  bukrs: res.T_BSEG[i].BUKRS,
+                                  belnr: res.T_BSEG[i].BELNR,
+                                  buzei: res.T_BSEG[i].BUZEI,
+                                  bschl: res.T_BSEG[i].BSCHL,
+                                  hkont: res.T_BSEG[i].HKONT,
+                                  kidno: res.T_BSEG[i].KIDNO,
+                                  kostl: res.T_BSEG[i].KOSTL,
+                                  projk: res.T_BSEG[i].PROJK,
+                                  mwskz: res.T_BSEG[i].MWSKZ,
+                                  augbl: res.T_BSEG[i].AUGBL,
+                                  wrbtr: res.T_BSEG[i].WRBTR,
+                                  zfbdt: res.T_BSEG[i].ZFBDT,                                  
+                                  sgtxt:res.T_BSEG[i].SGTXT,
+                                  bupla:res.T_BSEG[i].BUPLA,
+                                 
+                              });
+                              //res_array.push([i,res.USERLIST[i].USERNAME]); 
+                              //console.log(res.RETURN);
+                           }; 
+                         
+                            resolve(res_array);
+                            
+                          });	
+                  });
+                  //promise.then(result => return result);
+              })
+                  return promise;
+         }
+
        async getSalesOrderTextsRFC(bapi,data_ini,data_fim,cliente,ov)
        {
                     
@@ -771,6 +880,135 @@ class DB {
                  return promise;
         }
 
+        async getJ1BTAXBrasilRFC(bapi,cliente,material)
+        {
+          var objects = [];
+  
+          var res_array = [];
+          const promise = new Promise((resolve, reject) => {
+               
+              "use strict";
+                  var rfc = require('node-rfc');
+                  var abapSystem = this.getSAPR3ConnectionString();
+                  var client = new rfc.Client(abapSystem);
+                  var MAX_ROWS = 999;                                                           
+                  var ST_IN_MAT = { };
+                  
+                  if(!cliente){
+
+                    cliente = '';
+                  }
+                  
+                  if(!material){
+
+                    material = '';
+                  }
+                      
+                  client.connect(function(err) {
+                      if (err) {
+                          return console.error('could not connect to server', err);
+                      }	
+                      client.invoke('ZFIAR_CL_X_MAT_EX_PORTAL', {
+                               P_KUNNR:cliente,
+                               P_MATNR:material,                                                          
+                          },
+                          function(err, res) {
+                              if (err) {
+                                  return console.error('Error invoking ZFIAR_CL_X_MAT_EX_PORTAL:', err);
+                              }
+                         
+                      
+                          for(let i in res.RETURN) { 
+                              res_array.push({
+                                  parid: res.RETURN[i].VALUE,
+                                  name1: res.RETURN[i].NAME1,                                                            
+                                  material: res.RETURN[i].VALUE2,
+                                  maktx:res.RETURN[i].MAKTX,
+                                  ratepis:res.RETURN[i].RATE_PIS,
+                                  ratecofins:res.RETURN[i].RATE_COFINS,
+                                  ratecsll:res.RETURN[i].RATE_CSLL,
+                                  rateirrf:res.RETURN[i].RATE_IR,
+                                  rateiss:res.RETURN[i].RATE_ISS,
+                                  werks:res.RETURN[i].VALUE2_FILIAL,
+                                  txjcd:res.RETURN[i].TXJCD,
+                              });
+                              
+                              //console.log(res.RETURN);
+                           }; 
+                            resolve(res_array);
+                          });	
+                  });
+                  //promise.then(result => return result);
+              })
+                  return promise;
+    }
+
+    async bloqueiaOVRFC(bapi,ov)
+     {
+        var objects = [];
+        var docFaturamento;
+        var res_array = [];
+        let abap_table = [];
+        const promise = new Promise((resolve, reject) => {
+             
+            "use strict";
+                var rfc = require('node-rfc');
+                var abapSystem = this.getSAPR3ConnectionString();
+                var client = new rfc.Client(abapSystem);
+                var MAX_ROWS = 999;
+                
+                if (ov){
+                    // ABAP structure
+                    const w_order_header_in = {
+                        BILL_BLOCK: 'X',
+                                          
+                    };
+                    // ABAP table
+                    // abap_table = [abap_structure];
+                }                                                                                           
+               
+                var _ORDER_HEADER_INX = {
+                        UPDATEFLAG:'U',
+                        BILL_BLOCK: 'X' 
+                  };	
+                //var VBCOM = [SELECTION_RANGE_str];
+                    
+                client.connect(function(err) {
+                    if (err) {
+                        return console.error('could not connect to server', err);
+                    }	
+                    client.invoke('BAPI_SALESORDER_CHANGE', {
+                           ORDER_HEADER_IN: w_order_header_in,
+                           SALESDOCUMENT:ov,
+                           ORDER_HEADER_INX:_ORDER_HEADER_INX
+                        },
+                        function(err, res) {
+                            if (err) {
+                                return console.error('Error invoking BAPI_SALESORDER_CHANGE:', err);
+                            }
+                        //console.log('Result BAPI_SALESORDER_CHANGE:', res);
+                        //console.log(JSON.stringify(res.USERLIST));
+                    
+                        for(let i in res.RETURN) { 
+                            res_array.push({
+                                type: res.RETURN[i].TYPE,
+                                id: res.RETURN[i].ID,
+                                number: res.RETURN[i].NUMBER,
+                                message: res.RETURN[i].MESSAGE,
+                               
+
+                            });
+                            //res_array.push([i,res.USERLIST[i].USERNAME]); 
+                            //console.log(res.RETURN);
+                         }; 
+                          resolve(res_array);
+                        });	
+                });
+                //promise.then(result => return result);
+            })
+                return promise;
+       }
+ 
     //-------------------------------------------------------------------------------------- Funções exportadas
     //Funções contendo os selects responsáveis por retornar o resultado caso chamado
 
@@ -1222,7 +1460,12 @@ class DB {
 
     //Ocorrências (< 100%)
     async getOcorrencias() {
-        let query = "SELECT * FROM `tb_sf_ocorrencia` WHERE `status`< '100' ORDER BY cod DESC";
+        let query = "SELECT  * FROM `tb_sf_ocorrencia` where status <> 55 ORDER BY data DESC limit 5" ;
+        return this.doQuery(query)
+    }
+     //Ocorrências (< 100%)
+     async getOcorrenciasNFE() {
+        let query = "SELECT * FROM tb_sf_ocorrencia WHERE status = 55 ORDER BY data DESC limit 5";
         return this.doQuery(query)
     }
 

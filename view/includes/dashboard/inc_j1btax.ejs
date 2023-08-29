@@ -27,7 +27,7 @@
                 <div class="content-collapse">
                     <a data-toggle style="color: white;padding-left: 20px;"><i class="fas fa-filter" style="color: white;padding-right: 10px;"></i>Filtros</a>
                     <div class="content">
-                        <form role="form" action="/inventario" method="post">
+                        <form role="form" action="/j1btax" method="post">
                             <div class="card-body" style="display: grid;margin: -26px -21px -11px -21px;">
 
                                 <!-- Campos do filtro -->
@@ -43,7 +43,7 @@
                             <div class="card-footer" style="background: center;padding: 8px 0 8px 0px;display: flex;">
                                 <!-- Filtrar -->
                                 <button type="button" class="form-control btn-sm btn-primary" style="width: auto;height: fit-content;" onclick="(function() {
-                                        window.location = '/inventario/?page=1' + 
+                                        window.location = '/j1btax/?page=1' + 
                                         '&[cliente]=' + document.getElementById('filter_Cliente').value + 
                                         '&[material]=' + document.getElementById('filter_Material').value;
                                     })()">&nbsp;&nbsp;&nbsp;&nbsp;Filtrar&nbsp;&nbsp;&nbsp;&nbsp;
@@ -99,11 +99,11 @@
                             <div class="dropdown-menu" role="menu">
                                 <!-- Exportar para Excel -->
                                 <a class="dropdown-item" style="cursor: pointer;" onclick="(function(){
-                                    $('#TBtableBigData').tableExport({type:'excel', fileName: 'Inventario', exportHiddenCells: true, ignoreColumn:'[7]'});                
+                                    $('#TBtableBigData').tableExport({type:'excel', fileName: 'J1BTAX', exportHiddenCells: true, ignoreColumn:'[7]'});                
                                 })()"><i class="fas fa-file-excel" style="color: #118311;"></i>&nbsp;&nbsp;Ms-Excel</a>
                                 <!-- Exportar para PDF -->
                                 <a class="dropdown-item" style="cursor: pointer;" onclick="(function(){
-                                    $('#TBtableBigData').tableExport({type:'pdf', fileName: 'Inventario', exportHiddenCells: true, ignoreColumn:'[7]'});                
+                                    $('#TBtableBigData').tableExport({type:'pdf', fileName: 'J1BTAX', exportHiddenCells: true, ignoreColumn:'[7]'});                
                                 })()"><i class="fas fa-file-pdf" style="color: #d17021;"></i>&nbsp;&nbsp;PDF</a>
                             </div>
                         </div>
@@ -148,7 +148,7 @@
                                                 <% if (currentPage>= 1) { %>
                                                     <li><a href="#" 
                                                         onclick="(function() {
-                                                            window.location = '/inventario/?page=1' + 
+                                                            window.location = '/j1btax/?page=1' + 
                                                             '&[cliente]=' + document.getElementById('filter_Cliente').value + 
                                                             '&[material]=' + document.getElementById('filter_Material').value;
                                                         })()">&laquo;</a>
@@ -170,7 +170,7 @@
                                                         <!-- Demais páginas -->
                                                         <li><a href="#" 
                                                             onclick="(function() {
-                                                                window.location = '/inventario/?page=<%= i %>' + 
+                                                                window.location = '/j1btax/?page=<%= i %>' + 
                                                                 '&[cliente]=' + document.getElementById('filter_Cliente').value + 
                                                                 '&[material]=' + document.getElementById('filter_Material').value;
                                                             })()"><%= i %>
@@ -188,7 +188,7 @@
                                                 <% if(currentPage !=pageCount) { %>
                                                     <li><a href="#" 
                                                         onclick="(function() {
-                                                                window.location = '/inventario/?page=<%= pageCount %>' + 
+                                                                window.location = '/j1btax/?page=<%= pageCount %>' + 
                                                                 '&[cliente]=' + document.getElementById('filter_Cliente').value + 
                                                                 '&[material]=' + document.getElementById('filter_Material').value;
                                                         })()">&raquo;</a>

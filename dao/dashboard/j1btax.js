@@ -12,13 +12,13 @@ var status_Crud = '';
 var page = './includes/default/3-content';
 
 module.exports = {
-    pageInventario: (req, res) => {
+    pageJ1btax: (req, res) => {
 
         //Executa certas funções em tempo de execução passando para a página
         let DBModel = new DB(conn);
         (async function () {
             //Atribuindo o conteúdo central
-            page = './includes/dashboard/inc_inventario';
+            page = './includes/dashboard/inc_j1btax';
             //page = './includes/default/3-content_manutencao';
 
             //Consultas diversas para popular elementos

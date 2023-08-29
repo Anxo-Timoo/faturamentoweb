@@ -93,7 +93,91 @@
             </div>
         </div>
 
-        <!-- Ocorrências -->
+
+        <!-- Mensagens do Sistema -->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Para iniciar fechado, adicione collapsed-card na class-->
+                <div class="card card-danger">
+                    <!-- ######################################################################### Cabeçalho -->
+                    <div class="card-header">
+                        <!-- Cabeçalho -->
+                        <div class="btn-group">                            
+                            <h1 class="card-title">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                &nbsp;&nbsp;&nbsp;
+                                Mensagens do sistema
+                            </h1>
+                        </div>
+
+                        <!-- Botão Ocultar ou exibir o card -->
+                        <div class="card-tools">
+                            <!-- Botão Abrir/fechar card (Icone: fa-minus ou fa-plus) -->
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <!-- Botão Maximizar card -->
+                            <button type="button" class="btn btn-tool" data-card-widget="maximize">
+                                <i class="fas fa-expand"></i>
+                            </button>
+                            <!-- Botão destruir card -->
+                            <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <!-- ######################################################################### Conteúdo -->
+                    <div class="card-body">
+                        <% if (DTOcorrencias.length > 0) {%>
+                            <table id="TBtableSimple2" class="table table-hover table-bordered">
+                                <thead class="thead-light">
+                                    <!-- Cabeçalho: Titulos da tabela -->
+                                    <tr>
+                                       <!-- <th scope="col">ID</th>-->
+                                        <th scope="col">Documento</th>
+                                        <th scope="col">Descricao</th>
+                                        <th scope="col">Cód.Retorno</th>
+                                        <th scope="col">Acao</th>                                        
+                                        <th scope="col">Data</th>
+                                        <th scope="col">Responsavel</th>
+                                        <th scope="col">NºMsg</th>
+                                        <th scope="col" style="text-align-last: center;">Status</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <!-- Detalhes: Dados da tabela -->
+                                    <% DTOcorrencias.forEach((row, index) => { %>
+                                        <tr>
+                                            <td><%= row.solucao %></td> 
+                                            <!--<td></td>-->
+                                            <td style="white-space: pre-wrap"><%= row.descricao %></td>
+                                            <td style="white-space: pre-wrap"><%= row.setor %></td>
+                                            <td><%= row.acao %></td>
+                                            <td style="white-space: pre-wrap"><%= row.prazo.toLocaleString() %></td>
+                                            <td><%= row.responsavel %></td>
+                                            
+                                            <td><%= row.status %></td>
+                                            <td style="text-align-last: center;">
+                                                <input type="text" class="knob" value="<%= row.status %>" data-width="50" data-height="50" data-fgColor="#f56954">
+                                            </td>
+                                        </tr>
+                                    <% }) %>
+                                </tbody>
+                            </table>
+                        <% } else { %>
+                            <!-- Não existe dados na tabela -->
+                             <p class="text-center">Não há informações disponíveis</p>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Ocorrências NFE -->
         <div class="row">
             <div class="col-md-12">
                 <!-- Para iniciar fechado, adicione collapsed-card na class-->
@@ -129,7 +213,7 @@
 
                     <!-- ######################################################################### Conteúdo -->
                     <div class="card-body">
-                        <% if (DTOcorrencias.length > 0) {%>
+                        <% if (DTOcorrenciasNFE.length > 0) {%>
                             <table id="TBtableSimple2" class="table table-hover table-bordered">
                                 <thead class="thead-light">
                                     <!-- Cabeçalho: Titulos da tabela -->
@@ -140,14 +224,14 @@
                                         <th scope="col">Cód.Retorno</th>
                                         <th scope="col">Acao</th>
                                         <th scope="col">Responsavel</th>
-                                        <th scope="col">Prazo</th>
+                                        <th scope="col">Data</th>
                                         <th scope="col" style="text-align-last: center;">Status</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
                                     <!-- Detalhes: Dados da tabela -->
-                                    <% DTOcorrencias.forEach((row, index) => { %>
+                                    <% DTOcorrenciasNFE.forEach((row, index) => { %>
                                         <tr>
                                             <td><%= row.semana %></td> 
                                             <td><%= row.setor %></td>

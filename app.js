@@ -37,10 +37,12 @@ app.use('/embalagem', express.static(path.join(__dirname, 'public')));
 app.use('/ordem_venda', express.static(path.join(__dirname, 'public')));
 app.use('/material_sap', express.static(path.join(__dirname, 'public')));
 app.use('/preparacao', express.static(path.join(__dirname, 'public')));
+app.use('/j1btax', express.static(path.join(__dirname, 'public')));
 app.use('/inventario', express.static(path.join(__dirname, 'public')));
 app.use('/qualidade', express.static(path.join(__dirname, 'public')));
 app.use('/chat', express.static(path.join(__dirname, 'public')));
 app.use('/usuario', express.static(path.join(__dirname, 'public')));
+app.use('/fb03', express.static(path.join(__dirname, 'public')));
 
 //Diretório onde estão as views ejs (páginas frontend)
 app.set("views", path.join(__dirname, "view"));

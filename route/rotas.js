@@ -131,11 +131,18 @@ module.exports = (io) => { //Aqui recebo o socket.io lá do app.js
     rotas.get('/delPreparacao/:id', delPreparacao); //Usado no get do botão "Sim, eliminar" do modal que deleta um registro (CRU"D")
 
     //Rotas para a página de "Inventario"
-    const { pageInventario, addInventario, editInventario, delInventario, } = require('../dao/dashboard/inventario.js');
-    rotas.get('/inventario', pageInventario); //localhost:3000/inventario (ao clicar no menu da sidebar: Dashboard > Inventario (C"R"UD))
-    rotas.post('/addInventario', addInventario); //Usado no post do botão "Salvar" do modal que cadastra um novo registro ("C"RUD)
-    rotas.post('/editInventario/:id', editInventario); //Usado no post do botão "Salvar" do modal que altera um registro (CR"U"D)
-    rotas.get('/delInventario/:id', delInventario); //Usado no get do botão "Sim, eliminar" do modal que deleta um registro (CRU"D")
+    //const { pageInventario, addInventario, editInventario, delInventario, } = require('../dao/dashboard/inventario.js');
+    //rotas.get('/inventario', pageInventario); //localhost:3000/inventario (ao clicar no menu da sidebar: Dashboard > Inventario (C"R"UD))
+    //rotas.post('/addInventario', addInventario); //Usado no post do botão "Salvar" do modal que cadastra um novo registro ("C"RUD)
+    //rotas.post('/editInventario/:id', editInventario); //Usado no post do botão "Salvar" do modal que altera um registro (CR"U"D)
+    //rotas.get('/delInventario/:id', delInventario); //Usado no get do botão "Sim, eliminar" do modal que deleta um registro (CRU"D")
+
+     //Rotas para a página J1BTAX
+     const { pageJ1btax, addInventario, editInventario, delInventario, } = require('../dao/dashboard/j1btax.js');
+     rotas.get('/j1btax', pageJ1btax); //localhost:3000/inventario (ao clicar no menu da sidebar: Dashboard > Inventario (C"R"UD))
+     rotas.post('/addInventario', addInventario); //Usado no post do botão "Salvar" do modal que cadastra um novo registro ("C"RUD)
+     rotas.post('/editInventario/:id', editInventario); //Usado no post do botão "Salvar" do modal que altera um registro (CR"U"D)
+     rotas.get('/delInventario/:id', delInventario); //Usado no get do botão "Sim, eliminar" do modal que deleta um registro (CRU"D")
 
     //Rotas para a página de "Qualidade"
     const { pageQualidade, addQualidade, editQualidade, delQualidade, } = require('../dao/dashboard/qualidade.js');
@@ -143,6 +150,13 @@ module.exports = (io) => { //Aqui recebo o socket.io lá do app.js
     rotas.post('/addQualidade', addQualidade); //Usado no post do botão "Salvar" do modal que cadastra um novo registro ("C"RUD)
     rotas.post('/editQualidade/:id', editQualidade); //Usado no post do botão "Salvar" do modal que altera um registro (CR"U"D)
     rotas.get('/delQualidade/:id', delQualidade); //Usado no get do botão "Sim, eliminar" do modal que deleta um registro (CRU"D")
+
+    //Rotas para a página FB03 - Exibição de doc contábil
+    const { pageFB03, addFB03, editFB03, delFB03, } = require('../dao/dashboard/fb03.js');
+    rotas.get('/fb03/:id&:gjahr', pageFB03); //localhost:3000/qualidade (ao clicar no menu da sidebar: Dashboard > Qualidade (C"R"UD))
+    rotas.post('/addFB03', addFB03); //Usado no post do botão "Salvar" do modal que cadastra um novo registro ("C"RUD)
+    rotas.post('/editFB03/:id', editFB03); //Usado no post do botão "Salvar" do modal que altera um registro (CR"U"D)
+    rotas.get('/delFB03/:id', delFB03); //Usado no get do botão "Sim, eliminar" do modal que deleta um registro (CRU"D")
 
     //Rotas para a página de "Informativo"
     const { pageInformativo, addInformativo, editInformativo, delInformativo,} = require('../dao/dashboard/informativo.js');

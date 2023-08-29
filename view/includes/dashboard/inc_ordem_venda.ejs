@@ -110,6 +110,16 @@
                                 <a class="dropdown-item" style="cursor: pointer;" onclick="(function(){
                                     $('#TBtableBigData').tableExport({type:'excel', fileName: 'OrdemDeVenda', exportHiddenCells: true, ignoreColumn:'[2,8]'});                
                                 })()"><i class="fas fa-file-excel" style="color: #118311;"></i>&nbsp;&nbsp;Ms-Excel</a>
+                                
+                                <!-- Abre o modal para carga de excel -->
+                                <a class="dropdown-item" data-toggle="modal" data-target="#modalXLS" style="cursor: pointer;" onclick="(function(){
+                                    
+                                })()">
+                                <i class="fas fa-file-excel" style="color: #118311;"></i>&nbsp;&nbsp;Carga via Excel
+                                
+                                </a>
+                                
+                                
                                 <!-- Exportar para PDF -->
                                 <a class="dropdown-item" style="cursor: pointer;" onclick="(function(){
                                     $('#TBtableBigData').tableExport({type:'pdf', fileName: 'OrdemDeVenda', orientation:'landscape',exportHiddenCells: true, ignoreColumn:'[8]'});                
@@ -384,7 +394,62 @@
                                 </tfoot>
                             </table>
                         <% } %>
-                    </div>
+                    </div> 
+                    
+                    
+
+                      <!--  Modal Carga Excel -->
+                      <div class="modal fade" id="modalXLS" data-backdrop="static">
+                        <div class="modal-dialog modal-md">
+                            <div class="modal-content">
+                                <!-- Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Carga via excel</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <!-- Conteúdo central do modal -->
+                                <form action="/uploadfile" enctype="multipart/form-data" method="post">
+                                    
+                                   <div class="modal-body"> 
+                                    <div class="row">
+                                        <!-- Takt PE -->
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <label for="loadFileXml" class="label">Arquivo</label>
+                                                <input type="button" class="btn btn-secondary" id="loadFileXml" value="Selecione o arquivo XLS" onclick="document.getElementById('uploadfile').click();" />
+                                            </div>
+                                        </div>
+
+                                        <!-- Takt Cilindro -->
+                                        <div class="col-sm-10">
+                                            <div class="form-group">
+                                                <label for="takt_" class="label"></label>
+                                                <input type="text" class="form-control form-control-sm "name="takt_path" id="takt_path" readonly="true"
+                                                    placeholder="Caminho do Arquivo" required>
+                                            </div>
+                                        </div> 
+                                      <div class="row">
+                                        <div class="col-sm-4">
+                                                
+                                                <input type="text" style="display:none" class="form-control form-control-sm" name="cod_xls" id="cod_xls" readonly=“true”>
+                                                <input type="file" style="display:none" onchange ="javascript:document.getElementById('takt_path').value = this.value;"
+                                                   text="Selecione o arquivo" placeholder="Selecione o arquivo" class="form-control form-control-sm" name="uploadfile" id ="uploadfile" accept='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel' >
+                                                
+                                                   <div class="modal-footer justify-content-between">
+                                                     <input type="submit" class="btn btn-primary" value="Processa Excel">
+                                        </div>     </div>
+                                        
+                                     </div>
+
+                                   </div>                                                                
+                                
+                                </form>
+                            </div>
+                        </div>
+                      </div>
 
                     <!-- ######################################################################### Modal para ADICIONAR -->
                     <div class="modal fade" id="modalADD" data-backdrop="static">

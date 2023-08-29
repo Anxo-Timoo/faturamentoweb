@@ -197,10 +197,16 @@ module.exports = {
             res.redirect('/recebimento');
         });
     },
+    
+    getFB03: (req, res) => {
+        let cod = req.params.id
+        
+    
+    },
 
     //Funções que passam o valor da variável para outro arquivo js
     getStatusCrud() {
         return status_Crud;
     },
-
+    
 };
