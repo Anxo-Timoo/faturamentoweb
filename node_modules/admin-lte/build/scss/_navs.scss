@@ -90,22 +90,33 @@
 
 @each $color, $value in $theme-colors {
   @if $color != dark and $color != light {
-    .navbar-#{$color} {
-      background-color: $value;
-    }
+    @include navbar-variant($color, $value);
   }
 }
 
 @each $color, $value in $colors {
-  .navbar-#{$color} {
-    background-color: $value;
+  @include navbar-variant($color, $value);
+}
+
+.navbar-nav-not-expanded {
+  flex-direction: row;
+
+  .dropdown-menu {
+    position: absolute;
+  }
+
+  .nav-link {
+    padding-right: $navbar-nav-link-padding-x;
+    padding-left: $navbar-nav-link-padding-x;
   }
 }
 
-.dark-mode {
+
+@include dark-mode () {
   .nav-pills .nav-link {
     color: $gray-400;
   }
+
   .nav-tabs {
     border-color: lighten($dark, 15%);
 
@@ -145,5 +156,27 @@
         }
       }
     }
+  }
+
+  // Color variants
+  @each $color, $value in $theme-colors-alt {
+    @if $color == dark or $color == light {
+      .navbar-#{$color} {
+        background-color: $value;
+        @if $color == dark {
+          border-color: lighten($dark, 10%);
+        }
+      }
+    }
+  }
+
+  @each $color, $value in $theme-colors-alt {
+    @if $color != dark and $color != light {
+      @include navbar-variant($color, $value);
+    }
+  }
+
+  @each $color, $value in $colors-alt {
+    @include navbar-variant($color, $value);
   }
 }

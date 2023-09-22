@@ -3,6 +3,7 @@ const DB = require('../listas/selects');
 const FUNCOES = require('../util/funcoes');
 const mysql = require('mysql2');
 const config = require('../../database/config');
+const Excel = require('exceljs');
 const conn = mysql.createPool(config);
 
 //Variáveis a serem utilizadas
@@ -23,6 +24,11 @@ module.exports = {
 
             //Consultas diversas para popular elementos
             let clientes = await DBModel.getJ1BTAXBrasilRFC('ZFIAR_CL_X_MAT_EX_PORTAL',req.query.cliente, req.query.material);            
+            var resultset = 0;
+            if (clientes.length > 0)
+            {
+                resultset = 1;
+            }
             
             //Variáveis utilizadas para paginação
             var totalItens = clientes.length,//Qtde total de registros
@@ -60,6 +66,7 @@ module.exports = {
                 pageCount: pageCount,
                 currentPage: currentPage,
                 body: req.query,
+                resultset:resultset,
                 //Conteúdo fixo da tela
                 status_Crud,
                 cod_login_pcp: req.session.cod_login_pcp,
@@ -183,6 +190,84 @@ module.exports = {
             status_Crud = 'sim';
             res.redirect('/inventario');
         });
+    },
+
+    generateExcelJ1btax:(req,res) => {
+        var results = [];
+    
+        (async function () {
+            let DBModel = new DB(conn);
+            results = await DBModel.getJ1BTAXBrasilRFC('ZFIAR_CL_X_MAT_EX_PORTAL',req.query.cliente, req.query.material);
+            
+            const workbook = new Excel.Workbook();
+            const worksheet = workbook.addWorksheet('Customers');
+            
+            //let results = await DBModel.getFIARPaymentsRFC('ZFIAR_REPORT_PORTAL_OUTPUT',req.query.dataIni,req.query.dataFim,req.query.cliente,req.query.nfnum,req.query.status,req.query.branch);
+            //console.log(results);
+            // Define columns in the worksheet, these columns are identified using a key.
+            worksheet.columns = [
+                { header: 'Cliente', key: 'parid', width: 20 },
+                { header: 'Nome', key: 'name1', width: 50 },                
+                { header: 'Material', key: 'material', width: 20 },
+                { header: 'Texto', key: 'maktx', width: 50 },                                               
+                { header: 'PIS', key: 'ratepis', width: 15 },
+                { header: 'COFINS', key: 'ratecofins', width: 15 },
+                { header: 'CSLL', key: 'ratecsll', width: 15 },
+                { header: 'IRRF', key: 'rateirrf', width: 15 },
+                { header: 'ISS', key: 'rateiss', width: 15 },
+                { header: 'Filial', key: 'werks', width: 10 },
+                { header: 'Dom.Fiscal', key: 'txjcd', width: 30 },               
+                
+            ]                                                                                                                                                                                                   
+                                                                                                                                                                                                                                                 
+            // Add rows from database to worksheet 
+            for (const row of results) {
+                
+                worksheet.addRow(row);
+            }
+    
+            worksheet.autoFilter = 'A1:Q1';
+    
+            worksheet.eachRow(function (row, rowNumber) {
+                row.eachCell((cell, colNumber) => {
+                if (rowNumber == 1) {
+                // First set the background of header row
+                cell.fill = {
+                type: 'pattern',
+                pattern: 'solid',
+                fgColor: { argb: 'f5b914' }
+                }
+                }
+                // Set border of each cell
+                cell.border = {
+                top: { style: 'thin' },
+                left: { style: 'thin' },
+                bottom: { style: 'thin' },
+                right: { style: 'thin' }
+                };
+                })
+                //Commit the changed row to the stream
+                row.commit();
+                });
+                    
+    
+            // Finally save the worksheet into the folder from where we are running the code. 
+        // workbook.xlsx.writeFile('SimpleCust.xlsx');
+            res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            res.setHeader("Content-Disposition", "attachment; filename=Impostos_Cliente.xlsx");
+            
+            workbook.xlsx.write(res);
+            //status_Crud = 'sim';
+            //res.redirect('/recebimento');
+                //res.status(200).end();
+    
+                var fileName = "Task" + '_Template.xlsx';
+                var tempFilePath = __dirname + "\\public\\dist\\" + fileName;
+                workbook.xlsx.writeFile(tempFilePath).then(function () {
+                    res.send(fileName);
+                });
+           // });
+        })();//async
     },
 
     //Funções que passam o valor da variável para outro arquivo js

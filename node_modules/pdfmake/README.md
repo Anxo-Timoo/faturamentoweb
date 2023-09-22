@@ -1,7 +1,7 @@
-# pdfmake [![Build Status][travis_img]][travis_url] [![GitHub][github_img]][github_url] [![npm][npm_img]][npm_url] [![Bower][bower_img]][bower_url] [![Packagist][packagist_img]][packagist_url] [![CDNJS][cdnjs_img]][cndjs_url]
+# pdfmake [![Node.js CI][githubactions_img]][githubactions_url] [![GitHub][github_img]][github_url] [![npm][npm_img]][npm_url] [![Bower][bower_img]][bower_url] [![Packagist][packagist_img]][packagist_url] [![CDNJS][cdnjs_img]][cndjs_url]
 
-[travis_img]: https://travis-ci.org/bpampuch/pdfmake.svg?branch=master
-[travis_url]: https://travis-ci.org/bpampuch/pdfmake
+[githubactions_img]: https://github.com/bpampuch/pdfmake/workflows/Node.js%20CI/badge.svg?branch=0.1
+[githubactions_url]: https://github.com/bpampuch/pdfmake/actions
 
 [github_img]: https://img.shields.io/github/release/bpampuch/pdfmake.svg
 [github_url]: https://github.com/bpampuch/pdfmake/releases/latest
@@ -51,11 +51,11 @@ Check out [the playground](http://bpampuch.github.io/pdfmake/playground.html) an
 
 Documentation URL: https://pdfmake.github.io/docs/
 
-## Building from sources version 0.1.x
+## Building from sources version 0.2.x
 
 using npm:
 ```
-git clone --branch 0.1 https://github.com/bpampuch/pdfmake.git
+git clone --branch 0.2 https://github.com/bpampuch/pdfmake.git
 cd pdfmake
 npm install
 npm run build
@@ -63,7 +63,7 @@ npm run build
 
 using yarn:
 ```
-git clone --branch 0.1 https://github.com/bpampuch/pdfmake.git
+git clone --branch 0.2 https://github.com/bpampuch/pdfmake.git
 cd pdfmake
 yarn
 yarn run build

@@ -52,7 +52,7 @@ class Treeview {
   // Public
 
   init() {
-    $(`${SELECTOR_LI}${SELECTOR_OPEN} ${SELECTOR_TREEVIEW_MENU}`).css('display', 'block')
+    $(`${SELECTOR_LI}${SELECTOR_OPEN} ${SELECTOR_TREEVIEW_MENU}${SELECTOR_OPEN}`).css('display', 'block')
     this._setupListeners()
   }
 
@@ -83,7 +83,7 @@ class Treeview {
     treeviewMenu.stop().slideUp(this._config.animationSpeed, () => {
       $(this._element).trigger(collapsedEvent)
       treeviewMenu.find(`${SELECTOR_OPEN} > ${SELECTOR_TREEVIEW_MENU}`).slideUp()
-      treeviewMenu.find(SELECTOR_OPEN).removeClass(CLASS_NAME_OPEN)
+      treeviewMenu.find(SELECTOR_OPEN).removeClass(`${CLASS_NAME_IS_OPENING} ${CLASS_NAME_OPEN}`)
     })
   }
 

@@ -61,8 +61,8 @@
                                     title="Dicas!" 
                                     data-content="Você pode pesquisar vários critérios de uma vez, separando-os por ponto e vírgula<br>
                                                   <b>Exemplo:</b> <i>texto1;texto2;texto3</i><br><br>
-                                                  Caso seja um campo data, digite a data no formato americano: AAAA-MM-DD<br>
-                                                  <b>Exemplo:</b> <i>2021-05-22</i>">
+                                                  Caso seja um campo data, digite a data no formato brasileiro sem traço e ponto: DDMMAAAA<br>
+                                                  <b>Exemplo:</b> <i>22052022</i>">
                                 </i>
                             </div>
                         </form>
@@ -99,8 +99,11 @@
                             <div class="dropdown-menu" role="menu">
                                 <!-- Exportar para Excel -->
                                 <a class="dropdown-item" style="cursor: pointer;" onclick="(function(){
-                                    $('#TBtableBigData').tableExport({type:'excel', fileName: 'J1BTAX', exportHiddenCells: true, ignoreColumn:'[7]'});                
-                                })()"><i class="fas fa-file-excel" style="color: #118311;"></i>&nbsp;&nbsp;Ms-Excel</a>
+                                   window.location = '/generateExcelJ1btax/' + 
+                                                           '?[cliente]=' + document.getElementById('filter_Cliente').value + 
+                                                            '&[material]=' + document.getElementById('filter_Material').value;
+                               })()">
+                                   <i class="fas fa-file-excel" style="color: #118311;"></i>&nbsp;&nbsp;Ms-Excel</a>
                                 <!-- Exportar para PDF -->
                                 <a class="dropdown-item" style="cursor: pointer;" onclick="(function(){
                                     $('#TBtableBigData').tableExport({type:'pdf', fileName: 'J1BTAX', exportHiddenCells: true, ignoreColumn:'[7]'});                
@@ -124,10 +127,14 @@
 
                     <!-- ######################################################################### Tabela -->
                     <div class="card-body">
-                        <% if (!Array.isArray(DTClientes) || !DTClientes.length) { %>
+                        <% if (!Array.isArray(DTClientes) || !DTClientes.length) {                                                            
+                           
+                           %>
                         <!-- Não existe dados na tabela -->
                         <!--<p class="text-center">Clique <a data-toggle="modal" data-target="#modalADD" style="cursor:pointer; color:rgb(79, 79, 255)"> aqui </a>para adicionar um novo registro.</p>-->
-    
+                        <p id = "msgConsulta" class="text-center">Nenhum dado selecionado.Por favor selecione os dados  
+                            <!-- <a data-toggle="modal" data-target="#modalADD" style="cursor:pointer; color:rgb(79, 79, 255)"> aqui </a>-->
+                             através dos filtros acima.</p>
                         <% } else { %>
                             <table id="TBtableBigData" class="table table-hover" style="display: none;">
                                 <!-- Paginação do BD -->
@@ -223,11 +230,7 @@
                                         <tr>
                                             <!-- <td style="min-width: 30px;"><%= row.cod %></td> -->
                                              <td style="min-width: 30px;"><%=DTClientes[index].parid.toString() %></td>                                              
-                                            <!--<% if(row.data == null || row.data == '0000-00-00 00:00:00' || row.data == 'Invalid Date') { %>
-                                                <td></td>
-                                            <% } else { %>
-                                                <td style="min-width: 120px;"><%=DTClientes[index].name1.toString() %></td>
-                                            <% } %>-->
+                                           
                                             <td style="min-width: 120px;"><%=DTClientes[index].name1.toString() %></td>
                                             <td><%=DTClientes[index].material.toString() %> </td>
                                             <td><%=DTClientes[index].maktx.toString() %></td>

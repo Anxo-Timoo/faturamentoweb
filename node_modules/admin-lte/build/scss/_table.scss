@@ -82,11 +82,31 @@
 [data-widget="expandable-table"] {
   cursor: pointer;
 
-  i {
+  i.expandable-table-caret {
     transition: transform $transition-speed linear;
   }
   &[aria-expanded="true"] {
-    td > i {
+    i.expandable-table-caret {
+      // stylelint-disable selector-max-attribute
+      &[class*="right"] {
+        transform: rotate(90deg);
+      }
+      &[class*="left"] {
+        transform: rotate(-90deg);
+      }
+      // stylelint-enable selector-max-attribute
+    }
+  }
+}
+
+[aria-expanded="true"] {
+  cursor: pointer;
+
+  i.expandable-table-caret {
+    transition: transform $transition-speed linear;
+  }
+  [data-widget="expandable-table"] {
+    i.expandable-table-caret {
       // stylelint-disable selector-max-attribute
       &[class*="right"] {
         transform: rotate(90deg);
@@ -123,7 +143,7 @@
   }
 }
 
-.dark-mode {
+@include dark-mode () {
   .table-bordered {
     &,
     td,

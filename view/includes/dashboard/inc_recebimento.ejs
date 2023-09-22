@@ -24,8 +24,9 @@
         <!-- Filtragem avançada -->
         <div class="row">
             <div class="col-sm-12">
-                <div class="content-collapse">
-                    <a data-toggle style="color: white;padding-left: 20px;"><i class="fas fa-filter" style="color: white;padding-right: 10px;"></i>Filtros</a>
+                 <div class="content-collapse">
+                    <a data-toggle  style="color: white;padding-left: 20px;">
+                        <i class="fas fa-filter" style="color: white;padding-right: 10px;"></i>Filtros</a>
                     <div class="content">
                         <form role="form" action="/recebimento" method="post">
                             <div class="card-body" style="display: grid;margin: -26px -21px -11px -21px;">
@@ -43,6 +44,12 @@
                                 <label for="filter_Nfnum" style="margin: 10px 0 0 0;">NF</label>
                                 <textarea type="text" class="form-control form-control-sm" name="filter_Nfnum" id="filter_Nfnum" rows="1"><%= body.nfnum %></textarea>
 
+                                <label for="filter_Branch" style="margin: 10px 0 0 0;">Filial</label>
+                                <textarea type="text" class="form-control form-control-sm" name="filter_Branch" id="filter_Branch" rows="1"><%= body.branch %></textarea>
+
+                                <label for="filter_Status" style="margin: 10px 0 0 0;">Status</label>
+                                <textarea type="text" class="form-control form-control-sm" name="filter_Status" id="filter_Status" rows="1"><%= body.status %></textarea>
+
                             </div>
 
                             <!-- Botões Filtrar e Limpar -->
@@ -53,6 +60,8 @@
                                         '&[dataIni]=' + document.getElementById('filter_DataIni').value + 
                                         '&[dataFim]=' + document.getElementById('filter_DataFim').value + 
                                         '&[cliente]=' + document.getElementById('filter_Cliente').value + 
+                                        '&[status]=' + document.getElementById('filter_Status').value + 
+                                        '&[branch]=' + document.getElementById('filter_Branch').value + 
                                         '&[nfnum]=' + document.getElementById('filter_Nfnum').value;
                                     })()">&nbsp;&nbsp;&nbsp;&nbsp;Filtrar&nbsp;&nbsp;&nbsp;&nbsp;
                                 </button>
@@ -63,6 +72,8 @@
                                         document.getElementById('filter_DataFim').value='';
                                         document.getElementById('filter_Cliente').value='';
                                         document.getElementById('filter_Nfnum').value='';
+                                        document.getElementById('filter_Status').value = '';
+                                        document.getElementById('filter_Branch').value = '';
                                     })()">&nbsp;&nbsp;&nbsp;Limpar&nbsp;&nbsp;&nbsp;
                                 </button>
                                 <!-- Dicas -->
@@ -71,8 +82,8 @@
                                     title="Dicas!" 
                                     data-content="Você pode pesquisar vários critérios de uma vez, separando-os por ponto e vírgula<br>
                                                   <b>Exemplo:</b> <i>texto1;texto2;texto3</i><br><br>
-                                                  Caso seja um campo data, digite a data no formato americano: AAAA-MM-DD<br>
-                                                  <b>Exemplo:</b> <i>2021-05-22</i>">
+                                                  Caso seja um campo data, digite a data no formato brasileiro sem ponto e traço: DDMMAAAA<br>
+                                                  <b>Exemplo:</b> <i>22052021</i>">
                                 </i>
                             </div>
                         </form>
@@ -109,7 +120,13 @@
                             <div class="dropdown-menu" role="menu">
                                 <!-- Exportar para Excel -->
                                 <a class="dropdown-item" style="cursor: pointer;" onclick="(function(){
-                                    $('#TBtableBigData').tableExport({type:'excel', fileName: 'Recebimento', exportHiddenCells: true, ignoreColumn:'[10]'});                
+                                     window.location = '/generateExcel/' + 
+                                                            '?[dataIni]=' + document.getElementById('filter_DataIni').value + 
+                                                            '&[dataFim]=' + document.getElementById('filter_DataFim').value + 
+                                                            '&[cliente]=' + document.getElementById('filter_Cliente').value + 
+                                                            '&[status]=' + document.getElementById('filter_Status').value + 
+                                                            '&[branch]=' + document.getElementById('filter_Branch').value +
+                                                            '&[nfnum]=' + document.getElementById('filter_Nfnum').value;
                                 })()"><i class="fas fa-file-excel" style="color: #118311;"></i>&nbsp;&nbsp;Ms-Excel</a>
                                 <!-- Exportar para PDF -->
                                 <a class="dropdown-item" style="cursor: pointer;" onclick="(function(){
@@ -135,10 +152,13 @@
                     <!-- ######################################################################### Tabela -->
                     <div class="card-body" style="overflow: auto; height: 600px; width: 100%">
                         <% if (!Array.isArray(DTRecebimento) || !DTRecebimento.length) { %>
-                        <!-- Não existe dados na tabela 
-                        <p class="text-center">Clique <a data-toggle="modal" data-target="#modalADD" style="cursor:pointer; color:rgb(79, 79, 255)"> aqui </a>para adicionar um novo registro.</p>-->
+                        <!-- Não existe dados na tabela -->
+                        <p class="text-center">Por favor selecione os dados  
+                           <!-- <a data-toggle="modal" data-target="#modalADD" style="cursor:pointer; color:rgb(79, 79, 255)"> aqui </a>-->
+                            através dos filtros acima.</p>
     
                         <% } else { %>
+                           
                             <table  id="TBtableBigData" class="table table-hover" style="display: none;width:auto;table-layout: fixed;overflow: hidden;">
                                 <!-- Paginação do BD -->
                                 <div class="row" style="place-items: center;margin-top: -31px;margin-bottom: -17px;flex-flow: nowrap;">
@@ -162,6 +182,8 @@
                                                             '&[dataIni]=' + document.getElementById('filter_DataIni').value + 
                                                             '&[dataFim]=' + document.getElementById('filter_DataFim').value + 
                                                             '&[cliente]=' + document.getElementById('filter_Cliente').value + 
+                                                            '&[status]=' + document.getElementById('filter_Status').value + 
+                                                            '&[branch]=' + document.getElementById('filter_Branch').value +
                                                             '&[nfnum]=' + document.getElementById('filter_Nfnum').value;
                                                         })()">&laquo;</a>
                                                     </li>
@@ -185,7 +207,9 @@
                                                                 window.location = '/recebimento/?page=<%= i %>' + 
                                                                 '&[dataIni]=' + document.getElementById('filter_DataIni').value + 
                                                                 '&[dataFim]=' + document.getElementById('filter_DataFim').value + 
-                                                                '&[cliente]=' + document.getElementById('filter_Cliente').value + 
+                                                                '&[cliente]=' + document.getElementById('filter_Cliente').value +
+                                                                '&[status]=' + document.getElementById('filter_Status').value + 
+                                                                '&[branch]=' + document.getElementById('filter_Branch').value + 
                                                                 '&[nfnum]=' + document.getElementById('filter_Nfnum').value;
                                                             })()"><%= i %>
                                                             </a>
@@ -206,6 +230,8 @@
                                                                 '&[dataIni]=' + document.getElementById('filter_DataIni').value + 
                                                                 '&[dataFim]=' + document.getElementById('filter_DataFim').value + 
                                                                 '&[cliente]=' + document.getElementById('filter_Cliente').value + 
+                                                                '&[status]=' + document.getElementById('filter_Status').value + 
+                                                                '&[branch]=' + document.getElementById('filter_Branch').value +
                                                                 '&[nfnum]=' + document.getElementById('filter_Nfnum').value;
                                                         })()">&raquo;</a>
                                                     </li>
@@ -258,19 +284,19 @@
                                             
                                             <td><%= row.dia_semana %></td>-->
                                             <td><%= DTRecebimento[index].nfnum.toString() %></td>                                           
-                                            <td><%= DTRecebimento[index].docdat.toString().substring(6,8)+'/'+DTRecebimento[index].docdat.toString().substring(4,6)+'/'+DTRecebimento[index].docdat.toString().substring(0,4) %></td>
+                                            <td><%= DTRecebimento[index].docdat.toString() %></td>
                                             <td><%= DTRecebimento[index].statuspag.toString() %></td> 
-                                            <td><%= DTRecebimento[index].augdt.toString().substring(6,8)+'/'+DTRecebimento[index].augdt.toString().substring(4,6)+'/'+DTRecebimento[index].augdt.toString().substring(0,4) %></td> 
+                                            <td><%= DTRecebimento[index].augdt.toString() %></td> 
                                             <!-- <td><%= row.turno %></td> -->                                           
                                                
                                             <td><a href="#" data-toggle="modal"   
                                                 onclick="(function() {
-                                                window.open('/fb03/' + '<%= DTRecebimento[index].augbl.toString() %>'+ '&' +'<%=DTRecebimento[index].augdt.toString().substring(0,4)%>','_blank');
+                                                window.open('/fb03/' + '<%= DTRecebimento[index].augbl.toString() %>'+ '&' +'<%=DTRecebimento[index].augdt.toString().substring(10,6)%>','_blank');
                                                 })()"><%= DTRecebimento[index].augbl === undefined ? 'Não pago' : DTRecebimento[index].augbl.toString() %></a>
                                             </td>
                                             <td><a href="#" data-toggle="modal"   
                                                 onclick="(function() {
-                                                window.open('/fb03/' + '<%= DTRecebimento[index].refkey.toString() %>' + '&' +'<%=DTRecebimento[index].docdat.toString().substring(0,4)%>','_blank');
+                                                window.open('/fb03/' + '<%= DTRecebimento[index].refkey.toString() %>' + '&' +'<%=DTRecebimento[index].docdat.toString().substring(10,6)%>','_blank');
                                                 })()"><%= DTRecebimento[index].refkey.toString() %></a>
                                             </td>                                                                                     
                                                                                        
@@ -354,7 +380,8 @@
                             </table>
                         <% } %>
                     </div>
-
+                     <!--=================================================================-->
+                    
                     <!-- ######################################################################### Modal para ADICIONAR -->
                     <div class="modal fade" id="modalADD" data-backdrop="static">
                         <div class="modal-dialog modal-md">

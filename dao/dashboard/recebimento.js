@@ -3,7 +3,9 @@ const DB = require('../listas/selects');
 const FUNCOES = require('../util/funcoes');
 const mysql = require('mysql2');
 const config = require('../../database/config');
+const Excel = require('exceljs');
 const conn = mysql.createPool(config);
+
 
 //Variáveis a serem utilizadas
 var status_Crud = '';
@@ -23,7 +25,7 @@ module.exports = {
 
             //Consultas diversas para popular elementos
             //let recebimentos = await DBModel.getSFRecebimentos(req.query.data, req.query.semana, req.query.turno);
-            let recebimentos = await DBModel.getFIARPaymentsRFC('ZFIAR_REPORT_PORTAL_OUTPUT',req.query.dataIni,req.query.dataFim,req.query.cliente,req.query.nfnum);
+            let recebimentos = await DBModel.getFIARPaymentsRFC('ZFIAR_REPORT_PORTAL_OUTPUT',req.query.dataIni,req.query.dataFim,req.query.cliente,req.query.nfnum,req.query.status,req.query.branch);
             //Variáveis utilizadas para paginação
             var totalItens = recebimentos.length,//Qtde total de registros
                 pageSize = 10,//Número máximo de registros por página
@@ -55,6 +57,7 @@ module.exports = {
             res.render('./pageAdmin', {
                 //Populando elementos
                 DTRecebimento: itensList,
+                DTRecebimentoxls:recebimentos,
                 pageSize: pageSize,
                 totalItens: totalItens,
                 pageCount: pageCount,
@@ -196,7 +199,98 @@ module.exports = {
             res.redirect('/recebimento');
         });
     },
+    
+    generateExcel:(req,res) => {
+    var results = [];
 
+    (async function () {
+        let DBModel = new DB(conn);
+        results = await DBModel.getFIARPaymentsRFC('ZFIAR_REPORT_PORTAL_OUTPUT',req.query.dataIni,req.query.dataFim,req.query.cliente,req.query.nfnum,req.query.status,req.query.branch);
+        
+        const workbook = new Excel.Workbook();
+        const worksheet = workbook.addWorksheet('Customers');
+        
+        //let results = await DBModel.getFIARPaymentsRFC('ZFIAR_REPORT_PORTAL_OUTPUT',req.query.dataIni,req.query.dataFim,req.query.cliente,req.query.nfnum,req.query.status,req.query.branch);
+        //console.log(results);
+        // Define columns in the worksheet, these columns are identified using a key.
+        worksheet.columns = [
+            { header: 'Nota Fiscal', key: 'nfnum', width: 20 },
+            { header: 'Emissão', key: 'docdat', width: 10 },
+            { header: 'Status', key: 'statuspag', width: 20 },
+            { header: 'Dt.Pagto', key: 'augdt', width: 10 },
+            { header: 'Doc.Pagto', key: 'augbl', width: 10 },
+            { header: 'Doc.Faturamento', key: 'refkey', width: 15 },
+            { header: 'Valor Bruto', key: 'nftot', width: 15 },
+            { header: 'Valor Liquido', key: 'vlr_liquido', width: 15 },
+            { header: 'Projeto', key: 'projk', width: 30 },
+            { header: 'Descrição', key: 'post1', width: 200 },
+            { header: 'Filial', key: 'werks', width: 15 },
+            { header: 'Dt.Vencimento', key: 'zfbdt', width: 15 },
+            { header: 'Cliente', key: 'parid', width: 15 },
+            { header: 'Nome', key: 'name1', width: 50 },
+            { header: 'Texto', key: 'sgtxt', width: 15 },
+            { header: 'Valor Pago', key: 'vlr_pago', width: 15 },
+            { header: 'Doc.Reclass', key: 'belnr_reclas', width: 15 },
+            { header: 'Proj.Final', key: 'pep_reclas', width: 20 },
+            { header: 'Nome', key: 'post1_reclas', width: 20 },
+            { header: 'Vlr.Proj.Atual', key: 'vlr_proj_atual', width: 20 },
+        ]                                                                                                        
+                                                       
+
+        // Add rows from database to worksheet 
+        for (const row of results) {
+            
+            worksheet.addRow(row);
+        }
+
+        worksheet.autoFilter = 'A1:T1';
+
+        worksheet.eachRow(function (row, rowNumber) {
+            row.eachCell((cell, colNumber) => {
+            if (rowNumber == 1) {
+            // First set the background of header row
+            cell.fill = {
+            type: 'pattern',
+            pattern: 'solid',
+            fgColor: { argb: 'f5b914' }
+            }
+            }
+            // Set border of each cell
+            cell.border = {
+            top: { style: 'thin' },
+            left: { style: 'thin' },
+            bottom: { style: 'thin' },
+            right: { style: 'thin' }
+            };
+            })
+            //Commit the changed row to the stream
+            row.commit();
+            });
+    
+
+        
+        //worksheet.addRow({ docdat: 1, statusnf: 'John Doe', candat: new Date(1970, 1, 1) });
+        //worksheet.addRow({ docdat: 2, statusnf: 'Jane Doe', candat: new Date(1965, 1, 7) });
+
+        // Finally save the worksheet into the folder from where we are running the code. 
+    // workbook.xlsx.writeFile('SimpleCust.xlsx');
+        res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        res.setHeader("Content-Disposition", "attachment; filename=Recebimentos.xlsx");
+        
+        workbook.xlsx.write(res);
+        //status_Crud = 'sim';
+        //res.redirect('/recebimento');
+            //res.status(200).end();
+
+            var fileName = "Task" + '_Template.xlsx';
+            var tempFilePath = __dirname + "\\public\\dist\\" + fileName;
+            workbook.xlsx.writeFile(tempFilePath).then(function () {
+                res.send(fileName);
+            });
+       // });
+    })();//async
+    },
+    
     //Funções que passam o valor da variável para outro arquivo js
     getStatusCrud() {
         return status_Crud;

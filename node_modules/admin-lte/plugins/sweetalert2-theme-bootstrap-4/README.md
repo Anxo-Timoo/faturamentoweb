@@ -2,6 +2,8 @@
 
 [![npm version](https://img.shields.io/npm/v/@sweetalert2/theme-bootstrap-4.svg)](https://www.npmjs.com/package/@sweetalert2/theme-bootstrap-4)
 
+![](https://sweetalert2.github.io/images/themes-bootstrap-4.png)
+
 Installation
 ------------
 
@@ -25,10 +27,10 @@ With SASS:
 
 `your-app.js`:
 ```js
-import Swal from 'sweetalert2/src/sweetalert2.js'
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 ```
 
 `your-app.scss`:
 ```scss
-@import '~@sweetalert2/theme-bootstrap-4/bootstrap-4.scss';
+@import '@sweetalert2/theme-bootstrap-4/bootstrap-4.scss';
 ```

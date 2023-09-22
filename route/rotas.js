@@ -4,11 +4,13 @@ module.exports = (io) => { //Aqui recebo o socket.io lá do app.js
     //Instanciando o Router do express
     var express = require('express');
     var rotas = express.Router();
+    const excelController = require("../controllers/excel.controller");
+    const upload = require("../middlewares/upload"); 
     var username ;
     var perfil;
    
     
-
+    rotas.use("/api/excel", rotas);
     //Trecho que verifica se a seção está ativa
     rotas.use(function(req, res, next){
         //Se a rota for diferente da página inicial e nome_login_pcp da seção redis estiver vazio
@@ -95,19 +97,20 @@ module.exports = (io) => { //Aqui recebo o socket.io lá do app.js
     rotas.get('/delOcorrencia_sf/:id', delOcorrencia_sf); //Usado no get do botão "Sim, eliminar" do modal que deleta um registro (CRU"D")
 
      //Rotas para a página de "Faturamento"
-     const { pageFaturamento, addFaturamento, editFaturamento, delFaturamento, } = require('../dao/dashboard/faturamento.js');
+     const { pageFaturamento, addFaturamento, editFaturamento, delFaturamento,generateExcelBillings  } = require('../dao/dashboard/faturamento.js');
      rotas.get('/faturamento', pageFaturamento); //localhost:3000/recebimento (ao clicar no menu da sidebar: Dashboard > Recebimento (C"R"UD))
      rotas.post('/addFaturamento', addFaturamento); //Usado no post do botão "Salvar" do modal que cadastra um novo registro ("C"RUD)
      rotas.post('/editFaturamento/:id', editFaturamento); //Usado no post do botão "Salvar" do modal que altera um registro (CR"U"D)
      rotas.get('/delFaturamento/:id', delFaturamento); //Usado no get do botão "Sim, eliminar" do modal que deleta um registro (CRU"D")
-   
+     rotas.get('/generateExcelBillings', generateExcelBillings); //localhost:3000/recebimento (ao clicar no menu da sidebar: Dashboard > Recebimento (C"R"UD))
    
     //Rotas para a página de "Recebimento"
-    const { pageRecebimento, addRecebimento, editRecebimento, delRecebimento, } = require('../dao/dashboard/recebimento.js');
+    const { pageRecebimento, addRecebimento, editRecebimento, delRecebimento,generateExcel } = require('../dao/dashboard/recebimento.js');
     rotas.get('/recebimento', pageRecebimento); //localhost:3000/recebimento (ao clicar no menu da sidebar: Dashboard > Recebimento (C"R"UD))
     rotas.post('/addRecebimento', addRecebimento); //Usado no post do botão "Salvar" do modal que cadastra um novo registro ("C"RUD)
     rotas.post('/editRecebimento/:id', editRecebimento); //Usado no post do botão "Salvar" do modal que altera um registro (CR"U"D)
     rotas.get('/delRecebimento/:id', delRecebimento); //Usado no get do botão "Sim, eliminar" do modal que deleta um registro (CRU"D")
+    rotas.get('/generateExcel', generateExcel); //localhost:3000/recebimento (ao clicar no menu da sidebar: Dashboard > Recebimento (C"R"UD))
 
     //
     //const { pageEmbalagem, addEmbalagem, editEmbalagem, delEmbalagem, } = require('../dao/dashboard/embalagem.js');
@@ -138,11 +141,12 @@ module.exports = (io) => { //Aqui recebo o socket.io lá do app.js
     //rotas.get('/delInventario/:id', delInventario); //Usado no get do botão "Sim, eliminar" do modal que deleta um registro (CRU"D")
 
      //Rotas para a página J1BTAX
-     const { pageJ1btax, addInventario, editInventario, delInventario, } = require('../dao/dashboard/j1btax.js');
+     const { pageJ1btax, addInventario, editInventario, delInventario,generateExcelJ1btax } = require('../dao/dashboard/j1btax.js');
      rotas.get('/j1btax', pageJ1btax); //localhost:3000/inventario (ao clicar no menu da sidebar: Dashboard > Inventario (C"R"UD))
      rotas.post('/addInventario', addInventario); //Usado no post do botão "Salvar" do modal que cadastra um novo registro ("C"RUD)
      rotas.post('/editInventario/:id', editInventario); //Usado no post do botão "Salvar" do modal que altera um registro (CR"U"D)
      rotas.get('/delInventario/:id', delInventario); //Usado no get do botão "Sim, eliminar" do modal que deleta um registro (CRU"D")
+     rotas.get('/generateExcelJ1btax', generateExcelJ1btax); //localhost:3000/recebimento (ao clicar no menu da sidebar: Dashboard > Recebimento (C"R"UD)) 
 
     //Rotas para a página de "Qualidade"
     const { pageQualidade, addQualidade, editQualidade, delQualidade, } = require('../dao/dashboard/qualidade.js');
@@ -177,7 +181,9 @@ module.exports = (io) => { //Aqui recebo o socket.io lá do app.js
     rotas.post('/addUsuario', addUsuario); //Usado no post do botão "Salvar" do modal que cadastra um novo registro ("C"RUD)
     rotas.post('/editUsuario/:id', editUsuario); //Usado no post do botão "Salvar" do modal que altera um registro (CR"U"D)
     rotas.get('/delUsuario/:id', delUsuario); //Usado no get do botão "Sim, eliminar" do modal que deleta um registro (CRU"D")
-
+    
+    rotas.post("/upload", upload.single("file"), excelController.upload);
+    rotas.get("/tutorials", excelController.getTutorials);
     //Exportando este módulo
     return rotas;
 };

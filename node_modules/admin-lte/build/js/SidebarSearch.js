@@ -61,17 +61,17 @@ class SidebarSearch {
   // Public
 
   init() {
-    if ($(SELECTOR_DATA_WIDGET).length == 0) {
+    if ($(SELECTOR_DATA_WIDGET).length === 0) {
       return
     }
 
-    if ($(SELECTOR_DATA_WIDGET).next(SELECTOR_SEARCH_RESULTS).length == 0) {
+    if ($(SELECTOR_DATA_WIDGET).next(SELECTOR_SEARCH_RESULTS).length === 0) {
       $(SELECTOR_DATA_WIDGET).after(
         $('<div />', { class: CLASS_NAME_SEARCH_RESULTS })
       )
     }
 
-    if ($(SELECTOR_SEARCH_RESULTS).children(SELECTOR_SEARCH_LIST_GROUP).length == 0) {
+    if ($(SELECTOR_SEARCH_RESULTS).children(SELECTOR_SEARCH_LIST_GROUP).length === 0) {
       $(SELECTOR_SEARCH_RESULTS).append(
         $('<div />', { class: CLASS_NAME_LIST_GROUP })
       )
@@ -101,7 +101,7 @@ class SidebarSearch {
       this._addNotFound()
     } else {
       endResults.each((i, result) => {
-        $(SELECTOR_SEARCH_RESULTS_GROUP).append(this._renderItem(result.name, result.link, result.path))
+        $(SELECTOR_SEARCH_RESULTS_GROUP).append(this._renderItem(escape(result.name), encodeURI(result.link), result.path))
       })
     }
 
@@ -160,6 +160,8 @@ class SidebarSearch {
 
   _renderItem(name, link, path) {
     path = path.join(` ${this.options.arrowSign} `)
+    name = unescape(name)
+    link = decodeURI(link)
 
     if (this.options.highlightName || this.options.highlightPath) {
       const searchValue = $(SELECTOR_SEARCH_INPUT).val().toLowerCase()
@@ -169,7 +171,7 @@ class SidebarSearch {
         name = name.replace(
           regExp,
           str => {
-            return `<b class="${this.options.highlightClass}">${str}</b>`
+            return `<strong class="${this.options.highlightClass}">${str}</strong>`
           }
         )
       }
@@ -178,20 +180,26 @@ class SidebarSearch {
         path = path.replace(
           regExp,
           str => {
-            return `<b class="${this.options.highlightClass}">${str}</b>`
+            return `<strong class="${this.options.highlightClass}">${str}</strong>`
           }
         )
       }
     }
 
-    return `<a href="${link}" class="list-group-item">
-        <div class="search-title">
-          ${name}
-        </div>
-        <div class="search-path">
-          ${path}
-        </div>
-      </a>`
+    const groupItemElement = $('<a/>', {
+      href: decodeURIComponent(link),
+      class: 'list-group-item'
+    })
+    const searchTitleElement = $('<div/>', {
+      class: 'search-title'
+    }).html(name)
+    const searchPathElement = $('<div/>', {
+      class: 'search-path'
+    }).html(path)
+
+    groupItemElement.append(searchTitleElement).append(searchPathElement)
+
+    return groupItemElement
   }
 
   _addNotFound() {
@@ -212,7 +220,7 @@ class SidebarSearch {
 
     $(this).data(DATA_KEY, typeof config === 'object' ? config : data)
 
-    if (typeof config === 'string' && config.match(/init|toggle|close|open|search/)) {
+    if (typeof config === 'string' && /init|toggle|close|open|search/.test(config)) {
       plugin[config]()
     } else {
       plugin.init()
@@ -243,9 +251,7 @@ $(document).on('keyup', SELECTOR_SEARCH_INPUT, event => {
     return
   }
 
-  let timer = 0
-  clearTimeout(timer)
-  timer = setTimeout(() => {
+  setTimeout(() => {
     SidebarSearch._jQueryInterface.call($(SELECTOR_DATA_WIDGET), 'search')
   }, 100)
 })

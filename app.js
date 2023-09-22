@@ -8,7 +8,9 @@ const redis = require('redis');
 const session = require('express-session');
 const os = require("os");
 const dns = require('dns');
-
+const readXlsxFile = require('read-excel-file/node');
+const multer = require('multer');
+const db = require("./models");
 
 //================================================================== Configurações
 //Cria o objeto da aplicação
@@ -19,8 +21,9 @@ const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
 //Separa as partes enviadas pelo POST para facilitar a utilização dos parâmetros
+//app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 
 //Diretório que possui os arquivos públicos como imagens, etc...
 //Setar para que as rotas não percam a referência do CSS, arquivos e scripts
@@ -50,6 +53,7 @@ app.set("views", path.join(__dirname, "view"));
 app.set('views', 'view');
 app.engine('html', require('ejs').renderFile);
 app.set("view engine", "ejs");
+
 
 //Criando a sessão redis
 let RedisStore = require('connect-redis')(session);
@@ -89,6 +93,10 @@ pool.getConnection(function (error) {
 
 // A variável "db" global recebe a conexão
 global.db = pool;
+
+// Multer Upload Storage
+
+ 
 
 //================================================================== Servidor http
 //Server Listening do Node para utilizar uma porta, aqui faz a aplicação rodar
@@ -138,5 +146,8 @@ io.on('connection', socket => {
  * Onde tem os GET e POST e direcionamento das páginas passando também o io (socket) */
 const rotas = require('./route/rotas')(io);
 app.use('/', rotas);
+
+
+//db.sequelize.sync();
 
 //================================================================== Fim

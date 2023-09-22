@@ -75,5 +75,6 @@ module.exports = {
             return formatter = moment(str, 'DD/MM/YYYY HH:mm:ss', true).format('dddd');
         }
     },
+    
 
 }

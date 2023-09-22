@@ -14,16 +14,26 @@
       outline: none;
     }
   }
-
 }
 
 .sidebar {
   height: calc(100% - (#{$main-header-height-inner} + #{$main-header-bottom-border-width}));
+  overflow-x: hidden;
   overflow-y: initial;
   padding-bottom: $sidebar-padding-y;
   padding-left: $sidebar-padding-x;
   padding-right: $sidebar-padding-x;
   padding-top: $sidebar-padding-y;
+  @include scrollbar-color-gray();
+  @include scrollbar-width-none();
+
+  &:hover {
+    @include scrollbar-width-thin();
+  }
+
+  .brand-link.border-bottom-0 ~ & {
+    height: calc(100% - #{$main-header-height-inner});
+  }
 }
 
 // Sidebar user panel
@@ -103,6 +113,7 @@
   .menu-open,
   .menu-is-opening {
     > .nav-link {
+      svg.right,
       i.right {
         @include rotate(-90deg);
       }
@@ -179,20 +190,17 @@
 
   .nav-header {
     font-size: .9rem;
-    padding: $nav-link-padding-y;
-
-    &:not(:first-of-type) {
-      padding: 1.7rem 1rem .5rem;
-    }
+    padding: $nav-link-padding-y ($nav-link-padding-y * 1.5);
   }
 
   .nav-link p {
-    display: inline-block;
+    display: inline;
     margin: 0;
+    white-space: normal;
   }
 }
 
-.sidebar-is-opening .nav-sidebar {
+.sidebar-is-opening .sidebar .nav-sidebar {
   .nav-link p {
     animation-name: fadeIn;
     animation-duration: $transition-speed;
@@ -303,6 +311,12 @@
     > .nav-item {
       > .nav-link {
         color: $sidebar-light-submenu-color;
+
+        &:hover,
+        &:focus {
+          background-color: $sidebar-light-submenu-hover-bg;
+          color: $sidebar-light-submenu-hover-color;
+        }
       }
 
       > .nav-link.active {
@@ -385,7 +399,7 @@
     // Hover and active states
     &.menu-open > .nav-link,
     &:hover > .nav-link,
-    > .nav-link:focus  {
+    > .nav-link:focus {
       background-color: $sidebar-dark-hover-bg;
       color: $sidebar-dark-hover-color;
     }
@@ -484,10 +498,13 @@
 
 .sidebar-mini .main-sidebar:not(.sidebar-no-expand),
 .sidebar-mini-md .main-sidebar:not(.sidebar-no-expand),
+.sidebar-mini-xs .main-sidebar:not(.sidebar-no-expand),
 .sidebar-mini .main-sidebar:not(.sidebar-no-expand):hover,
 .sidebar-mini-md .main-sidebar:not(.sidebar-no-expand):hover,
+.sidebar-mini-xs .main-sidebar:not(.sidebar-no-expand):hover,
 .sidebar-mini .main-sidebar.sidebar-focused,
-.sidebar-mini-md .main-sidebar.sidebar-focused {
+.sidebar-mini-md .main-sidebar.sidebar-focused,
+.sidebar-mini-xs .main-sidebar.sidebar-focused {
   .nav-compact.nav-sidebar.nav-child-indent:not(.nav-flat) .nav-treeview {
     padding-left: 1rem;
     margin-left: -.5rem;
@@ -496,7 +513,7 @@
 
 // Nav Flat
 .nav-flat {
-  margin: (-$sidebar-padding-x / 2) (-$sidebar-padding-x) 0;
+  margin: (-$sidebar-padding-x * .5) (-$sidebar-padding-x) 0;
 
   .nav-item {
     > .nav-link {
@@ -557,7 +574,7 @@
     }
   }
 
-  .sidebar-collapse &.nav-child-indent {
+  .sidebar-collapse &.nav-child-indent .sidebar {
     .nav-treeview {
       .nav-icon {
         margin-left: .55rem;
@@ -595,8 +612,10 @@
 
   .sidebar-mini .main-sidebar:not(.sidebar-no-expand):hover &,
   .sidebar-mini-md .main-sidebar:not(.sidebar-no-expand):hover &,
+  .sidebar-mini-xs .main-sidebar:not(.sidebar-no-expand):hover &,
   .sidebar-mini .main-sidebar.sidebar-focused &,
-  .sidebar-mini-md .main-sidebar.sidebar-focused & {
+  .sidebar-mini-md .main-sidebar.sidebar-focused &,
+  .sidebar-mini-xs .main-sidebar.sidebar-focused & {
     &.nav-compact.nav-sidebar .nav-treeview {
       .nav-icon {
         margin-left: .4rem;
@@ -659,7 +678,7 @@
 }
 
 .nav-legacy {
-  margin: (-$sidebar-padding-x / 2) (-$sidebar-padding-x) 0;
+  margin: (-$sidebar-padding-x * .5) (-$sidebar-padding-x) 0;
 
   &.nav-sidebar .nav-item {
     > .nav-link {
@@ -705,78 +724,86 @@
   }
 
   .sidebar-mini &,
-  .sidebar-mini-md & {
+  .sidebar-mini-md &,
+  .sidebar-mini-xs & {
     > .nav-item .nav-link {
       .nav-icon {
         @include transition(margin-left $transition-fn $transition-speed);
-        margin-left: .75rem;
+        margin-left: .6rem;
       }
     }
   }
 
-  .sidebar-mini.sidebar-collapse .main-sidebar.sidebar-focused &.nav-child-indent,
-  .sidebar-mini.sidebar-collapse .main-sidebar:hover &.nav-child-indent,
-  .sidebar-mini-md.sidebar-collapse .main-sidebar.sidebar-focused &.nav-child-indent,
-  .sidebar-mini-md.sidebar-collapse .main-sidebar:hover &.nav-child-indent {
-    .nav-treeview {
-      padding-left: 1rem;
-
-      .nav-treeview {
-        padding-left: 2rem;
-        margin-left: -1rem;
-      }
-    }
-  }
-
-  .sidebar-mini.sidebar-collapse.text-sm .main-sidebar.sidebar-focused &.nav-child-indent,
-  .sidebar-mini.sidebar-collapse.text-sm .main-sidebar:hover &.nav-child-indent,
-  .sidebar-mini-md.sidebar-collapse.text-sm .main-sidebar.sidebar-focused &.nav-child-indent,
-  .sidebar-mini-md.sidebar-collapse.text-sm .main-sidebar:hover &.nav-child-indent {
-    .nav-treeview {
-      padding-left: .5rem;
-
+  .sidebar-mini.sidebar-collapse,
+  .sidebar-mini-md.sidebar-collapse,
+  .sidebar-mini-xs.sidebar-collapse {
+    .main-sidebar.sidebar-focused &.nav-child-indent,
+    .main-sidebar:hover &.nav-child-indent {
       .nav-treeview {
         padding-left: 1rem;
-        margin-left: -.5rem;
+
+        .nav-treeview {
+          padding-left: 2rem;
+          margin-left: -1rem;
+        }
+      }
+    }
+  }
+
+  .sidebar-mini.sidebar-collapse.text-sm,
+  .sidebar-mini-md.sidebar-collapse.text-sm,
+  .sidebar-mini-xs.sidebar-collapse.text-sm {
+    .main-sidebar.sidebar-focused &.nav-child-indent,
+    .main-sidebar:hover &.nav-child-indent {
+      .nav-treeview {
+        padding-left: .5rem;
+
+        .nav-treeview {
+          padding-left: 1rem;
+          margin-left: -.5rem;
+        }
       }
     }
   }
 
   .sidebar-mini.sidebar-collapse &,
-  .sidebar-mini-md.sidebar-collapse & {
-    > .nav-item > .nav-link {
-      .nav-icon {
-        margin-left: .55rem;
-      }
-
-      &.active {
-        > .nav-icon{
-          margin-left: .36rem;
+  .sidebar-mini-md.sidebar-collapse &,
+  .sidebar-mini-xs.sidebar-collapse & {
+    .sidebar {
+      > .nav-item > .nav-link {
+        .nav-icon {
+          margin-left: .55rem;
+        }
+        &.active {
+          > .nav-icon {
+            margin-left: .36rem;
+          }
         }
       }
-    }
-
-    &.nav-child-indent {
-      .nav-treeview {
+      &.nav-child-indent {
         .nav-treeview {
-          padding-left: 0;
-          margin-left: 0;
+          .nav-treeview {
+            padding-left: 0;
+            margin-left: 0;
+          }
         }
       }
     }
   }
 
-
   .sidebar-mini.sidebar-collapse.text-sm &,
-  .sidebar-mini-md.sidebar-collapse.text-sm & {
-    > .nav-item > .nav-link {
-      .nav-icon {
-        margin-left: .75rem;
-      }
+  .sidebar-mini-md.sidebar-collapse.text-sm &,
+  .sidebar-mini-xs.sidebar-collapse.text-sm & {
+    .sidebar {
+      > .nav-item > .nav-link {
+        .nav-icon {
+          margin-left: .75rem;
+        }
 
-      &.active {
-        > .nav-icon{
-          margin-left: calc(.75rem - 3px);
+        &.active {
+          > .nav-icon {
+            margin-left: calc(.75rem - 3px);
+          }
         }
       }
     }
@@ -827,7 +854,6 @@
   }
 }
 
-
 .nav-collapse-hide-child {
   .menu-open > .nav-treeview {
     max-height: min-content;
@@ -836,7 +862,7 @@
     animation-fill-mode: both;
   }
 
-  .sidebar-collapse & {
+  .sidebar-collapse .sidebar:not(:hover) & {
     .menu-open > .nav-treeview {
       max-height: 0;
       animation-name: fadeOut;
@@ -845,15 +871,17 @@
     }
   }
 
-  .sidebar-mini.sidebar-collapse .main-sidebar.sidebar-focused &,
-  .sidebar-mini.sidebar-collapse .main-sidebar:not(.sidebar-no-expand):hover &,
-  .sidebar-mini-md.sidebar-collapse .main-sidebar.sidebar-focused &,
-  .sidebar-mini-md.sidebar-collapse .main-sidebar:not(.sidebar-no-expand):hover & {
-    .menu-open > .nav-treeview {
-      max-height: min-content;
-      animation-name: fadeIn;
-      animation-duration: $transition-speed;
-      animation-fill-mode: both;
+  .sidebar-mini.sidebar-collapse,
+  .sidebar-mini-md.sidebar-collapse,
+  .sidebar-mini-xs.sidebar-collapse {
+    .main-sidebar.sidebar-focused &,
+    .main-sidebar:not(.sidebar-no-expand):hover & {
+      .menu-open > .nav-treeview {
+        max-height: min-content;
+        animation-name: fadeIn;
+        animation-duration: $transition-speed;
+        animation-fill-mode: both;
+      }
     }
   }
 }
@@ -862,13 +890,13 @@
 .nav-compact {
   .nav-link,
   .nav-header {
-    padding-top: ($nav-link-padding-y / 2);
-    padding-bottom: ($nav-link-padding-y / 2);
+    padding-top: ($nav-link-padding-y * .5);
+    padding-bottom: ($nav-link-padding-y * .5);
   }
 
   .nav-header:not(:first-of-type) {
     padding-top: ($nav-link-padding-y * 1.5);
-    padding-bottom: ($nav-link-padding-y / 2);
+    padding-bottom: ($nav-link-padding-y * .5);
   }
 
   .nav-link > .right,
@@ -966,13 +994,14 @@
 // Sidebar inline input-group fix
 .sidebar .form-inline .input-group {
   width: 100%;
+  flex-wrap: nowrap;
 }
 .sidebar nav .form-inline {
   margin-bottom: .2rem;
 }
 
 // Sidebar Collapse on Layout Boxed
-.layout-boxed:not(.sidebar-mini):not(.sidebar-mini-md) {
+.layout-boxed:not(.sidebar-mini):not(.sidebar-mini-md):not(.sidebar-mini-xs) {
   &.sidebar-collapse .main-sidebar {
     margin-left: 0;
   }
@@ -981,6 +1010,9 @@
   .main-footer {
     z-index: 9999;
     position: relative;
+  }
+  .control-sidebar {
+    z-index: 9999;
   }
 }
 
@@ -1083,6 +1115,15 @@
     }
   }
 
+  &.text-sm .main-sidebar-custom {
+    .sidebar {
+      height: calc(100% - ((#{$main-header-height-sm-inner} + #{$sidebar-custom-height * .95}) + #{$main-header-bottom-border-width}));
+    }
+    .sidebar-custom {
+      height: $sidebar-custom-height * .95;
+      padding: $sidebar-custom-padding-x $sidebar-custom-padding-y;
+    }
+  }
   .main-sidebar-custom {
     .sidebar {
       height: calc(100% - ((#{$main-header-height-inner} + #{$sidebar-custom-height}) + #{$main-header-bottom-border-width}));
@@ -1092,6 +1133,8 @@
       height: $sidebar-custom-height;
       padding: $sidebar-custom-padding-x $sidebar-custom-padding-y;
     }
+
+    height: stretch;
   }
 
   .main-sidebar-custom-lg {
@@ -1123,3 +1166,44 @@
     }
   }
 }
+
+.sidebar-hidden,
+.sidebar-hidden.sidebar-mini.sidebar-collapse {
+  .main-sidebar {
+    display: none !important;
+  }
+  .content-wrapper,
+  .main-header {
+    margin-left: 0 !important;
+  }
+}
+
+@include dark-mode() {
+  @each $name, $color in $theme-colors-alt {
+    .sidebar-dark-#{$name},
+    .sidebar-light-#{$name} {
+      @include sidebar-color($color);
+    }
+  }
+
+  @each $name, $color in $colors-alt {
+    .sidebar-dark-#{$name},
+    .sidebar-light-#{$name} {
+      @include sidebar-color($color);
+    }
+  }
+
+  [class*="sidebar-light-"] {
+    .sidebar {
+      a {
+        color: $sidebar-light-color;
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}
+
+//

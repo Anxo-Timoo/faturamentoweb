@@ -4073,3 +4073,1059 @@ NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 
 2023-08-29 15:26:02.488493 [140608733697920] >> Info entry
 	Searching for config file sapnwrfc.ini
 
+
+**** Trace file opened at 2023-08-29 17:17:39.906485 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-08-29 17:17:39.907261 [140365838837632] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-08-29 17:53:44.933775 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-08-29 17:53:44.933849 [140330010433408] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-08-29 20:05:07.066843 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-08-29 20:05:07.066919 [140435558479744] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-08-29 22:42:33.324333 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-08-29 22:42:33.324396 [140370903222144] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-08-29 23:11:13.973171 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-08-29 23:11:13.973234 [139938125735808] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-08-29 23:16:36.898406 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-08-29 23:16:36.907911 [139721759213440] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-08-29 23:22:16.803803 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-08-29 23:22:16.803868 [140083025168256] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-08-29 23:26:26.321051 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-08-29 23:26:26.321112 [140353603286912] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-08-30 00:55:48.778820 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-08-30 00:55:48.778881 [140316412647296] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-08-30 13:08:16.857843 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-08-30 13:08:16.857908 [139897468331904] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-08-30 13:13:54.315857 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-08-30 13:13:54.321919 [139991651706752] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-08-30 13:16:56.966477 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-08-30 13:16:56.966562 [140710614845312] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-08-30 13:18:34.479556 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-08-30 13:18:34.479619 [139859740219264] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-08-30 13:24:57.178748 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-08-30 13:24:57.178826 [139776938497920] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-08-30 13:30:27.738539 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-08-30 13:30:27.738616 [140412148135808] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-08-30 13:35:57.082563 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-08-30 13:35:57.082653 [139893336483712] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-08-30 13:39:18.860133 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-08-30 13:39:18.860205 [140687582558080] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-08-30 13:47:19.929167 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-08-30 13:47:19.929252 [140219402246016] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-08-30 13:51:29.306570 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-08-30 13:51:29.306659 [140382933456768] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-08-30 13:53:54.007750 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-08-30 13:53:54.007822 [139901280630656] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-08-30 13:56:21.481504 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-08-30 13:56:21.481583 [140479505569664] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-08-30 14:13:40.417399 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-08-30 14:13:40.417511 [140610815203200] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-08-30 14:19:06.555490 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-08-30 14:19:06.555568 [139770866075520] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-08-30 14:20:45.551426 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-08-30 14:20:45.551502 [140184614487936] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-08-30 14:22:11.473787 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-08-30 14:22:11.473870 [139691775555456] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-08-30 14:47:17.068751 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-08-30 14:47:17.068842 [140435702994816] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-08-30 16:23:08.346048 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-08-30 16:23:08.346158 [139790367221632] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-08-30 20:52:53.067198 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-08-30 20:52:53.073379 [140190209070976] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-08-30 21:32:12.701030 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-08-30 21:32:12.701122 [139766632171392] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-04 23:33:52.546926 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-04 23:33:52.558313 [139940197193600] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-05 00:10:57.145265 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-05 00:10:57.145345 [140035442096000] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-05 00:27:44.239785 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-05 00:27:44.240447 [140195598620544] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-05 00:45:27.523811 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-05 00:45:27.523901 [140301790173056] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-06 23:06:28.264571 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-06 23:06:28.273249 [139654725457792] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-06 23:08:30.405911 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-06 23:08:30.405980 [140573714777984] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-06 23:38:33.584232 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-06 23:38:33.584488 [140448637904768] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-06 23:52:10.786814 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-06 23:52:10.786887 [140111320373120] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-08 17:32:23.048048 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-08 17:32:23.048135 [140677074683776] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-08 17:35:03.056193 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-08 17:35:03.056275 [140551521335168] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-08 17:37:13.571263 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-08 17:37:13.571336 [139823859251072] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-08 17:37:40.919418 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-08 17:37:40.919498 [139711225128832] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-08 17:40:22.111301 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-08 17:40:22.111388 [140662892492672] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-08 17:47:04.442797 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-08 17:47:04.442901 [139916391765888] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-11 11:45:08.853425 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-11 11:45:08.853494 [139817415792512] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-11 14:59:25.038382 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-11 14:59:25.038458 [139636438812544] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-11 15:13:52.846852 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-11 15:13:52.847496 [140667885262720] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-11 15:17:34.498175 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-11 15:17:34.498267 [139728202971008] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-11 15:19:26.830418 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-11 15:19:26.830510 [140040993433472] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-11 15:20:39.851864 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-11 15:20:39.851962 [140618382759808] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-11 15:33:50.443009 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-11 15:33:50.443148 [139993112106880] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-11 15:37:53.971901 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-11 15:37:53.972288 [140341667817344] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-13 23:44:34.874808 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-13 23:44:34.900328 [140482545923968] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-14 13:20:59.919242 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-14 13:20:59.919318 [140271670347648] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-14 13:31:38.766359 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-14 13:31:38.766462 [140403501852544] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-14 13:34:23.055436 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-14 13:34:23.055530 [139687412103040] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-14 13:54:18.062617 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-14 13:54:18.062691 [140316502419328] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-14 15:17:12.949554 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-14 15:17:12.959304 [140401529296768] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-14 15:28:14.902265 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-14 15:28:14.902343 [139801946412928] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-14 15:30:53.796674 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-14 15:30:53.796772 [139853814867840] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-14 15:32:19.361060 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-14 15:32:19.361172 [140402968049536] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-14 15:33:49.681042 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-14 15:33:49.681245 [140277921531776] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-14 15:36:21.563276 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-14 15:36:21.563555 [140151309244288] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-14 16:15:29.528341 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-14 16:15:29.528416 [139688653793152] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-14 16:34:16.483619 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-14 16:34:16.483795 [139698132916096] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-14 17:21:08.406899 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-14 17:21:08.406996 [140678479464320] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-14 17:29:55.693128 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-14 17:29:55.693278 [140336096896896] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-14 17:34:50.827735 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-14 17:34:50.827821 [140049835169664] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-14 17:53:25.912843 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-14 17:53:25.912922 [139716465039232] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-14 17:58:55.619857 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-14 17:58:55.619929 [140410723248000] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-14 18:08:11.696467 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-14 18:08:11.703140 [140354905225088] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-14 18:24:22.752568 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-14 18:24:22.752651 [140442566449024] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-14 18:27:08.986044 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-14 18:27:08.986584 [140546988152704] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-14 18:45:14.135508 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-14 18:45:14.135727 [140217363412864] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-14 19:06:21.308578 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-14 19:06:21.308653 [140529987094400] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-14 19:08:10.517821 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-14 19:08:10.518109 [139665173706624] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-14 19:09:54.230121 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-14 19:09:54.230195 [140513683412864] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-14 19:10:46.729764 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-14 19:10:46.729833 [140299255068544] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-14 19:14:57.660804 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-14 19:14:57.678673 [140003498002304] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-14 19:16:33.746142 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-14 19:16:33.746229 [140566731593600] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-14 19:17:53.524137 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-14 19:17:53.524217 [140097335924608] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-14 19:20:17.332469 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-14 19:20:17.332545 [140656646395776] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-14 19:21:55.276904 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-14 19:21:55.276974 [140253737695104] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-14 19:27:30.482553 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-14 19:27:30.482632 [140321399388032] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-14 19:29:55.890258 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-14 19:29:55.890331 [139780268844928] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-15 15:13:59.949782 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-15 15:13:59.949862 [140193485997952] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-15 15:24:21.626463 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-15 15:24:21.627181 [140217911121792] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-15 16:41:42.859670 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-15 16:41:42.859769 [139943019059072] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-15 16:43:53.467059 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-15 16:43:53.467148 [140232773560192] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-15 16:47:00.640537 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-15 16:47:00.640612 [140369558960000] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-15 16:52:36.408443 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-15 16:52:36.409221 [140083191990144] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-18 13:37:31.372947 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-18 13:37:31.373624 [139796672599936] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-18 13:47:59.855268 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-18 13:47:59.855350 [140363696002944] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-18 13:49:42.308482 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-18 13:49:42.308565 [140331002931072] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-18 16:04:03.981247 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-18 16:04:03.981344 [139886043846528] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-18 22:32:02.171940 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-18 22:32:02.172013 [139730952624000] >> Info entry
+	Searching for config file sapnwrfc.ini
+
+
+**** Trace file opened at 2023-09-18 23:23:42.190259 UTC-03:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 5, Compiled on Aug 20 2019 21:18:37
+ CPIC library: 753.2019.02.22 version 3, NI library: 40, Kernel Release: 753 Patch Level 500
+ Current working directory: /home/mgsouza/Documents/WEB-DASHBOARD_DEV, Program: node
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 5.15.0-33-generic
+ Hostname: srv25668, IP address: 10.200.1.168, IPv6 address: fe80::250:56ff:fe8c:5161
+
+2023-09-18 23:23:42.191304 [139769365395328] >> Info entry
+	Searching for config file sapnwrfc.ini
+

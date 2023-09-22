@@ -27,7 +27,14 @@ module.exports = {
             let volumesT1 = await DBModel.getVolumesT1();
             let volumesT2 = await DBModel.getVolumesT2();
             let chartLinhaTempoStageT1 = await DBModel.getChartLinhaTempoStageT1();
-            let chartLinhaTempoStageT2 = await DBModel.getChartLinhaTempoStageT2();
+            
+            //RFC para trazer recebimentos
+            
+            let dataIni = '0101' + new Date().getFullYear().toString();
+            let dataFim = '3112' + new Date().getFullYear().toString();
+            let chartLinhaTempoStageT2 = await DBModel.getFIARPaymentsRFC('ZFIAR_REPORT_PORTAL_OUTPUT',dataIni,dataFim,null,null);
+            //await DBModel.getChartLinhaTempoStageT2();
+
             let boPeT1 = await DBModel.getBOPeT1();
             let boCilindroT1 = await DBModel.getBOCilindroT1();
             let boOutrosT1 = await DBModel.getBOOutrosT1();

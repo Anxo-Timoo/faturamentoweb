@@ -1,4 +1,6 @@
-@import '~sweetalert2/src/variables';
+@use 'sass:math';
+
+@import 'sweetalert2/src/variables';
 
 // Function
 @function str-replace($string, $search, $replace: '') {
@@ -213,14 +215,15 @@ $swal2-toast-border: $bootstrap-toast-border-color solid $bootstrap-toast-border
 $swal2-toast-box-shadow: $bootstrap-toast-box-shadow;
 $swal2-toast-padding: $bootstrap-toast-padding-x $bootstrap-toast-padding-y;
 $swal2-toast-title-font-size: $bootstrap-toast-font-size;
-$swal2-toast-content-font-size: $bootstrap-toast-font-size;
+$swal2-toast-html-container-font-size: $bootstrap-toast-font-size;
 $swal2-toast-input-font-size: $bootstrap-toast-font-size;
 $swal2-toast-validation-font-size: $bootstrap-toast-font-size;
 $swal2-toast-buttons-font-size: $bootstrap-toast-font-size;
 
-@import '~sweetalert2/src/sweetalert2';
+@import 'sweetalert2/src/sweetalert2';
 
 .swal2-confirm,
+.swal2-deny,
 .swal2-cancel {
   transition: $bootstrap-btn-transition;
 }
@@ -232,18 +235,9 @@ $swal2-toast-buttons-font-size: $bootstrap-toast-font-size;
     padding: .25rem .75rem;
     font-size: .875rem;
 
-    .swal2-header {
-      padding: 0;
-      border-bottom: 0;
-    }
-
     .swal2-title {
       margin: 0;
       color: $bootstrap-gray-600;
-    }
-
-    .swal2-content {
-      padding: 0 .5rem;
     }
 
     .swal2-actions {
@@ -261,10 +255,6 @@ $swal2-toast-buttons-font-size: $bootstrap-toast-font-size;
 .swal2-title {
   margin: 0;
   font-size: 1.25rem;
-}
-
-.swal2-content {
-  padding: 1rem 1rem 0;
 }
 
 .swal2-actions {
@@ -331,6 +321,11 @@ $swal2-toast-buttons-font-size: $bootstrap-toast-font-size;
     }
   }
 
+  &.swal2-deny {
+    padding: $swal2-input-padding;
+    font-size: 1rem;
+  }
+
   &.swal2-cancel {
     padding: $swal2-input-padding;
     font-size: 1rem;
@@ -358,7 +353,6 @@ $swal2-toast-buttons-font-size: $bootstrap-toast-font-size;
 
 .swal2-select {
   display: inline-block;
-  width: 100%;
   height: $bootstrap-input-height;
   padding: .375rem 1.75rem .375rem .75rem;
   transition: $bootstrap-custom-forms-transition;
@@ -445,7 +439,7 @@ $swal2-toast-buttons-font-size: $bootstrap-toast-font-size;
       content: '';
       display: block;
       position: absolute;
-      top: ($swal2-input-font-size * $bootstrap-input-line-height - $bootstrap-custom-control-indicator-size) / 6;
+      top: math.div($swal2-input-font-size * $bootstrap-input-line-height - $bootstrap-custom-control-indicator-size, 6); /* stylelint-disable-line */
       left: -($bootstrap-custom-control-gutter + $bootstrap-custom-control-indicator-size);
       width: $bootstrap-custom-control-indicator-size;
       height: $bootstrap-custom-control-indicator-size;
@@ -460,7 +454,7 @@ $swal2-toast-buttons-font-size: $bootstrap-toast-font-size;
       content: '';
       display: block;
       position: absolute;
-      top: ($swal2-input-font-size * $bootstrap-input-line-height - $bootstrap-custom-control-indicator-size) / 6;
+      top: math.div($swal2-input-font-size * $bootstrap-input-line-height - $bootstrap-custom-control-indicator-size, 6); /* stylelint-disable-line */
       left: -($bootstrap-custom-control-gutter + $bootstrap-custom-control-indicator-size);
       width: $bootstrap-custom-control-indicator-size;
       height: $bootstrap-custom-control-indicator-size;
@@ -515,7 +509,7 @@ $swal2-toast-buttons-font-size: $bootstrap-toast-font-size;
       content: '';
       display: block;
       position: absolute;
-      top: ($swal2-input-font-size * $bootstrap-input-line-height - $bootstrap-custom-control-indicator-size) / 2;
+      top: math.div($swal2-input-font-size * $bootstrap-input-line-height - $bootstrap-custom-control-indicator-size, 2); /* stylelint-disable-line */
       left: -($bootstrap-custom-control-gutter + $bootstrap-custom-control-indicator-size);
       width: $bootstrap-custom-control-indicator-size;
       height: $bootstrap-custom-control-indicator-size;
@@ -529,7 +523,7 @@ $swal2-toast-buttons-font-size: $bootstrap-toast-font-size;
       content: '';
       display: block;
       position: absolute;
-      top: ($swal2-input-font-size * $bootstrap-input-line-height - $bootstrap-custom-control-indicator-size) / 2;
+      top: math.div($swal2-input-font-size * $bootstrap-input-line-height - $bootstrap-custom-control-indicator-size, 2); /* stylelint-disable-line */
       left: -($bootstrap-custom-control-gutter + $bootstrap-custom-control-indicator-size);
       width: $bootstrap-custom-control-indicator-size;
       height: $bootstrap-custom-control-indicator-size;
@@ -573,7 +567,7 @@ $swal2-toast-buttons-font-size: $bootstrap-toast-font-size;
     &::-webkit-slider-thumb {
       width: $bootstrap-custom-range-thumb-width;
       height: $bootstrap-custom-range-thumb-height;
-      margin-top: ($bootstrap-custom-range-track-height - $bootstrap-custom-range-thumb-height) / 2;
+      margin-top: math.div($bootstrap-custom-range-track-height - $bootstrap-custom-range-thumb-height, 2); /* stylelint-disable-line */
       transition: $bootstrap-custom-forms-transition;
       border: $bootstrap-custom-range-thumb-border;
       border-radius: $bootstrap-custom-range-thumb-border-radius;
@@ -645,7 +639,7 @@ $swal2-toast-buttons-font-size: $bootstrap-toast-font-size;
     &::-ms-track {
       width: $bootstrap-custom-range-track-width;
       height: $bootstrap-custom-range-track-height;
-      border-width: $bootstrap-custom-range-thumb-height / 2;
+      border-width: math.div($bootstrap-custom-range-thumb-height, 2); /* stylelint-disable-line */
       border-color: transparent;
       background-color: transparent;
       box-shadow: $bootstrap-custom-range-track-box-shadow;
@@ -709,5 +703,3 @@ $swal2-toast-buttons-font-size: $bootstrap-toast-font-size;
   border-radius: $bootstrap-toast-border-radius;
   background-color: $bootstrap-toast-background-color;
 }
-
-//

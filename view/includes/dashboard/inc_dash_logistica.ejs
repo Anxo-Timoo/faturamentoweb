@@ -1302,6 +1302,8 @@ $(function () {
     const meta = [];
     const conferencia = [];
     const inspecao = [];
+    const clientes = [];
+    const faturamento = [];
 
     //Dados recebidos do res.render na rota
     '<% DTChartLinhaTempoStageT2.forEach((row, index) => { %>'
@@ -1311,6 +1313,14 @@ $(function () {
         inspecao.push(moment('<%- row.tempo_inspecao %>', 'HH:mm:ss').diff(moment().startOf('day'), 'seconds'));
     '<% }); %>'
 
+    //Dados recebidos do res.render na rota
+    '<%  for (var i = 0; i <= 10; i++){   %>'
+       
+        clientes.push('<%= DTChartLinhaTempoStageT2[i].name1.toLocaleString()%>');
+        faturamento.push(parseFloat('<%= DTChartLinhaTempoStageT2[i].vlr_liquido %>'));
+    
+    '<% }; %>'
+     
     //Line chart definido no canvas da página
     //var ctx = document.getElementById('tempo_stage_recebimento').getContext('2d');
     var canvas = document.getElementById('tempo_stage_recebimento_T2');
@@ -1319,13 +1329,15 @@ $(function () {
     var values = ["AAAA", 100, 10000, 2310, 24420, 30, 50000, 400000, 70000, 700, 823200, 923200, 1111];
     var labelOpen = ['CLARO S.A', 'BANCO BTG PACTUAL'];
     var valuesOpen = [823200, 923200];
+    console.log("arrayFatyra",faturamento);
+    
     var chart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: labelsarr,
+        labels: clientes,
         datasets: [{
             
-            data: values,
+            data: faturamento,
             label: "Pagos",
             backgroundColor: 'rgba(0, 148, 78)',
                     fill: false,

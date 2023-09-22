@@ -105,7 +105,7 @@ class DB {
 }
      
     
-    async getFIARBillingsRFC(bapi,data_ini,data_fim,cliente,nfenum){
+    async getFIARBillingsRFC(bapi,data_ini,data_fim,cliente,nfenum,status,branch){
          var objects = [];
 
         var res_array = [];
@@ -142,6 +142,17 @@ class DB {
                     nfenum = '';
                 
                 }   
+                
+                if(!branch){
+
+                    branch = '';
+                
+                }   
+                if(!status){
+
+                   status = '';
+                
+                }   
 
                 //inverte para o formato SAP - budat
                 dia = data_ini.substring(0,2);
@@ -166,6 +177,8 @@ class DB {
                             DTINI: data_ini,
                             DTFIM: data_fim,
                             PNFENUM:nfenum,
+                            P_STATUS:status,
+                            P_BRANCH:branch
                         },
                         function(err, res) {
                             if (err) {
@@ -480,7 +493,7 @@ class DB {
                 return promise;
        }
 
-       async getFIARPaymentsRFC(bapi,data_ini,data_fim,cliente,nfe)
+       async getFIARPaymentsRFC(bapi,data_ini,data_fim,cliente,nfe,status,branch)
      {
         var objects = [];
         var res_array = [];     
@@ -510,6 +523,16 @@ class DB {
                 if(!nfe){
                     nfe = '';
                 }
+
+                if(!branch){
+                    branch = '';
+                }
+
+                if(!status){
+                    status = '';
+                }
+               
+               
                
                // var SELECTION_RANGE_str = {
                  //       PARAMETER: "USERNAME",
@@ -518,6 +541,19 @@ class DB {
                  //       LOW:       "A*"
                   //};	
                 //var VBCOM = [SELECTION_RANGE_str];
+
+                 //inverte para o formato SAP - budat
+                var dia = data_ini.substring(0,2);
+                var mes = data_ini.substring(2,4);
+                var ano = data_ini.substring(4,8);   
+ 
+                 data_ini = ano + mes + dia;
+ 
+                 dia = data_fim.substring(0,2);
+                 mes = data_fim.substring(2,4);
+                 ano = data_fim.substring(4,8); 
+                 
+                 data_fim = ano + mes + dia;
                     
                 client.connect(function(err) {
                     if (err) {
@@ -527,14 +563,16 @@ class DB {
                             P_KUNNR:cliente,
                             PNFENUM:nfe,
                             DTINI:data_ini,
-                            DTFIM:data_fim,                          
+                            DTFIM:data_fim, 
+                            P_STATUS:status,
+                            P_BRANCH:branch                         
                             
                         },
                         function(err, res) {
                             if (err) {
                                 return console.error('Error invoking ZFIAR_REPORT_PORTAL_OUTPUT:', err);
                             }
-                        console.log('Result ZFIAR_REPORT_PORTAL_OUTPUT:', res);
+                        //console.log('Result ZFIAR_REPORT_PORTAL_OUTPUT:', res);
                         //console.log(JSON.stringify(res.USERLIST));
                     
                         for(let i in res.RETURN) { 
@@ -607,7 +645,7 @@ class DB {
                               if (err) {
                                   return console.error('Error invoking ZFI_DOCUMENT_READ1:', err);
                               }
-                          console.log('Result ZFI_DOCUMENT_READ1:', res);
+                          //console.log('Result ZFI_DOCUMENT_READ1:', res);
                           //console.log(JSON.stringify(res.USERLIST));
                       
                           for(let i in res.T_BSEG) { 
@@ -898,6 +936,23 @@ class DB {
 
                     cliente = '';
                   }
+
+                  if(cliente != ''){
+                    var length = cliente.length;
+                    var diff;
+                    var zeroString = '';
+                    
+                    if(length < 10 && length > 0){
+
+                        diff = 10 - length;
+
+                        for (var i = 0; i < diff; i++){
+                            zeroString  += '0';
+                        }
+                        cliente = zeroString + cliente;
+                    }
+                  }
+                  console.log("cliente",cliente);
                   
                   if(!material){
 

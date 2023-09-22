@@ -17,12 +17,14 @@
     "@fullcalendar/moment": "^5.5.0",
     "@fullcalendar/moment-timezone": "^5.5.0",
     "@fullcalendar/timegrid": "^5.1.0",
+    "@types/node-xlsx": "^0.21.0",
     "admin-lte": "^3.1.0-rc",
     "animate.css": "^4.1.0",
-    "body-parser": "^1.19.0",
+    "body-parser": "^1.20.2",
     "connect-redis": "^5.0.0",
     "date-format-lite": "^17.7.0",
     "ejs": "^3.1.3",
+    "exceljs": "^4.3.0",
     "express": "^4.18.2",
     "express-fileupload": "^1.1.7-alpha.3",
     "express-session": "^1.17.1",
@@ -49,6 +51,7 @@
     "tinymce": "^5.3.2",
     "toastr2": "^3.0.0-alpha.15",
     "wowjs": "^1.1.3",
+    "xlsexport": "^1.5.2",
     "xss-filters": "^1.2.7"
   },
   "devDependencies": {
